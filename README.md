@@ -1,2 +1,2 @@
-# Sinngrund-Allianz-project
-For Sinngrund Allianz projects
+# Sinngrund-Kulturdatenbank-plugin
+
