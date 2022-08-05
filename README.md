@@ -31,8 +31,6 @@
   
   - ``~/.../Sinngrund-Kulturdatenbank-plugin$ git init``
 
-
-
 ## Register Custom  Block/ datenbankblock
 
 - Git commit 
@@ -48,8 +46,26 @@
 - Git commit
   
   c6c7f91 ("Define block templates for new post & InnerBlocks setting for my custom block", 2022-08-05)
+
+### JSX for my custom Plugin
+
+- npm init -y 
   
-   
+  generate file package.json : For tracking the changes of node module
+
+- Install WP script 
+  
+  ``$ npm install @wordpress/scripts --save-dev``
+
+- Prepare for JSX
+  
+  make a directory named : **src**
+  
+  under src directory make a file named: **index.js**
+  
+  copy all contents from test.js to index.js
+  
+  as well the enqueue script loacation update
 
 ## Terminal setting, showing the present brach name on the terminal
 
