@@ -26,7 +26,7 @@ $sinngrundKultureBank = new SinngrundKultureBank();
 function slug_post_type_template() {
 	$page_type_object = get_post_type_object( 'post' );
   $page_type_object->template = [
-		[[ 'sinngrund/kulture-datenbank' ], 
+		['sinngrund/kulture-datenbank' 
     ],
 	];
   //$post_type_object->template_lock = 'all'; // lock the template on the UI so that the blocks presented cannot be manipulated
