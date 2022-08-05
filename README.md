@@ -67,6 +67,18 @@
   
   as well the enqueue script loacation update
 
+## []Check Bug fix
+
+- revert this comment?
+
+- Make a branch?
+
+- How to merge? the changes? in safe way 
+
+-  
+
+
+
 ## Terminal setting, showing the present brach name on the terminal
 
 ### Ubuntu: Show your branch name on your terminal
