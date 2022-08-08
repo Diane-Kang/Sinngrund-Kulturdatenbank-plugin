@@ -13,11 +13,11 @@ wp.blocks.registerBlockType("sinngrund/kulture-datenbank", {
   icon: "paperclip",
   category: "common",
   edit: function () {
-    //return wp.element.createElement("h3", null, "Hello, this is from the admin editor screen.");
-    return el( InnerBlocks, {
-      template: BLOCKS_TEMPLATE,
-      templateLock: false,
-  } );
+    return wp.element.createElement("h3", null, "Hello, this is from the admin editor screen.");
+  //   return el( InnerBlocks, {
+  //     template: BLOCKS_TEMPLATE,
+  //     templateLock: false,
+  // } );
 
   },
   save: function () {
