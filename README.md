@@ -1,10 +1,10 @@
 # Sinngrund kulturdatenbank plugin
 
-## Git Weiterbildung
 
-    [Web-Dev-For-Beginners/1-getting-started-lessons/2-github-basics at main · microsoft/Web-Dev-For-Beginners · GitHub](https://github.com/microsoft/Web-Dev-For-Beginners/tree/main/1-getting-started-lessons/2-github-basics)
 
-## Github repository setting & local git setting
+
+
+## Github repository setting for Sinngrund
 
 - @ github
   
@@ -14,22 +14,24 @@
   
   - repository name: Sinngrund-Kulturdatenbank-plugin
 
-- @ Local computer 
+- @ Local computer
   
-  - wpLocal - make a local website under plugin directory 
+  - wpLocal - make a local website under plugin directory
     
-    ``git clone https://github.com/Dinae-Kang/Sinngrund-Kulturdatenbank-plugin.git``
+    `git clone https://github.com/Dinae-Kang/Sinngrund-Kulturdatenbank-plugin.git`
   
   - ```
     git config --global user.name "diane-at-Okto"
     git config --global user.email "diane.kang@page-effect.com"
     ```
   
-  - To check user name 
+  - To check user name
     
-    ``git config --list``
+    `git config --list`
   
-  - ``~/.../Sinngrund-Kulturdatenbank-plugin$ git init``
+  - `~/.../Sinngrund-Kulturdatenbank-plugin$ git init`
+
+
 
 ## Register Custom  Block/ datenbankblock
 
@@ -41,7 +43,18 @@
 
 - Set default block(let my custom block show up always first)
 
-- Modify the Custom Block with InnerBlock
+- ~~Modify the Custom Block with InnerBlock~~~ <mark>Error appears</mark>
+  
+  Need to check, If i am dealing with JSX oder JS 
+  
+  What happend her: Using JS code -> Expected to work under JSX enviroment
+  
+  ```javascript
+       return el( InnerBlocks, {
+         template: BLOCKS_TEMPLATE,
+         templateLock: false,
+     } );
+  ```
 
 - Git commit
   
@@ -66,42 +79,3 @@
   copy all contents from test.js to index.js
   
   as well the enqueue script loacation update
-
-## []Check Bug fix
-
-- revert this comment?
-
-- Make a branch?
-
-- How to merge? the changes? in safe way 
-
--  
-
-
-
-## Terminal setting, showing the present brach name on the terminal
-
-### Ubuntu: Show your branch name on your terminal
-
-Add these lines in your ~/.bashrc file
-
-```bash
-# Show git branch name
-force_color_prompt=yes
-color_prompt=yes
-parse_git_branch() {
- git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
-}
-if [ "$color_prompt" = yes ]; then
- PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;31m\]$(parse_git_branch)\[\033[00m\]\$ '
-else
- PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w$(parse_git_branch)\$ '
-fi
-unset color_prompt force_color_prompt
-```
-
-Reload the .bashrc file with this command:
-
-```bash
-$ source ~/.bashrc
-```
