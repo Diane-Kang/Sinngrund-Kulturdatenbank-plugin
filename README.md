@@ -50,8 +50,6 @@
      } );
   ```
 
-
-
 ### JSX for my custom Plugin
 
 - npm init -y 
@@ -73,3 +71,149 @@
   <mark>.js file under src is for JSX.   js.file outside of src directory is for Javascript </mark>
   
   as well the enqueue script loacation update
+
+
+
+## Add meta box to NewPOST commited
+
+index.php
+
+```php
+
+function basic_info_boxes(){
+  add_meta_box(   'basic_info', // name
+                  __('Basic required data'), //display text 
+                  'basic_info_boxes_display_callback', // call back function  
+                  'post' );
+}
+add_action('add_meta_boxes', 'basic_info_boxes');
+
+  /**
+* Meta box display callback.
+*
+* @param WP_Post $post Current post object.
+*/
+
+
+function basic_info_boxes_display_callback( $post ) {
+  include plugin_dir_path( __FILE__ ) . './basic_info_box.php';
+}
+
+function save_basic_info_box( $post_id ) {
+  if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+  if ( $parent_id = wp_is_post_revision( $post_id ) ) {
+      $post_id = $parent_id;
+  }
+  $fields = [
+      'latitude_longitude',
+      'latitude',
+      'longitude',
+      'popuptext'
+  ];
+  foreach ( $fields as $field ) {
+      if ( array_key_exists( $field, $_POST ) ) {
+          update_post_meta( $post_id, $field, sanitize_text_field( $_POST[$field] ) );
+      }
+   }
+}
+add_action( 'save_post', 'save_basic_info_box' );
+```
+
+
+
+basic_info_box.php 
+
+```php
+
+function basic_info_boxes(){
+  add_meta_box(   'basic_info', // name
+                  __('Basic required data'), //display text 
+                  'basic_info_boxes_display_callback', // call back function  
+                  'post' );
+}
+add_action('add_meta_boxes', 'basic_info_boxes');
+
+  /**
+* Meta box display callback.
+*
+* @param WP_Post $post Current post object.
+*/
+
+
+function basic_info_boxes_display_callback( $post ) {
+  include plugin_dir_path( __FILE__ ) . './basic_info_box.php';
+}
+
+function save_basic_info_box( $post_id ) {
+  if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+  if ( $parent_id = wp_is_post_revision( $post_id ) ) {
+      $post_id = $parent_id;
+  }
+  $fields = [
+      'latitude_longitude',
+      'latitude',
+      'longitude',
+      'popuptext'
+  ];
+  foreach ( $fields as $field ) {
+      if ( array_key_exists( $field, $_POST ) ) {
+          update_post_meta( $post_id, $field, sanitize_text_field( $_POST[$field] ) );
+      }
+   }
+}
+add_action( 'save_post', 'save_basic_info_box' );
+```
+
+
+
+## Todo-List
+
+- [x]  Add several post with geocode
+
+- [ ] Little bit organize, for index php
+
+- [ ] Make a page, that shows Leaflet
+
+- [ ] Using geojson generate marker 
+
+- [ ] make a list next to the map 
+
+## Attribute setting in custom Block - commited
+
+```jsx
+wp.blocks.registerBlockType("sinngrund/kulture-datenbank", {
+  title: "Kulture Datenbank Beitrag",
+  icon: "paperclip",
+  category: "common",
+  attributes:{
+    longitude: {type: "string"},
+    latitude: {type: "string"}
+  },
+  edit: function (props) {
+
+    function updateLong(event){
+        props.setAttributes({longitude: event.target.value})
+    }
+
+    function updateLat(){
+        props.setAttributes({latitude: event.target.value})
+    }
+
+    return (
+        <div>
+            <input type="text" placeholder="longitude" onChange={updateLong} />
+            <input type="text" placeholder="latitude" onChange={updateLat} />
+        </div>
+    )
+
+  },
+  save: function (props) {
+    return (
+        <div>
+            <h3>this is front</h3>
+            <p>This is longitude value: {props.attributes.longitude}</p>
+        </div>
+    )
+  }
+})
+```

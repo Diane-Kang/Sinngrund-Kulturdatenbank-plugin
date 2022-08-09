@@ -125,17 +125,11 @@ wp.blocks.registerBlockType("sinngrund/kulture-datenbank", {
       });
     }
 
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
-      type: "text",
-      placeholder: "longitude",
-      value: props.attributes.longitude,
-      onChange: updateLong
-    }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
-      type: "text",
-      placeholder: "latitude",
-      value: props.attributes.latitude,
-      onChange: updateLat
-    }));
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(InnerBlocks, null) // <div>
+    //     <input type="text" placeholder="longitude" value={props.attributes.longitude} onChange={updateLong} />
+    //     <input type="text" placeholder="latitude" value={props.attributes.latitude} onChange={updateLat} />
+    // </div>
+    ;
   },
   save: function (props) {
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", null, " front"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "The value: ", props.attributes.longitude, " latitude:", props.attributes.latitude));

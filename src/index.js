@@ -27,10 +27,11 @@ wp.blocks.registerBlockType("sinngrund/kulture-datenbank", {
     }
 
     return (
-        <div>
-            <input type="text" placeholder="longitude" value={props.attributes.longitude} onChange={updateLong} />
-            <input type="text" placeholder="latitude" value={props.attributes.latitude} onChange={updateLat} />
-        </div>
+        <InnerBlocks />
+        // <div>
+        //     <input type="text" placeholder="longitude" value={props.attributes.longitude} onChange={updateLong} />
+        //     <input type="text" placeholder="latitude" value={props.attributes.latitude} onChange={updateLat} />
+        // </div>
     )
 
   },
