@@ -1,9 +1,5 @@
 # Sinngrund kulturdatenbank plugin
 
-
-
-
-
 ## Github repository setting for Sinngrund
 
 - @ github
@@ -31,15 +27,13 @@
   
   - `~/.../Sinngrund-Kulturdatenbank-plugin$ git init`
 
-
-
 ## Register Custom  Block/ datenbankblock
 
 - Git commit 
   
   "Register kulturedatenbank Block", 2022-08-05)
 
-## Modity Custom Block, define block template
+## ~~Modity Custom Block, define block template~~
 
 - Set default block(let my custom block show up always first)
 
@@ -56,27 +50,7 @@
      } );
   ```
 
-- Git commit
-  
-  c6c7f91 ("Define block templates for new post & InnerBlocks setting for my custom block", 2022-08-05)
 
-
-
-
-
-# 
-
-
-
-
-
-
-
-
-
-
-
-# Todo
 
 ### JSX for my custom Plugin
 
@@ -94,6 +68,8 @@
   
   under src directory make a file named: **index.js**
   
-  copy all contents from test.js to index.js
+  copy all contents from test.js to index.js 
+  
+  <mark>.js file under src is for JSX.   js.file outside of src directory is for Javascript </mark>
   
   as well the enqueue script loacation update

@@ -16,7 +16,7 @@ class SinngrundKultureBank {
   }
 
   function adminAssets() {
-    wp_enqueue_script('sinngrund_kulture_bank_block_type', plugin_dir_url(__FILE__) . 'test.js', array('wp-blocks', 'wp-element', 'wp-block-editor'));
+    wp_enqueue_script('sinngrund_kulture_bank_block_type', plugin_dir_url(__FILE__) . '/build/index.js', array('wp-blocks', 'wp-element', 'wp-block-editor'));
   }
 }
 

@@ -13,7 +13,8 @@ wp.blocks.registerBlockType("sinngrund/kulture-datenbank", {
   icon: "paperclip",
   category: "common",
   edit: function () {
-    return wp.element.createElement("h3", null, "Hello, this is from the admin editor screen.");
+    return <h3>This is h3 from JSX.</h3>
+    //return wp.element.createElement("h3", null, "Hello, this is from the admin editor screen.");
   //   return el( InnerBlocks, {
   //     template: BLOCKS_TEMPLATE,
   //     templateLock: false,
@@ -21,6 +22,7 @@ wp.blocks.registerBlockType("sinngrund/kulture-datenbank", {
 
   },
   save: function () {
-    return wp.element.createElement("h1", null, "This is the frontend.");
+    return <h3>this is front</h3>
+    //return wp.element.createElement("h1", null, "This is the frontend.");
   }
 })
