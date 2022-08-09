@@ -5,10 +5,16 @@
             grid-template-columns: max-content 1fr;
             grid-row-gap: 10px;
             grid-column-gap: 20px;
+            padding-left: var(--wp--custom--spacing--outer);
+            padding-right: var(--wp--custom--spacing--outer);
         }
+
         .basic_info_field{
             display: contents;
+            margin-top: 100px;
+            
         }
+
     </style>
     <p class="meta-options basic_info_field">
         <label for="latitude_longitude">latitude, longitude</label>
