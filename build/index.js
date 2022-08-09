@@ -104,15 +104,41 @@ wp.blocks.registerBlockType("sinngrund/kulture-datenbank", {
   title: "Kulture Datenbank Beitrag",
   icon: "paperclip",
   category: "common",
-  edit: function () {
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", null, "This is h3 from JSX."); //return wp.element.createElement("h3", null, "Hello, this is from the admin editor screen.");
-    //   return el( InnerBlocks, {
-    //     template: BLOCKS_TEMPLATE,
-    //     templateLock: false,
-    // } );
+  attributes: {
+    longitude: {
+      type: "string"
+    },
+    latitude: {
+      type: "string"
+    }
   },
-  save: function () {
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", null, "this is front"); //return wp.element.createElement("h1", null, "This is the frontend.");
+  edit: function (props) {
+    function updateLong(event) {
+      props.setAttributes({
+        longitude: event.target.value
+      });
+    }
+
+    function updateLat(event) {
+      props.setAttributes({
+        latitude: event.target.value
+      });
+    }
+
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+      type: "text",
+      placeholder: "longitude",
+      value: props.attributes.longitude,
+      onChange: updateLong
+    }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+      type: "text",
+      placeholder: "latitude",
+      value: props.attributes.latitude,
+      onChange: updateLat
+    }));
+  },
+  save: function (props) {
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", null, " front"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "The value: ", props.attributes.longitude, " latitude:", props.attributes.latitude));
   }
 });
 })();
