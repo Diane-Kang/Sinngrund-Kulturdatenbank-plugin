@@ -38,7 +38,7 @@ wp.blocks.registerBlockType("sinngrund/kulture-datenbank", {
   save: function (props) {
     return (
         <div>
-            <h3> front</h3>
+            <h3> front hello</h3>
             <p>The value: {props.attributes.longitude} latitude:{props.attributes.latitude}</p>
         </div>
     )
