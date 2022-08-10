@@ -15,6 +15,10 @@ class SinngrundKultureBank {
     add_action('enqueue_block_editor_assets', array($this, 'adminAssets'));
     add_action('add_meta_boxes', array($this, 'basic_info_boxes'));
     add_action( 'save_post', array($this, 'save_basic_info_box' ));
+    register_activation_hook(__FILE__, array($this, 'insert_main_map_page'));
+    register_deactivation_hook( __FILE__, array($this, 'deactivate_plugin'));
+    //add_action('admin_head', array($this,'insert_main_map_page'));
+    //add_filter( 'page_template', array($this,'main_map_page_from_php') );
   }
 
   function adminAssets() {
@@ -58,7 +62,47 @@ class SinngrundKultureBank {
      }
   }
 
+  
 
+  function insert_main_map_page() {
+    $check_map_page = $this->get_page_by_slug('sinngrund_Kulturedatenbank'); 
+    echo $check_map_page;
+      if (!$check_map_page){
+        $main_map_page = array(
+          'post_type' => 'page',
+          'post_name' => 'sinngrund_Kulturedatenbank',
+          'post_title' => 'Sinngrund Kulturedatenbank',
+          'post_status' => 'publish',
+        );
+
+        wp_insert_post($main_map_page);
+      }
+    }
+  
+  function get_page_by_slug($slug) {
+      if ($pages = get_pages())
+          foreach ($pages as $page)
+              if ($slug === $page->post_name) return $page;
+      return false;
+  } // function get_page_by_slug
+
+
+
+
+  function main_map_page_from_php( $page_template ){
+      if ( is_page( 'Sinngrund_Kulturedatenbank' ) ) {
+
+          $page_template = plugin_dir_path( __FILE__ ) . '/kulturedatenbank.php';
+      }
+      return $page_template;
+  }
+  
+  function deactivate_plugin() {
+
+    $page = get_page_by_path('sinngrund_Kulturedatenbank', '', 'page' );
+    wp_delete_post($page->ID);
+
+}
 
   
   

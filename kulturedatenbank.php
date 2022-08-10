@@ -1,0 +1,1 @@
+<h2>Hello this is my map page</h2>
