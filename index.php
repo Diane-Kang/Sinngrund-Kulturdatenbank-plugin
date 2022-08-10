@@ -27,11 +27,8 @@ class SinngrundKultureBank {
   * @param WP_Post $post Current post object.
   */
   
-  
   function basic_info_boxes_display_callback( $post ) {
     include plugin_dir_path( __FILE__ ) . '/basic_info_box.php';
-    //include plugin_dir_path( __FILE__ ) . '/basic_info_box.php';
-    //require_once( get_plugin_directory() . "/basic_info_box.php" );
   }
   
 
@@ -60,6 +57,9 @@ class SinngrundKultureBank {
         }
      }
   }
+
+
+
   
   
 }
