@@ -1,8 +1,8 @@
 <!-- Search box reference https://stackoverflow.com/questions/15919227/get-latitude-longitude-as-per-address-given-for-leaflet -->
 
 <meta charset="utf-8">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" /> -->
-<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script> -->
+<!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" /> --> 
+<!-- <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script> --> 
 <style type="text/css">
     /* html, body { width:100%;padding:0;margin:0; } */
     /* .container { width:95%;max-width:980px;padding:1% 2%;margin:0 auto } */
@@ -16,8 +16,8 @@
 
 </style>
 
-<div class="container">
-
+<div class="container" style="clear:both;">
+<div id="map" style="width:50%; float:right;"></div>
 <p>you can write geocordinate directly or get value from Search and as draging the Marker on the Map. To save post need to be published</p>
 <br>
 <b>Breitengrad(latitude)</b><input  id="latitude" type="text" name="latitude" size=12 value="<?php echo esc_attr( get_post_meta( get_the_ID(), 'latitude', true ) ); ?>">
@@ -41,7 +41,7 @@
 
 <br />
 
-<div id="map"></div>
+
 
 </div>
 
@@ -54,13 +54,13 @@ function save_geocode_metadata(){
 }
 
 
-// New York
-var startlat = 40.75637123;
-var startlon = -73.98545321;
+// Sinngrund
+var startlat = 50.17203438669854;
+var startlon = 9.639869965557914;
 
 var options = {
  center: [startlat, startlon],
- zoom: 9
+ zoom: 12
 }
 
 document.getElementById('lat').value = startlat;
@@ -68,17 +68,17 @@ document.getElementById('lon').value = startlon;
 
 
 var map = L.map('map', options);
-var nzoom = 12;
+var nzoom = 16;
 
 L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {attribution: 'OSM'}).addTo(map);
 
 var myMarker = L.marker([startlat, startlon], {title: "Coordinates", alt: "Coordinates", draggable: true}).addTo(map).on('dragend', function() {
  var lat = myMarker.getLatLng().lat.toFixed(8);
  var lon = myMarker.getLatLng().lng.toFixed(8);
- var czoom = map.getZoom();
- if(czoom < 18) { nzoom = czoom + 2; }
- if(nzoom > 18) { nzoom = 18; }
- if(czoom != 18) { map.setView([lat,lon], nzoom); } else { map.setView([lat,lon]); }
+//  var czoom = map.getZoom();
+//  if(czoom < 18) { nzoom = czoom + 2; }
+//  if(nzoom > 18) { nzoom = 18; }
+//  if(czoom != 18) { map.setView([lat,lon], nzoom); } else { map.setView([lat,lon]); }
  document.getElementById('lat').value = lat;
  document.getElementById('lon').value = lon;
  myMarker.bindPopup("Lat " + lat + "<br />Lon " + lon).openPopup();
@@ -132,6 +132,18 @@ function addr_search()
  xmlhttp.open("GET", url, true);
  xmlhttp.send();
 }
+
+// document.addEventListener("DOMContentLoaded", () => {
+//     alert("DOM ready!");
+//   });
+  window.onload = function() { // can also use window.addEventListener('load', (event) => {
+    //alert('Page loaded');
+    map.invalidateSize();
+    // image is loaded at this time
+    //alert(`Image size: ${img.offsetWidth}x${img.offsetHeight}`);
+  };
+
+
 
 </script>
 

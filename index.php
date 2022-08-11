@@ -5,6 +5,8 @@
   Description: Es ist für Sinngrund kulturebank project
   Version: 0.0
   Author: Diane
+  npm install leaflet
+
 
 */
 
@@ -15,11 +17,31 @@ class SinngrundKultureBank {
     add_action('enqueue_block_editor_assets', array($this, 'adminAssets'));
     add_action('add_meta_boxes', array($this, 'basic_info_boxes'));
     add_action( 'save_post', array($this, 'save_basic_info_box' ));
+    add_action( 'admin_enqueue_scripts', array($this,'leaflet_original_css'), 10, 1 );
+    add_action( 'admin_enqueue_scripts', array($this,'leaflet_related_js'), 10, 1 );
     //register_activation_hook(__FILE__, array($this, 'insert_main_map_page'));
     //register_deactivation_hook( __FILE__, array($this, 'deactivate_plugin'));
-    //add_action('admin_head', array($this,'insert_main_map_page'));
+    //add_action('admin_head', array($this,'insert_main_map_page')
     //add_filter( 'page_template', array($this,'main_map_page_from_php') );
   }
+
+  function leaflet_original_css() {
+
+    //save target page name as a variable
+    //$target_page_name = 'firmenverzeichnis';
+
+    //if (is_page($target_page_name)){
+        wp_enqueue_style( 'leaflet-main-css',               plugin_dir_url( __FILE__ ) . '/node_modules/leaflet/dist/leaflet.css' , array(), false, false);
+       
+    //}
+  }
+
+  function leaflet_related_js() {
+    wp_enqueue_script( 'leaflet-js',                        plugin_dir_url( __FILE__ ) . '/node_modules/leaflet/dist/leaflet.js', array(), false, false );
+    
+  }
+
+
 
   function adminAssets() {
     wp_enqueue_script('sinngrund_kulture_bank_block_type', plugin_dir_url(__FILE__) . '/build/index.js', array('wp-blocks', 'wp-element', 'wp-block-editor'));
