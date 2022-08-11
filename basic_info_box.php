@@ -1,60 +1,30 @@
-<div class="basic_info_box">
-        
-    <style scoped>
-        .basic_info_box{
-            display: grid;
-            grid-template-columns: max-content 1fr;
-            grid-row-gap: 10px;
-            grid-column-gap: 20px;
-            padding-left: var(--wp--custom--spacing--outer);
-            padding-right: var(--wp--custom--spacing--outer);
-        }
-
-        .basic_info_field{
-            display: contents;
-            margin-top: 100px;
-            
-        }
-
-    </style>
-    
-    <p class="meta-options1 basic_info_field">
-        <label for="latitude">Breitengrad(latitude)</label>
-        <input  id="latitude" type="text" name="latitude"
-                value="<?php echo esc_attr( get_post_meta( get_the_ID(), 'latitude', true ) ); ?>"
-        >
-    </p>
-    <p class="meta-options2 basic_info_field">
-        <label for="longitude">Längengrad(longitude)</label>
-        <input id="longitude" type="text" name="longitude"
-                value="<?php echo esc_attr( get_post_meta( get_the_ID(), 'longitude', true ) ); ?>"
-        >
-    </p>
-    <p class="meta-options3 basic_info_field">
-        <label for="popuptext">text for marker</label>
-        <input id="popuptext" type="text" name="popuptext"
-                value="<?php echo esc_attr( get_post_meta( get_the_ID(), 'popuptext', true ) ); ?>"
-                >
-    </p>
-</div>
-
 <!-- Search box reference https://stackoverflow.com/questions/15919227/get-latitude-longitude-as-per-address-given-for-leaflet -->
 
 <meta charset="utf-8">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" /> -->
+<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script> -->
 <style type="text/css">
-/* html, body { width:100%;padding:0;margin:0; } */
-/* .container { width:95%;max-width:980px;padding:1% 2%;margin:0 auto } */
-#lat, #lon { text-align:right }
-#map { width:100%;height:50%;padding:0;margin:0; }
-.address { cursor:pointer }
-.address:hover { color:#AA0000;text-decoration:underline }
-</style>
+    /* html, body { width:100%;padding:0;margin:0; } */
+    /* .container { width:95%;max-width:980px;padding:1% 2%;margin:0 auto } */
+    #lat, #lon { text-align:right }
+    #map {  width:100%;
+            height:400px;
+            padding:0;
+            margin:0; }
+    .address { cursor:pointer }
+    .address:hover { color:#AA0000;text-decoration:underline }
 
+</style>
 
 <div class="container">
 
+<p>you can write geocordinate directly or get value from Search and as draging the Marker on the Map. To save post need to be published</p>
+<br>
+<b>Breitengrad(latitude)</b><input  id="latitude" type="text" name="latitude" size=12 value="<?php echo esc_attr( get_post_meta( get_the_ID(), 'latitude', true ) ); ?>">
+<b>Längengrad(longitude)</b><input id="longitude" type="text" name="longitude" size=12 value="<?php echo esc_attr( get_post_meta( get_the_ID(), 'longitude', true ) ); ?>">
+<br>
+
+<h3>Search</h3>
 <b>Coordinates</b>
 <form>
 <input type="text" name="lat" id="lat" size=12 value="">
@@ -83,10 +53,6 @@ function save_geocode_metadata(){
     document.getElementById("latitude").value = document.getElementById("lat").value;
 }
 
-</script>
-
-
-<script type="text/javascript">
 
 // New York
 var startlat = 40.75637123;
@@ -99,6 +65,7 @@ var options = {
 
 document.getElementById('lat').value = startlat;
 document.getElementById('lon').value = startlon;
+
 
 var map = L.map('map', options);
 var nzoom = 12;
@@ -167,3 +134,4 @@ function addr_search()
 }
 
 </script>
+
