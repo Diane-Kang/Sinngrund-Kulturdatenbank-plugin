@@ -72,14 +72,11 @@
   
   as well the enqueue script loacation update
 
-
-
 ## Add meta box to NewPOST commited
 
 index.php
 
 ```php
-
 function basic_info_boxes(){
   add_meta_box(   'basic_info', // name
                   __('Basic required data'), //display text 
@@ -118,13 +115,10 @@ function save_basic_info_box( $post_id ) {
 }
 add_action( 'save_post', 'save_basic_info_box' );
 ```
-
-
 
 basic_info_box.php 
 
 ```php
-
 function basic_info_boxes(){
   add_meta_box(   'basic_info', // name
                   __('Basic required data'), //display text 
@@ -164,15 +158,25 @@ function save_basic_info_box( $post_id ) {
 add_action( 'save_post', 'save_basic_info_box' );
 ```
 
-
-
 ## Todo-List
 
-- [x]  Add several post with geocode
+- [x] Add several post with geocode
 
-- [ ] Little bit organize, for index php
+- [x] Add option for adresse search : <u>commited</u> 
+  
+  [javascript - get latitude &amp; longitude as per address given for leaflet - Stack Overflow](https://stackoverflow.com/a/51375706)
 
-- [ ] Make a page, that shows Leaflet
+- [x] Little bit organize, for index php
+
+- [x] Make a page with plugin  <u>commited</u>
+
+- [ ] Embed Leaflet a page with shortcode
+  
+  - [ ] shortcode
+  
+  - [ ] leaflet
+  
+  - [ ]  
 
 - [ ] Using geojson generate marker 
 
