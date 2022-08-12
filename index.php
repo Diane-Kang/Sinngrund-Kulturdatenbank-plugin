@@ -13,6 +13,7 @@
 if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 class SinngrundKultureBank {
+
   function __construct() {
     add_action('enqueue_block_editor_assets', array($this, 'adminAssets'));
     add_action('add_meta_boxes', array($this, 'basic_info_boxes'));
@@ -27,18 +28,56 @@ class SinngrundKultureBank {
     //register_deactivation_hook( __FILE__, array($this, 'deactivate_plugin'));
     //add_action('admin_head', array($this,'insert_main_map_page')
     //add_filter( 'page_template', array($this,'main_map_page_from_php') );
+  
+    $target_page_name = 'sinngrund-kulturedatenbank';
+
+
+      add_action( 'wp_enqueue_scripts', array($this,'leaflet_dependency'), 10, 1 );
+      add_action( 'wp_enqueue_scripts', array($this, 'map_page_dependency'), 20, 1 );
+
+      add_filter('page_template', array($this, 'loadTemplate'), 99);
+
+      //add_shortcode('loadTemplate', 'kulturedatenbank_map_page_shortcode');
+
+
+
+  
   }
 
   function leaflet_dependency(){
-    wp_enqueue_style( 'leaflet-main-css',               plugin_dir_url( __FILE__ ) . '/node_modules/leaflet/dist/leaflet.css' , array(), false, false);
-    wp_enqueue_script( 'leaflet-js',                    plugin_dir_url( __FILE__ ) . '/node_modules/leaflet/dist/leaflet.js', array(), false, false );
+    wp_enqueue_style( 'leaflet-main-css',                   plugin_dir_url( __FILE__ ) . '/node_modules/leaflet/dist/leaflet.css' , array(), false, false);
+    wp_enqueue_script( 'leaflet-js',                        plugin_dir_url( __FILE__ ) . '/node_modules/leaflet/dist/leaflet.js', array(), false, false );
   }
 
-
-
+  function map_page_dependency(){
+    if (is_page($target_page_name)){
+      wp_enqueue_script( 'map_modify-js',                     plugin_dir_url( __FILE__ ) . '/map_modify.js', array('leaflet-js'), '1.3', true);
+      
+      // map-app-style.css, controled by .page-id-227!!!!!
+      wp_enqueue_style( 'map-app-style-css', plugin_dir_url( __FILE__ ) . '/map-app-style.css', array(), '3.2', false);
+    }
+  }
+  
   function adminAssets() {
     wp_enqueue_script('sinngrund_kulture_bank_block_type', plugin_dir_url(__FILE__) . '/build/index.js', array('wp-blocks', 'wp-element', 'wp-block-editor'));
+    
   }
+
+
+  
+
+  // function load_kulturedatenbank_map_page(){
+  //   add_filter('template_include', array($this, 'loadTemplate'), 99);
+  // }
+
+  function loadTemplate($template) {
+    if (is_page('sinngrund-kulturedatenbank-diane')) {
+      return plugin_dir_path(__FILE__) . 'main_map_page_diane.php';
+    }
+    return $template;
+  }
+
+
 
   /**
   * Meta box display callback.
