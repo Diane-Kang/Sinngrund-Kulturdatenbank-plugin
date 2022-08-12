@@ -133,15 +133,10 @@ function addr_search()
  xmlhttp.send();
 }
 
-// document.addEventListener("DOMContentLoaded", () => {
-//     alert("DOM ready!");
-//   });
-  window.onload = function() { // can also use window.addEventListener('load', (event) => {
-    //alert('Page loaded');
-    map.invalidateSize();
-    // image is loaded at this time
-    //alert(`Image size: ${img.offsetWidth}x${img.offsetHeight}`);
-  };
+
+setTimeout(function(){map.invalidateSize();
+},1000); 
+
 
 
 
