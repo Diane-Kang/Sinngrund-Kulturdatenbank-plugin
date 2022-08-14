@@ -65,10 +65,8 @@ async function main() {
         // }
 
         let category = feature.taxonomy.category[0].name;
-        console.log(category)
         let Icon_name = category_icon_array[category];
-        //console.log(Icon_name);
-        let marker_option = { icon:Icon_name}
+        let marker_option = {icon:Icon_name}
 
         let marker = L.marker([
             feature.geometry.coordinates[1],
