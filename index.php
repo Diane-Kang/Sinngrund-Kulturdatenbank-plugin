@@ -15,81 +15,195 @@ if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 class SinngrundKultureBank {
 
   function __construct() {
-    add_action('enqueue_block_editor_assets', array($this, 'adminAssets'));
+
+    //Backend 
+    //add_action('enqueue_block_editor_assets', array($this, 'adminAssets'));
+    
+    // Add meta data input box in new post page
     add_action('add_meta_boxes', array($this, 'basic_info_boxes'));
     add_action( 'save_post', array($this, 'save_basic_info_box' ));
     
-    // for Admin page/ backend dependecy admin_enqueue_scripts
+    // for Admin page/ backend dependecy admin_enqueue_scripts, for Frontend dependency wp_enqueue_scripts
     add_action( 'admin_enqueue_scripts', array($this,'leaflet_dependency'), 10, 1 );
-    // for Frontend dependency wp_enqueue_scripts
+
+
+
+    // Frontend 
 
     $target_page_name = 'sinngrund-kulturedatenbank';
-
-
+    
     add_action( 'wp_enqueue_scripts', array($this,'leaflet_dependency'), 10, 1 );
     add_action( 'wp_enqueue_scripts', array($this, 'map_page_dependency'), 20, 1 );
 
-      
-    // This is for sinngrund-kulturedatenbank-diane
+     // This is for sinngrund-kulturedatenbank-diane
     add_filter('page_template', array($this, 'loadTemplate'), 99);
 
     //shortcode for beitrag list 
     add_shortcode('show_list_shortcode', array($this, 'show_list_function'));
-
-    add_action('init', function(){
-
-      register_post_meta(
-          'post',
-          'latitude',
-          array(
-              'single'       => true,
-              'type'         => 'string',
-              'show_in_rest' => true,
-          )
-      );
-
-      register_post_meta(
-        'post',
-        'longitude',
-        array(
-            'single'       => true,
-            'type'         => 'string',
-            'show_in_rest' => true,
-        )
-    );
-  });
+    
+    // Rest API /wp-json/wp/v2/posts, add meta data 
+    add_action('init', array($this, 'custom_meta_to_api'));
   
+    // Rest API /wp-json/Sinngrund-Kulturdatenbank-plugin/geojson
+    add_action( 'rest_api_init', array($this, 'geojson_generate_api'));
 
-    register_rest_field( 'post', 'metadata', array(
-      'get_callback' => function ( $data ) {
-          return get_post_meta( $data['latitude'], '', '' );
-      }, ));
-  
-
-    //add_action( 'rest_api_init', 'geojson_generate_api');
-
+    // Rest API /wp-json/Sinngrund-Kulturdatenbank-plugin/geojson
+    add_action( 'rest_api_init', array($this, 'infojson_generate_api'));
   
     //register_activation_hook(__FILE__, array($this, 'insert_main_map_page'));
     //register_deactivation_hook( __FILE__, array($this, 'deactivate_plugin'));
     //add_action('admin_head', array($this,'insert_main_map_page')
     //add_filter( 'page_template', array($this,'main_map_page_from_php') );
-  
   }
 
 
-    function wpse_382314_post_filter_data($response, $post) {
-        $response->data['post_title'] = '';
-        $response->data['post_content'] = '';
-    }
+
+  function custom_meta_to_api(){
+    register_post_meta(
+      'post',
+      'latitude',
+      array(
+          'single'       => true,
+          'type'         => 'string',
+          'show_in_rest' => true,
+      )
+  );
+
+    register_post_meta(
+      'post',
+      'longitude',
+      array(
+          'single'       => true,
+          'type'         => 'string',
+          'show_in_rest' => true,
+      )
+    );
+  }
 
 
   function show_list_function(){
-// Things that you want to do.
-$message = 'Hello world!'; 
-  
-// Output needs to be return
-return $message;
-}
+    //     // Things that you want to do.
+    // // Get the relative path to current file from plugin root
+    // $file_path_from_plugin_root = str_replace(WP_PLUGIN_DIR . '/', '', __DIR__);
+
+    // // Explode the path into an array
+    // $path_array = explode('/', $file_path_from_plugin_root);
+
+    // // Plugin folder is the first element
+    // $plugin_folder_name = reset($path_array);
+    $plugin_folder_name = reset(explode('/', str_replace(WP_PLUGIN_DIR . '/', '', __DIR__)));
+    //return '/wp-json/' . $plugin_folder_name . '/geocode/' ;
+    return plugin_dir_url( __FILE__ );
+    
+  }
+
+    ///wp-json/Sinngrund-Kulturdatenbank-plugin/infojson
+    function infojson_generate_api() {
+      $plugin_folder_name = reset(explode('/', str_replace(WP_PLUGIN_DIR . '/', '', __DIR__)));
+      register_rest_route( $plugin_folder_name, '/infojson/', array(
+          'methods' => WP_REST_SERVER::READABLE,
+          'callback' => array($this,'infojson_generator')
+      ) );
+    }
+    
+    function infojson_generator() {
+      //$info_array=array();
+      $plugin_folder_name = reset(explode('/', str_replace(WP_PLUGIN_DIR . '/', '', __DIR__)));
+      $icons = array('a', 'b', 'v');
+      $path_of_icons =  './wp-content/plugins/'.$plugin_folder_name. '/icons'  ;
+      $icon_files = array_diff(scandir($path_of_icons), array('.', '..'));
+
+      // if we need to make a custom section for center 
+      $longi = "50.15489468904496";
+      settype ($longi, "float");
+
+      $lati = "9.629545376420513";
+      settype ($lati, "float");
+
+      $map_center_geo = array($longi,$lati );
+
+      
+      $info_array= array( 'map_center' => $map_center_geo,
+                          'icons_directory'=> $path_of_icons,
+                          'icons'=> $icon_files
+                        );
+      return $info_array;
+    }
+
+
+
+  // Register own Endpoint for API - /wp-json/Sinngrund-Kulturdatenbank-plugin/geojson
+
+  function geojson_generate_api() {
+    $plugin_folder_name = reset(explode('/', str_replace(WP_PLUGIN_DIR . '/', '', __DIR__)));
+    register_rest_route( $plugin_folder_name, '/geojson/', array(
+        'methods' => WP_REST_SERVER::READABLE,
+        'callback' => array($this,'geojson_generator')
+    ) );
+  }
+
+  function geojson_generator() {
+    $post_type_query = new WP_Query(array(
+        'post_type' => 'post'
+    ));
+
+    $post_type_query_geojson = array();
+
+    while ($post_type_query->have_posts()) {
+        $post_type_query->the_post();
+
+
+        //$longi = get_post_meta( get_the_ID(), $key = "2-Laengengrad", true);
+        $longi = get_post_meta( get_the_ID(), $key = "longitude", true);
+        settype ($lenght, "float");
+
+        //$lati = get_post_meta( get_the_ID(), $key = "1-Breitengrad", true);
+        $lati = get_post_meta( get_the_ID(), $key = "latitude", true);
+        settype ($lati, "float");
+
+
+
+        // //variable type string
+        // $werbebeleuchtung_jn = get_post_meta( get_the_ID(), $key = "Werbebeleuchtung wurde im Projektrahmen angepasst (j/n)", true);
+
+        // $abschaltung = get_the_terms( get_the_ID(), 'abschaltung' );
+        // if (!empty($abschaltung)) {
+        //     foreach ($abschaltung as $tag) {
+        //         $uhrzeit = $tag;
+        //     }
+        // }
+        
+
+        array_push($post_type_query_geojson, array(
+            'type'=> 'Feature',
+            'id' => get_the_ID(),
+            'geometry'=> array(
+                'type'=> 'Point',
+                'coordinates' =>  array($longi,$lati)
+            ),
+            'properties'=>array(
+                'name' => get_the_title(),
+                'post_id' => get_the_ID(),
+                'url' => get_permalink()
+            ),
+            'taxonomy'=>array(
+                'category'=>  get_the_category()
+            )            
+            // 'filter'=> array(
+            //     'werbebeleuchtung' => $werbebeleuchtung_jn,
+            //     'abschaltung' => $uhrzeit
+            // )
+        ));
+    }
+
+    $wrapper_array = array(
+        "type" => "FeatureCollection",
+        "features" => $post_type_query_geojson
+    );
+
+    return $wrapper_array;
+  }
+
 
   function leaflet_dependency(){
     wp_enqueue_style( 'leaflet-main-css',                   plugin_dir_url( __FILE__ ) . '/node_modules/leaflet/dist/leaflet.css' , array(), false, false);
@@ -161,7 +275,7 @@ return $message;
 
 
 
-}
+} // end of class 
 
 $sinngrundKultureBank = new SinngrundKultureBank();
 
