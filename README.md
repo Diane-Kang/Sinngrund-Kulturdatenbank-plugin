@@ -1,4 +1,134 @@
-# Sinngrund kulturdatenbank plugin
+## Custom Template
+
+    For map page and Post page, with target slug
+
+- [x] Add admin menu 
+  
+  - [x] Admin menu 
+    
+    ```
+        //////------------add Admin Menu----------------//
+        add_action('admin_menu', array($this, 'adminPage'));
+        add_action('admin_init', array($this, 'settings'));
+        
+          function adminPage() {
+        add_options_page('Sinngrund Datenbank Setting', 'Sinngrund Ailianz', 'manage_options', 'sinngrund-datenbank-setting-page', array($this, 'ourHTML'));
+      }
+        
+          //sad Sinngrund Allianz Datenbank
+      function settings() {
+        add_settings_section('sad_first_section', null, null, 'sinngrund-datenbank-setting-page');
+    
+        add_settings_field('sad_mainpage_slug', 'Page Slug', array($this, 'slug_inputHTML'), 'sinngrund-datenbank-setting-page', 'sad_first_section');
+        register_setting('singrundallianzplugin', 'sad_mainpage_slug', array('sanitize_callback' => array($this, 'sanitizeLocation'), 'default' => 'map_page'));
+    
+        add_settings_field('wcp_headline', 'Headline Text', array($this, 'headlineHTML'), 'sinngrund-datenbank-setting-page', 'sad_first_section');
+        register_setting('singrundallianzplugin', 'wcp_headline', array('sanitize_callback' => 'sanitize_text_field', 'default' => 'Post Statistics'));
+      }
+        
+      function ourHTML() { ?>
+        <div class="wrap">
+          <h1>Sinngrund Allianz Datenbank Setting</h1>
+          <form action="options.php" method="POST">
+          <?php
+            settings_fields('singrundallianzplugin');
+            do_settings_sections('sinngrund-datenbank-setting-page');
+            echo "check";
+            echo $this->the_slug_exists(get_option('sad_mainpage_slug'));
+            if($this->the_slug_exists(get_option('sad_mainpage_slug'))) { echo 'exists'; } else {echo 'set this slug';}
+            submit_button();
+          ?>
+          </form>
+        </div>
+      <?php }
+        
+    ```
+    
+    
+  
+  - [x] Input text box for slug 
+  
+  ```php
+    function slug_inputHTML() { ?>
+        <p>Current main Page : <?php echo esc_attr(get_option('sad_mainpage_slug')) ?> </p>
+        new page slug
+        <input type="text" name="sad_mainpage_slug" value="<?php echo esc_attr(get_option('sad_mainpage_slug')) ?>">
+    <?php }
+  
+  ```
+  
+  
+  
+  - [x] check if the slug exist if not make a page 
+  
+  ```
+    function the_slug_exists($post_name) {
+      global $wpdb;
+      if($wpdb->get_row("SELECT post_name FROM wp_posts WHERE post_name = '" . $post_name . "'", 'ARRAY_A')) {
+          return true;
+      } else {
+          return false;
+      }
+  }
+  ```
+  
+  
+  
+  - [x] and make the page as a map(main) page 
+  
+  main_map_slug setting with input  
+  
+```mermaid
+flowchart TB
+A[input-text]--trasfer slug-able text --> B[input-slug]
+B-->C[already exist?]--yes-->E[is it default slug?]
+E--no-->D[Error note: we could not use this slug]--back to default-->F
+E--yes-->F[main_map_slug stay on default ]
+C--no-->G[Make a new page & set this page as main map page]
+```
+  
+  ```
+    function sanitize_slug($input) {
+  
+      $default_slug = 'sinngrund-kulturedatenbank-diane';
+      
+      $input = sanitize_title($input);
+      
+      if ($input == esc_attr(get_option('sad_mainpage_slug'))){
+        return $input;
+      }
+      else if ($this->the_slug_exists($input) && ($input != $default_slug)) {
+        $message = $input . ': this is already exsited as slug. Map page is now setted with default slug:'. $default_slug;
+        add_settings_error('sad_mainpage_slug', 'sad_mainpage_slug_error', $message);
+        return $default_slug;
+      }
+  
+      else if ($input != $default_slug) {
+             // Create post object
+          $my_post = array(
+            'post_title'    => $input,
+            'post_name'     => sanitize_title($input),
+            'post_status'   => 'publish',
+            'post_author'   => 1,
+            'post_type'     => 'page',
+          );
+      
+          // Insert the post into the database
+          wp_insert_post( $my_post );
+      }
+      return $input;
+    }
+  ```
+  
+  
+
+- [ ] Main Page and Post Template
+  
+  - [ ] main Page template
+  
+  - [ ] post Page template
+
+## To-do (start from 15.Aug)
 
 ## Github repository setting for Sinngrund
 
@@ -50,7 +180,7 @@
      } );
   ```
 
-### JSX for my custom Plugin
+## JSX for my custom Plugin
 
 - npm init -y 
   
@@ -158,7 +288,7 @@ function save_basic_info_box( $post_id ) {
 add_action( 'save_post', 'save_basic_info_box' );
 ```
 
-## Todo-List
+## Todo-List (done 14.Aug)
 
 - [x] Add several post with geocode
 
@@ -253,10 +383,14 @@ add_action( 'save_post', 'save_basic_info_box' );
     2. save to info_json  
        
        ```php ```
+       
              $info_array= array( 'map_center' => $map_center_geo,
                                  'icons_directory'=> $path_of_icons,
                                  'icons'=> $icon_files
                                );
+       
+       ```
+       
        ```
     
     3. define L.icon @ map_modify.js
@@ -282,16 +416,59 @@ add_action( 'save_post', 'save_basic_info_box' );
                //console.log(Icon_name);
                let marker_option = {icon:Icon_name}
        ```
-    
-    
 
-- [ ] 
-
-- [ ] 
-
-- [ ] make a list next to the map 
-
-## 
+- [x] make a list next to the map 
+  
+  //shortcode for beitrag list
+  
+  `add_shortcode('show_list_shortcode', array($this, 'show_list_function'));`
+  
+  ```php
+    function show_list_function(){
+  
+      $the_query = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 400 ) );
+      $string = ""; // html string
+  
+      $category_icon_array = array(
+        "Brauchtum und Veranstaltungen" => "brauchtum.png",
+        "Gemeinden"                     => "gemeinden.png", 
+        "Kulturelle Sehenswürdigkeiten" => "kulturelle.png",
+        "Point of Interest"             => "interest.png", 
+        "Sagen + Legenden"              => "sagen.png",
+        "Sprache und Dialekt"           => "sprache.png",
+        "Thementouren"                  => "themen.png"
+      );
+  
+      //$string .= '<p>'. $category_icon_array["Gemeinden"] .'</p>';
+  
+      // Entry List 
+      $string .= '<div class="datenbank_list_block">';
+      if  ( $the_query->have_posts() ) {
+        $string .= '<div class="datenbank_list">';
+        while ( $the_query->have_posts()) {
+          $the_query->the_post();
+          $category_slug = get_the_category( )[0]->slug;
+          $category_name = get_the_category( )[0]->name;
+          $category_icon = $category_icon_array[$category_name];
+          $category_icon_src = '/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/'. $category_icon;
+          $url = '/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/star.png';
+          $string .=' <div class="datenbank_single_entry">
+                        <div class="entry_title"><h4> this is post title:' . get_the_title() .'</h4></div>
+                        <div class="entry_category ' .$category_icon. '"><img style="height: 20px; width: 20px; margin-right: 2px;"  src="'.$category_icon_src.'"/>'.$category_name.'</div>
+                      </div>'; //closing class datenbank_single_entry
+  
+        }
+        $string .= '</div>'; // closeing class datenbank_list
+  
+      } else $string = '<h3>Aktuell gibt es keine eingetragenen Unternehmen</h3>';   
+  
+      /* Restore original Post Data*/
+      wp_reset_postdata();
+  
+      $string .= '</div>'; // closeing class datenbank list block 
+      return $string;   
+    } 
+  ```
 
 ## Rest API
 
@@ -348,14 +525,15 @@ add_action( 'save_post', 'save_basic_info_box' );
            $post_type_query->the_post();
    ```
    
-           //$longi = get_post_meta( get_the_ID(), $key = "2-Laengengrad", true);
+   ```
+              //$longi = get_post_meta( get_the_ID(), $key = "2-Laengengrad", true);
            $longi = get_post_meta( get_the_ID(), $key = "longitude", true);
            settype ($lenght, "float");
-       
+   
            //$lati = get_post_meta( get_the_ID(), $key = "1-Breitengrad", true);
            $lati = get_post_meta( get_the_ID(), $key = "latitude", true);
            settype ($lati, "float");
-       
+   
            array_push($post_type_query_geojson, array(
                'type'=> 'Feature',
                'id' => get_the_ID(),
@@ -369,17 +547,16 @@ add_action( 'save_post', 'save_basic_info_box' );
                    'url' => get_permalink()
                )
        }
-       
+   
        $wrapper_array = array(
            "type" => "FeatureCollection",
            "features" => $post_type_query_geojson
        );
-       
-       return $wrapper_array;
    
+       return $wrapper_array;
      }
+   ```
 
-```
 3. some info json, that js can use it 
 
 ```php
@@ -401,8 +578,6 @@ add_action( 'save_post', 'save_basic_info_box' );
       return $info_array;
     }
 ```
-
-## 
 
 ## Attribute setting in custom Block - commited
 
