@@ -28,7 +28,7 @@ html, body { width:100%;padding:0;margin:0; }
 </style>
 </head>
 <body>
-
+	
 	<div class="container">
 
 		<div class="manual_input">

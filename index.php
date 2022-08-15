@@ -16,15 +16,22 @@ class SinngrundKultureBank {
 
   function __construct() {
 
-    //Backend 
-    //add_action('enqueue_block_editor_assets', array($this, 'adminAssets'));
-    
+    //--------------Backend---------------- 
+    //////--------------new Post page ----------------    
+    //////////------------Meta data for new Post page----------------// 
     // Add meta data input box in new post page
     add_action('add_meta_boxes', array($this, 'basic_info_boxes'));
     add_action( 'save_post', array($this, 'save_basic_info_box' ));
-    
+
+    //////////------------Geocode searching for new Post page----------------//
     // for Admin page/ backend dependecy admin_enqueue_scripts, for Frontend dependency wp_enqueue_scripts
     add_action( 'admin_enqueue_scripts', array($this,'leaflet_dependency'), 10, 1 );
+
+    //////------------add Admin Menu----------------//
+    add_action('admin_menu', array($this, 'adminPage'));
+    add_action('admin_init', array($this, 'settings'));
+
+
 
 
 
@@ -54,9 +61,93 @@ class SinngrundKultureBank {
     //register_deactivation_hook( __FILE__, array($this, 'deactivate_plugin'));
     //add_action('admin_head', array($this,'insert_main_map_page')
     //add_filter( 'page_template', array($this,'main_map_page_from_php') );
+
+
+  
   }
 
+  //sad: Sinngrund Allianz Datenbank
+  function settings() {
+    add_settings_section('sad_first_section', null, null, 'sinngrund-datenbank-setting-page');
 
+    add_settings_field('sad_mainpage_slug', 'Page Slug', array($this, 'slug_inputHTML'), 'sinngrund-datenbank-setting-page', 'sad_first_section');
+    register_setting('singrundallianzplugin', 'sad_mainpage_slug', array('sanitize_callback' => array($this, 'sanitize_slug'), 'default' => 'map_page'));
+
+    add_settings_section('sad_second_section', null, null, 'sinngrund-datenbank-setting-page');
+
+    add_settings_field('sad_map_center_point', 'Map Center Point', array($this, 'map_center_point_HTML'), 'sinngrund-datenbank-setting-page', 'sad_second_section');
+    register_setting('singrundallianzplugin', 'sad_map_center_point', array('sanitize_callback' => 'sanitize_text_field', 'default' => 'map_page'));
+  }
+
+  function sanitize_slug($input) {
+
+    $default_slug = 'sinngrund-kulturedatenbank-diane';
+    
+    $input = sanitize_title($input);
+    
+    if ($input == esc_attr(get_option('sad_mainpage_slug'))){
+      return $input;
+    }
+    else if ($this->the_slug_exists($input) && ($input != $default_slug)) {
+      $message = $input . ': this is already exsited as slug. Map page is now setted with default slug:'. $default_slug;
+      add_settings_error('sad_mainpage_slug', 'sad_mainpage_slug_error', $message);
+      return $default_slug;
+    }
+
+    else if ($input != $default_slug) {
+           // Create post object
+        $my_post = array(
+          'post_title'    => $input,
+          'post_name'     => sanitize_title($input),
+          'post_status'   => 'publish',
+          'post_author'   => 1,
+          'post_type'     => 'page',
+        );
+    
+        // Insert the post into the database
+        wp_insert_post( $my_post );
+    }
+    return $input;
+  }
+
+  function map_center_point_HTML() { ?>
+    <p>input need to be seperated by comma(,)</p>
+    <p>longitude, latitude </p>
+    <p> default : 50.15489468904496, 9.629545376420513</p>
+    <input type="text" name="sad_map_center_point" size="50" value="<?php echo esc_attr(get_option('sad_map_center_point')) ?>">
+  <?php }
+
+  function slug_inputHTML() { ?>
+      <p>Current main Page : <?php echo esc_attr(get_option('sad_mainpage_slug')) ?> </p>
+      new page slug
+      <input type="text" name="sad_mainpage_slug" value="<?php echo esc_attr(get_option('sad_mainpage_slug')) ?>">
+  <?php }
+
+  function adminPage() {
+    add_options_page('Sinngrund Datenbank Setting', 'Sinngrund Ailianz', 'manage_options', 'sinngrund-datenbank-setting-page', array($this, 'ourHTML'));
+  }
+
+  function the_slug_exists($post_slug_text) {
+    global $wpdb;
+    if($wpdb->get_row("SELECT post_name FROM wp_posts WHERE post_name = '" . $post_slug_text . "'", 'ARRAY_A')) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+  function ourHTML() { ?>
+    <div class="wrap">
+      <h1>Sinngrund Allianz Datenbank Setting</h1>
+      <form action="options.php" method="POST">
+      <?php
+        settings_fields('singrundallianzplugin');
+        do_settings_sections('sinngrund-datenbank-setting-page');
+        submit_button();
+      ?>
+      </form>
+    </div>
+  <?php }
 
   function custom_meta_to_api(){
     register_post_meta(
@@ -82,19 +173,48 @@ class SinngrundKultureBank {
 
 
   function show_list_function(){
-    //     // Things that you want to do.
-    // // Get the relative path to current file from plugin root
-    // $file_path_from_plugin_root = str_replace(WP_PLUGIN_DIR . '/', '', __DIR__);
-
-    // // Explode the path into an array
-    // $path_array = explode('/', $file_path_from_plugin_root);
-
-    // // Plugin folder is the first element
-    // $plugin_folder_name = reset($path_array);
-    $plugin_folder_name = reset(explode('/', str_replace(WP_PLUGIN_DIR . '/', '', __DIR__)));
-    //return '/wp-json/' . $plugin_folder_name . '/geocode/' ;
-    return plugin_dir_url( __FILE__ );
     
+    $the_query = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 400 ) );
+    $string = ""; // html string
+    
+    $category_icon_array = array(
+      "Brauchtum und Veranstaltungen" => "brauchtum.png",
+      "Gemeinden"                     => "gemeinden.png", 
+      "Kulturelle Sehenswürdigkeiten" => "kulturelle.png",
+      "Point of Interest"             => "interest.png", 
+      "Sagen + Legenden"              => "sagen.png",
+      "Sprache und Dialekt"           => "sprache.png",
+      "Thementouren"                  => "themen.png"
+    );
+
+    //$string .= '<p>'. $category_icon_array["Gemeinden"] .'</p>';
+
+    // Entry List 
+    $string .= '<div class="datenbank_list_block">';
+    if  ( $the_query->have_posts() ) {
+      $string .= '<div class="datenbank_list">';
+      while ( $the_query->have_posts()) {
+        $the_query->the_post();
+        $category_slug = get_the_category( )[0]->slug;
+        $category_name = get_the_category( )[0]->name;
+        $category_icon = $category_icon_array[$category_name];
+        $category_icon_src = '/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/'. $category_icon;
+        $url = '/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/star.png';
+        $string .=' <div class="datenbank_single_entry">
+                      <div class="entry_title"><h4> this is post title:' . get_the_title() .'</h4></div>
+                      <div class="entry_category ' .$category_icon. '"><img style="height: 20px; width: 20px; margin-right: 2px;"  src="'.$category_icon_src.'"/>'.$category_name.'</div>
+                    </div>'; //closing class datenbank_single_entry
+    
+      }
+      $string .= '</div>'; // closeing class datenbank_list
+    
+    } else $string = '<h3>Aktuell gibt es keine eingetragenen Unternehmen</h3>';   
+        
+    /* Restore original Post Data*/
+    wp_reset_postdata();
+    
+    $string .= '</div>'; // closeing class datenbank list block 
+    return $string;   
   }
 
     ///wp-json/Sinngrund-Kulturdatenbank-plugin/infojson
@@ -109,7 +229,6 @@ class SinngrundKultureBank {
     function infojson_generator() {
       //$info_array=array();
       $plugin_folder_name = reset(explode('/', str_replace(WP_PLUGIN_DIR . '/', '', __DIR__)));
-      $icons = array('a', 'b', 'v');
       $path_of_icons =  './wp-content/plugins/'.$plugin_folder_name. '/icons'  ;
       $icon_files = array_diff(scandir($path_of_icons), array('.', '..'));
 
@@ -120,12 +239,13 @@ class SinngrundKultureBank {
       $lati = "9.629545376420513";
       settype ($lati, "float");
 
-      $map_center_geo = array($longi,$lati );
-
-      
+      //$map_center_geo = array($longi,$lati );
+      $map_center_geo = array_map("floatval", explode(',', esc_attr(get_option('sad_map_center_point'))));
+            
       $info_array= array( 'map_center' => $map_center_geo,
                           'icons_directory'=> $path_of_icons,
-                          'icons'=> $icon_files
+                          'icons'=> $icon_files,
+                          //'geo_code'=>$geo_code
                         );
       return $info_array;
     }
@@ -228,7 +348,7 @@ class SinngrundKultureBank {
 
   // This is for sinngrund-kulturedatenbank-diane
   function loadTemplate($template) {
-    if (is_page('sinngrund-kulturedatenbank-diane')) {
+    if (is_page(esc_attr(get_option('sad_mainpage_slug')))) {
       return plugin_dir_path(__FILE__) . 'main_map_page_diane.php';
     }
     return $template;
