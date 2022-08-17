@@ -4,7 +4,10 @@
   Plugin Name: Sinngrund kulturebank plugin 
   Description: Es ist für Sinngrund kulturebank project
   Version: 0.0
-  Author: Diane
+  Author: Page-effect 
+  Author-email: Diane.kang@page-effect.com
+
+
   npm install leaflet
 
 
@@ -19,31 +22,31 @@ class SinngrundKultureBank {
     //--------------Backend---------------- 
     //////--------------new Post page ----------------    
     //////////------------Meta data for new Post page----------------// 
-    // Add meta data input box in new post page
     add_action('add_meta_boxes', array($this, 'basic_info_boxes'));
     add_action( 'save_post', array($this, 'save_basic_info_box' ));
 
     //////////------------Geocode searching for new Post page----------------//
-    // for Admin page/ backend dependecy admin_enqueue_scripts, for Frontend dependency wp_enqueue_scripts
+    ////////// for Admin page/ backend dependecy admin_enqueue_scripts, for Frontend dependency wp_enqueue_scripts
     add_action( 'admin_enqueue_scripts', array($this,'leaflet_dependency'), 10, 1 );
 
     //////------------add Admin Menu----------------//
+    /////////------- setting map page, and map ceter 
     add_action('admin_menu', array($this, 'adminPage'));
     add_action('admin_init', array($this, 'settings'));
 
 
 
-
-
-    // Frontend 
-
-    $target_page_name = 'sinngrund-kulturedatenbank';
-    
+    //--------------Frontend---------------- 
+    //////-------------- Leaflet map dependecies---------------------//
     add_action( 'wp_enqueue_scripts', array($this,'leaflet_dependency'), 10, 1 );
     add_action( 'wp_enqueue_scripts', array($this, 'map_page_dependency'), 20, 1 );
 
      // This is for sinngrund-kulturedatenbank-diane
     add_filter('page_template', array($this, 'loadTemplate'), 99);
+    add_filter('single_template', array($this, 'load_post_Template'), 99);
+
+    add_action('get_header',array($this, 'remove_admin_login_header'));
+    
 
     //shortcode for beitrag list 
     add_shortcode('show_list_shortcode', array($this, 'show_list_function'));
@@ -66,6 +69,13 @@ class SinngrundKultureBank {
   
   }
 
+
+
+
+
+  function remove_admin_login_header() {
+    remove_action('wp_head', '_admin_bar_bump_cb');
+}
   //sad: Sinngrund Allianz Datenbank
   function settings() {
     add_settings_section('sad_first_section', null, null, 'sinngrund-datenbank-setting-page');
@@ -349,11 +359,18 @@ class SinngrundKultureBank {
   // This is for sinngrund-kulturedatenbank-diane
   function loadTemplate($template) {
     if (is_page(esc_attr(get_option('sad_mainpage_slug')))) {
-      return plugin_dir_path(__FILE__) . 'main_map_page_diane.php';
+      return plugin_dir_path(__FILE__) . '/template/main_page.php';
     }
     return $template;
   }
 
+
+  function load_post_Template($template) {
+    
+    return plugin_dir_path(__FILE__) . '/template/single_post.php';
+  }
+
+  
 
 
   /**

@@ -1,23 +1,16 @@
-<!-- How see php file in web browser 
-
-
-After installation of Lamp system in Ubuntu. Please follow the below two steps to run your php file.
-
-    Place your php file (.php) in /var/www/html/ (default path)
-    Please run url as localhost/withfilename.php
-
-Example : I have placed welcome.php file in the /var/www/html/welcome.php then url will be http://localhost/welcome.php
-
-
- -->
-
-
 <html>
 <head>
+
+	<meta charset="<?php bloginfo( 'charset' ); ?>">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" >
+
+	<!-- <link rel="profile" href="https://gmpg.org/xfn/11"> -->
+
+	<!-- wp_head() has all our dependency -->
+	<?php wp_head(); ?>
+
+</head>
 <title>Sinngrund Allianz Kulturdatenbank</title>
-<meta charset="utf-8">
-<script type="text/javascript" src="<?php echo plugin_dir_url( __FILE__ ) . '/node_modules/leaflet/dist/leaflet.js'?>"></script>
-<link rel="stylesheet" href="<?php echo plugin_dir_url( __FILE__ ) . '/node_modules/leaflet/dist/leaflet.css'?>" />
 <style type="text/css">
 html, body { width:100%;padding:0;margin:0; }
 
