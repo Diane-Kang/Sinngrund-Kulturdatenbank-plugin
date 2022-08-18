@@ -15,4 +15,6 @@
 	<!-- wp_head() has all our dependency -->
 	<?php wp_head(); ?>
     <script type="text/javascript" src="<?php echo plugin_dir_url( __FILE__ ) . 'main_page.js'?>"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
 </head>

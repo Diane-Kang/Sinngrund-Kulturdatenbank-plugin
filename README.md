@@ -10,11 +10,11 @@
         //////------------add Admin Menu----------------//
         add_action('admin_menu', array($this, 'adminPage'));
         add_action('admin_init', array($this, 'settings'));
-        
+    
           function adminPage() {
         add_options_page('Sinngrund Datenbank Setting', 'Sinngrund Ailianz', 'manage_options', 'sinngrund-datenbank-setting-page', array($this, 'ourHTML'));
       }
-        
+    
           //sad Sinngrund Allianz Datenbank
       function settings() {
         add_settings_section('sad_first_section', null, null, 'sinngrund-datenbank-setting-page');
@@ -25,7 +25,7 @@
         add_settings_field('wcp_headline', 'Headline Text', array($this, 'headlineHTML'), 'sinngrund-datenbank-setting-page', 'sad_first_section');
         register_setting('singrundallianzplugin', 'wcp_headline', array('sanitize_callback' => 'sanitize_text_field', 'default' => 'Post Statistics'));
       }
-        
+    
       function ourHTML() { ?>
         <div class="wrap">
           <h1>Sinngrund Allianz Datenbank Setting</h1>
@@ -41,92 +41,91 @@
           </form>
         </div>
       <?php }
-        
     ```
-    
-    
-  
-  - [x] Input text box for slug 
+
+- [x] Input text box for slug 
   
   ```php
-    function slug_inputHTML() { ?>
-        <p>Current main Page : <?php echo esc_attr(get_option('sad_mainpage_slug')) ?> </p>
-        new page slug
-        <input type="text" name="sad_mainpage_slug" value="<?php echo esc_attr(get_option('sad_mainpage_slug')) ?>">
-    <?php }
+  function slug_inputHTML() { ?>
+      <p>Current main Page : <?php echo esc_attr(get_option('sad_mainpage_slug')) ?> </p>
+      new page slug
+      <input type="text" name="sad_mainpage_slug" value="<?php echo esc_attr(get_option('sad_mainpage_slug')) ?>">
+  <?php }
+  ```
+
+- [x] check if the slug exist if not make a page 
   
   ```
-  
-  
-  
-  - [x] check if the slug exist if not make a page 
-  
-  ```
-    function the_slug_exists($post_name) {
-      global $wpdb;
-      if($wpdb->get_row("SELECT post_name FROM wp_posts WHERE post_name = '" . $post_name . "'", 'ARRAY_A')) {
-          return true;
-      } else {
-          return false;
-      }
+  function the_slug_exists($post_name) {
+    global $wpdb;
+    if($wpdb->get_row("SELECT post_name FROM wp_posts WHERE post_name = '" . $post_name . "'", 'ARRAY_A')) {
+        return true;
+    } else {
+        return false;
+    }
   }
   ```
-  
-  
-  
-  - [x] and make the page as a map(main) page 
+
+- [x] and make the page as a map(main) page 
   
   main_map_slug setting with input  
-  
+
 ```mermaid
 flowchart TB
 A[input-text]--trasfer slug-able text --> B[input-slug]
-B-->C[already exist?]--yes-->E[is it default slug?]
+B-->C[already exist?]--yes-->I[is it slug for main page?]--yes-->H[no changes]
+I--no-->E[is it default slug?]
+E--yes-->F[main_map use default slug]
 E--no-->D[Error note: we could not use this slug]--back to default-->F
-E--yes-->F[main_map_slug stay on default ]
-C--no-->G[Make a new page & set this page as main map page]
+C--no-->G[Make a new page with the slug <br> set this page as main map page]
 ```
-  
-  ```
-    function sanitize_slug($input) {
-  
-      $default_slug = 'sinngrund-kulturedatenbank-diane';
-      
-      $input = sanitize_title($input);
-      
-      if ($input == esc_attr(get_option('sad_mainpage_slug'))){
-        return $input;
-      }
-      else if ($this->the_slug_exists($input) && ($input != $default_slug)) {
-        $message = $input . ': this is already exsited as slug. Map page is now setted with default slug:'. $default_slug;
-        add_settings_error('sad_mainpage_slug', 'sad_mainpage_slug_error', $message);
-        return $default_slug;
-      }
-  
-      else if ($input != $default_slug) {
-             // Create post object
-          $my_post = array(
-            'post_title'    => $input,
-            'post_name'     => sanitize_title($input),
-            'post_status'   => 'publish',
-            'post_author'   => 1,
-            'post_type'     => 'page',
-          );
-      
-          // Insert the post into the database
-          wp_insert_post( $my_post );
-      }
+
+```
+  function sanitize_slug($input) {
+
+    $default_slug = 'sinngrund-kulturedatenbank-diane';
+
+    $input = sanitize_title($input);
+
+    if ($input == esc_attr(get_option('sad_mainpage_slug'))){
       return $input;
     }
-  ```
-  
-  
+    else if ($this->the_slug_exists($input) && ($input != $default_slug)) {
+      $message = $input . ': this is already exsited as slug. Map page is now setted with default slug:'. $default_slug;
+      add_settings_error('sad_mainpage_slug', 'sad_mainpage_slug_error', $message);
+      return $default_slug;
+    }
 
-- [ ] Main Page and Post Template
+    else if ($input != $default_slug) {
+           // Create post object
+        $my_post = array(
+          'post_title'    => $input,
+          'post_name'     => sanitize_title($input),
+          'post_status'   => 'publish',
+          'post_author'   => 1,
+          'post_type'     => 'page',
+        );
+
+        // Insert the post into the database
+        wp_insert_post( $my_post );
+    }
+    return $input;
+  }
+```
+
+## Main Page and Post Template
+
+- main Page template
   
-  - [ ] main Page template
+  - [x] Static html, category, map, search box, sort option box
+
+- post Page template
   
-  - [ ] post Page template
+  - [x] Static html, map, post content
+
+ 
+
+
 
 ## To-do (start from 15.Aug)
 

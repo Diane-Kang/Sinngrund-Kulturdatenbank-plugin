@@ -2,12 +2,10 @@
 
 async function get_geojson($endpoint) {
     let url = $endpoint;
-    let response = await fetch(url);
+    let response = await fetch(url)
     let json = await response.json();
     return json;
 }
-
-
 
 
 async function main() {
@@ -17,30 +15,6 @@ async function main() {
 
     const info_json_endpoint = '/wp-json/Sinngrund-Kulturdatenbank-plugin/infojson';
     const info_json = await get_geojson(info_json_endpoint);
-
-    // jQuery(document).ready(function() {
-    //     jQuery.ajax({
-    //       type: "GET",
-    //       url: '/wp-json/Sinngrund-Kulturdatenbank-plugin/geojson',
-    //       dataType: 'json',
-    //         error: function() {
-    //         alert( 'Unable to load tabs.' );
-    //       },
-    //       success: function(data) {
-    //         data.features.forEach(feature => {
-    //         //jQuery.each(data, function(i){
-    //           var tapahtumaTab = '<a href="#tapahtuma-' + feature.properties.name + '" data-toggle="tab"><p>' + feature.properties.name + '</p></a>';
-
-    //           jQuery('<p>', {html: tapahtumaTab}).appendTo('#datenbank_list');
-
-    //         })
-    //       }
-    //     });
-    //   });
-
-
-
-
 
     // const map = L.map('map', scrollWheelZoom = false, keyboard = false, zoomControl = false)
     // .setView(info_json.map_center, 12);
@@ -54,7 +28,15 @@ async function main() {
 
 	const map = L.map('map', options);
 
-    var group_abschaltung_all= L.layerGroup();
+function centerLeafletMapOnMarker(marker) {
+    var latLngs = [ marker.getLatLng() ];
+    var markerBounds = L.latLngBounds(latLngs);
+    map.fitBounds(markerBounds);
+    map.setZoom(13.5);
+    marker.openPopup();
+}
+
+var group_abschaltung_all= L.layerGroup();
 
 function save_layerId_in_html(markers, option_name='post_id'){
     markers.eachLayer(marker => {
@@ -126,9 +108,6 @@ function build_link (map, markers){
 
     json_w_geocode.features.forEach(feature => {
 
-        var tapahtumaTab = '<a href="#tapahtuma-' + feature.properties.name + '" data-toggle="tab"><p>' + feature.properties.name + '</p></a>';
-        jQuery('<p>', {html: tapahtumaTab}).appendTo('#datenbank_list');
-
         let popuptext = "<a href ='#' target=\"_blank\">" + feature.properties.name + "</a>";
         // if (feature.filter.abschaltung.slug == "nicht-vorhanden") {
         //     popuptext = popuptext+ "<p class='" + feature.filter.abschaltung.slug + "'>" + "<span>Seit jeher kein Werbelicht vorhanden</span></p>";
@@ -168,12 +147,9 @@ function build_link (map, markers){
 
     })
     group_abschaltung_all.addTo(map);
-    //console.log(group_abschaltung_all);
-    //save_layerId_in_html(group_abschaltung_all);
-    //build_link(map, group_abschaltung_all);
-
-
-
+    console.log(group_abschaltung_all);
+    save_layerId_in_html(group_abschaltung_all);
+    build_link(map, group_abschaltung_all);
 
 }
 main();
