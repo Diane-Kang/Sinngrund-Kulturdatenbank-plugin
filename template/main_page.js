@@ -7,6 +7,7 @@ async function get_geojson($endpoint) {
     return json;
 }
 
+
 async function main() {
 
     const geojson_endpoint = '/wp-json/Sinngrund-Kulturdatenbank-plugin/geojson';
@@ -26,6 +27,46 @@ async function main() {
 	}
 
 	const map = L.map('map', options);
+
+function centerLeafletMapOnMarker(marker) {
+    var latLngs = [ marker.getLatLng() ];
+    var markerBounds = L.latLngBounds(latLngs);
+    map.fitBounds(markerBounds);
+    map.setZoom(13.5);
+    marker.openPopup();
+}
+
+var group_abschaltung_all= L.layerGroup();
+
+function save_layerId_in_html(markers, option_name='post_id'){
+    markers.eachLayer(marker => {
+        var post_id = marker['options'][option_name];
+        var map_id = markers.getLayerId(marker);
+        document.getElementById('map_id_'+post_id).setAttribute('value',map_id)
+    })
+}
+
+function build_link (map, markers){
+    const divs = document.querySelectorAll('.map_link_point');
+
+    divs.forEach(el => el.addEventListener('click', event => {
+
+        let map_id = parseInt(event.target.getAttribute("value"));
+        console.log(map_id);
+        var marker = markers.getLayer(map_id);
+        console.log(marker.getLatLng());
+        var markerBounds = L.latLngBounds([marker.getLatLng()]);
+        //console.log(markerBounds);
+        map.fitBounds(markerBounds);
+        map.setZoom(13.5);
+        marker.openPopup();
+        //console.log(event);
+        //centerLeafletMapOnMarker(map, marker);
+    }))
+}
+
+    
+
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
@@ -77,15 +118,19 @@ async function main() {
 
         let category = feature.taxonomy.category[0].name;
         let Icon_name = category_icon_array[category];
-        let marker_option = {icon:Icon_name}
+        let marker_option = {
+            icon:Icon_name,
+            name: feature.properties.name,
+            post_id: feature.properties.post_id}
 
         let marker = L.marker([
             feature.geometry.coordinates[1],
             feature.geometry.coordinates[0],
-        ], marker_option).addTo(map);
+        ], marker_option);
         
         //console.log(marker);
         marker.bindPopup(popuptext);
+        
 
         // //dynamic
         // let abschaltung_slug = feature.filter.abschaltung.slug;
@@ -96,11 +141,15 @@ async function main() {
         // //console.log('marker.addTo(group_' +  abschaltung_slug_unter + ');');
         // //eval('marker.addTo(group_' +  abschaltung_slug_unter + ');');
         // marker.addTo(group_abschaltung_uhrzeit);
-        // marker.addTo(group_abschaltung_all);
+        marker.addTo(group_abschaltung_all);
 
 
 
     })
+    group_abschaltung_all.addTo(map);
+    console.log(group_abschaltung_all);
+    save_layerId_in_html(group_abschaltung_all);
+    build_link(map, group_abschaltung_all);
 
 }
 main();
