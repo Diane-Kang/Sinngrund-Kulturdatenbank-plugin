@@ -16,34 +16,6 @@ async function main() {
     const info_json_endpoint = '/wp-json/Sinngrund-Kulturdatenbank-plugin/infojson';
     const info_json = await get_geojson(info_json_endpoint);
 
-    //var datenbank_single_entry = document.getElementsByClassName("datenbank_single_entry");
-    //for (i = 0; i < all_unternehmen.length; i++) all_unternehmen[i].style.display = 'flex';
-
-    jQuery(":checkbox").change(function() {
-            let text = '';
-            var index = 0;
-            var checkedArray=[];
-            var checkboxes = document.getElementsByName('kategory_filter');
-            while (index < checkboxes.length ) {
-                let target_class = 'category_'+checkboxes[index].value;
-                let current_category = document.getElementsByClassName(target_class);
-                if (checkboxes[index].checked) {
-                    
-                    for (i = 0; i < current_category.length; i++) current_category[i].style.display = 'block';
-                    
-                    text = text + checkboxes[index].value +' / ';
-                    checkedArray.push(checkboxes[index].value);
-                }else {
-
-                    for (i = 0; i < current_category.length; i++) current_category[i].style.display = 'none';
-
-                };
-		        ++index;
-            }
-        console.log(checkedArray);
-    });
-    //------------------------ Marker and List initialized --------------------------------------------//
-
 	var options = {
  	center: info_json.map_center,
 	zoomSnap: 0.1,
@@ -109,28 +81,6 @@ async function main() {
         let category = feature.taxonomy.category.name;
         let category_shortname = feature.taxonomy.category.shortname
         let Icon_filename = category_icon_array2[category];
-
-
-
-        // var tapahtumaTab = '<a href="#tapahtuma-' + feature.properties.name + '" data-toggle="tab"><p>' + feature.properties.name + '</p></a>';
-        // jQuery('<p>', {html: tapahtumaTab}).appendTo('#datenbank_list');
-
-        function createListItem({post_id, title,category_name, category_shortname}) {
-            let htmltext = '<div class="datenbank_single_entry map_link_point category_'+ category_shortname+'" id="map_id_' +post_id + '" category="'+category_shortname +'">'
-                            +'<div class="entry_title">'+ title +'</div>'
-                            +'<div class="entry_category"><img style="height: 20px; width: 20px; margin-right: 2px;" src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/'+Icon_filename+'.png"/>'+category_name+'</div>'
-                          +'</div>';
-            return htmltext;
-          }
-          
-          const datenbank_list = document.querySelector('#datenbank_list');
-          
-          datenbank_list.insertAdjacentHTML('beforeend', createListItem({
-            post_id: feature.id,
-            title: feature.properties.name, 
-            category_name: category, 
-            category_shortname: category_shortname
-          }));
 
         let Icon_name = category_icon_array[category];
         let popuptext = "<a href ='#' target=\"_blank\">" + feature.properties.name + "</a>";

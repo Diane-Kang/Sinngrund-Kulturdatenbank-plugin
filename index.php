@@ -65,12 +65,25 @@ class SinngrundKultureBank {
     //add_action('admin_head', array($this,'insert_main_map_page')
     //add_filter( 'page_template', array($this,'main_map_page_from_php') );
 
-
   
+    add_filter('manage_posts_columns', array($this, 'custom_posts_table_head'));
+    add_action( 'manage_posts_custom_column', array($this, 'bs_projects_table_content'), 10, 2);
+
   }
 
+  function custom_posts_table_head( $columns ) {
+    $columns['geocode'] = 'geocode';
+    return $columns;
+  }
 
-
+  function bs_projects_table_content($name, $post_id) {
+    switch ($name) {
+        case 'geocode':
+            $geocode .= get_post_meta( $post_id , 'latitude' , true ) .'<br>' . get_post_meta( $post_id , 'longitude' , true );
+            echo $geocode;
+            break;
+    }
+}
 
 
   function remove_admin_login_header() {
@@ -272,12 +285,25 @@ class SinngrundKultureBank {
     ) );
   }
 
+  
+
+
   function geojson_generator() {
     $post_type_query = new WP_Query(array(
         'post_type' => 'post'
     ));
 
     $post_type_query_geojson = array();
+
+    $category_shortname_array = array(
+      "Brauchtum und Veranstaltungen" => "brauchtum",
+      "Gemeinden"                     => "gemeinden", 
+      "Kulturelle Sehenswürdigkeiten" => "kulturelle",
+      "Point of Interest"             => "interest", 
+      "Sagen + Legenden"              => "sagen",
+      "Sprache und Dialekt"           => "sprache",
+      "Thementouren"                  => "themen"
+    );
 
     while ($post_type_query->have_posts()) {
         $post_type_query->the_post();
@@ -317,8 +343,16 @@ class SinngrundKultureBank {
                 'url' => get_permalink()
             ),
             'taxonomy'=>array(
-                'category'=>  get_the_category()
-            )            
+                'category'=>array(
+                    'term_id'   => get_the_category()[0]->term_id,
+                    'name'      => get_the_category()[0]->name,
+                    'slug'      => get_the_category()[0]->slug, 
+                    'shortname' => $category_shortname_array[get_the_category()[0]->name],
+                    'icon_name' => $category_shortname_array[get_the_category()[0]->name].'.png'
+                ) 
+            ),
+            'reference'=> get_the_category()
+
             // 'filter'=> array(
             //     'werbebeleuchtung' => $werbebeleuchtung_jn,
             //     'abschaltung' => $uhrzeit
@@ -366,8 +400,10 @@ class SinngrundKultureBank {
 
 
   function load_post_Template($template) {
-    
-    return plugin_dir_path(__FILE__) . '/template/single_post.php';
+    if (is_single()) {
+      return plugin_dir_path(__FILE__) . '/template/single_post.php';
+    }
+    return $template;
   }
 
   

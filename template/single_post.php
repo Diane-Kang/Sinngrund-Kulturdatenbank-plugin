@@ -1,6 +1,6 @@
 <html style="margin-top: 0 !important;" class="no-js" <?php language_attributes(); ?>>
 <?php wp_head(); ?>
-<script type="text/javascript" src="<?php echo plugin_dir_url( __FILE__ ) . 'main_page.js'?>"></script>
+<script type="text/javascript" src="<?php echo plugin_dir_url( __FILE__ ) . 'single_post.js'?>"></script>
 <style type="text/css">
 #map { width:30%;height:100%;padding:0;margin:0; float:left;}
 
@@ -42,30 +42,12 @@
 }
 
 
-.datenbank_list{
+.post_content{
 	height: 90vh;
 	overflow-y: scroll;
 margin: 5% 2% 5% 2%;
 }
 
-.datenbank_single_entry{
-	
-  background-color:  #ccebff ;
-
-  padding-left: 10px;
-  padding-bottom: 10px;
-  margin-top: 0px;
-  padding-top: 5px;
-  border-top-width: 1px;
-  border-top-style: solid;
-  border-left-width: 1px;
-  border-left-style: solid;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-right-width: 1px;
-  border-right-style: solid;
-  padding-right: 10px;
-}
 </style>
 <body>
 	<div calss="main_block" id="map"></div>
@@ -78,14 +60,14 @@ margin: 5% 2% 5% 2%;
 		
 		$string = ""; // html string
 		
-		$string .= '<div class="datenbank_list_block">';
+		$string .= '<div class="post_content_block">';
 
-		  $string .= '<div class="datenbank_list">';
+		  $string .= '<div class="post_content">';
 
 		  $string .= '<h3>'.get_the_title().'</h3>';
 		  $string .= get_the_content();
 
-		  $string .= '</div>'; // closeing class datenbank_list
+		  $string .= '</div>'; // closeing class post_content
 		
 		
 		wp_reset_postdata();

@@ -10,6 +10,15 @@
 		<div id="checkboxes">
 
 		<?php  
+		$category_shortname_array = array(
+				"Brauchtum und Veranstaltungen" => "brauchtum",
+				"Gemeinden"                     => "gemeinden", 
+				"Kulturelle Sehenswürdigkeiten" => "kulturelle",
+				"Point of Interest"             => "interest", 
+				"Sagen + Legenden"              => "sagen",
+				"Sprache und Dialekt"           => "sprache",
+				"Thementouren"                  => "themen"
+			  );
 		
 		$category_icon_array = array(
 			"Brauchtum und Veranstaltungen" => "brauchtum.png",
@@ -23,9 +32,10 @@
 
 
 		foreach ($category_icon_array as $name => $icon)  {
+			$category_shortname = $category_shortname_array[$name];
 			$category_icon = $category_icon_array[$name];
 			$category_icon_src = '/wp-content/plug	ins/Sinngrund-Kulturdatenbank-plugin/icons/'. $category_icon;
-            echo '<input type="checkbox"><img style="height: 20px; width: 20px; margin-right: 2px;"  src="'.$category_icon_src.'"/>'. $name . '<br />';
+            echo '<input type="checkbox" value="'.$category_shortname.'" name="kategory_filter" checked="true"><img style="height: 20px; width: 20px; margin-right: 2px;"  src="'.$category_icon_src.'"/>'. $name . '<br />';
         }
 		
 		?>
