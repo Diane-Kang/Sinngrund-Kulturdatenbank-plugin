@@ -1,5 +1,3 @@
-
-
 async function get_geojson($endpoint) {
     let url = $endpoint;
     let response = await fetch(url);
@@ -19,30 +17,7 @@ async function main() {
     //var datenbank_single_entry = document.getElementsByClassName("datenbank_single_entry");
     //for (i = 0; i < all_unternehmen.length; i++) all_unternehmen[i].style.display = 'flex';
 
-    jQuery(":checkbox").change(function() {
-            let text = '';
-            var index = 0;
-            var checkedArray=[];
-            var checkboxes = document.getElementsByName('kategory_filter');
-            while (index < checkboxes.length ) {
-                let target_class = 'category_'+checkboxes[index].value;
-                let current_category = document.getElementsByClassName(target_class);
-                if (checkboxes[index].checked) {
-                    
-                    for (i = 0; i < current_category.length; i++) current_category[i].style.display = 'block';
-                    
-                    text = text + checkboxes[index].value +' / ';
-                    checkedArray.push(checkboxes[index].value);
-                }else {
-
-                    for (i = 0; i < current_category.length; i++) current_category[i].style.display = 'none';
-
-                };
-		        ++index;
-            }
-        console.log(checkedArray);
-    });
-    //------------------------ Marker and List initialized --------------------------------------------//
+    //------------------------Map initialized --------------------------------------------//
 
 	var options = {
  	center: info_json.map_center,
@@ -62,53 +37,74 @@ async function main() {
     	position: 'bottomright'
 	}).addTo(map);
 
-
-    var group_abschaltung_all= L.layerGroup();
-
-    //------------------------ Marker and List initialized --------------------------------------------//
+    //------------------------ Icon & Layergroup by category initialized --------------------------------------------//
     //php directory url, start with ".", javascript start with nothing
     var icons_loc = info_json.icons_directory.replace(".", "");
-
-    for (let [key, value] of Object.entries(info_json.icons)) {
-        let icon_file = value;
+    var category_icon_array  = {};
+    var category_layergroup_array  = {};
+    for (let [category_name, shortname] of Object.entries(info_json.icons)) {
+        let icon_file = shortname +'.png';
         let option_array = {
             iconUrl:icons_loc+ '/' +icon_file,
             iconSize: [20, 20]
         };
-        let icon_name = icon_file.replace(".png", "");
-        eval('var Icon_' + icon_name + '= L.icon(option_array)');
-    }   // variable all defined Icon_brauchtum, Icon_gemeinden, Icon_interest, Icon_kulturelle, Icon_sagen, Icon_sprache,Icon_themen, Icon_star
+        console.log(option_array['iconUrl']);
+        eval('var Icon_' + shortname + '= L.icon(option_array)'+ ';');
+        eval('category_icon_array["'+ category_name + '"] = Icon_' + shortname+ ';');
+        eval('var group_' + shortname + '= L.layerGroup();');
+        eval('category_layergroup_array["'+ category_name + '"] = group_' + shortname+ ';');
 
+    }
+    
+    var group_all= L.layerGroup();
+    var mcgLayerSupportGroup_auto = L.markerClusterGroup.layerSupport({maxClusterRadius:function (mapZoom) {
+                                                                                            if (mapZoom > 13) {
+                                                                                                return 5;
+                                                                                            } else {
+                                                                                                return 20;
+                                                                                            }
+                                                                                        },
+                                                                        });
 
-    var marker_option = {name: 'center', icon: Icon_star, title: 'T Center'};
-    var centmarker = L.marker(info_json.map_center, marker_option).addTo(map)
+    // L.markerClusterGroup({
+    //     chunkedLoading: true,
+        // maxClusterRadius: function (mapZoom) {
+        //     if (mapZoom > 9) {
+        //         return 20;
+        //     } else {
+        //         return 80;
+        //     }
+        // },
+    // });
+    
+    //var mcgLayerSupportGroup_auto = L.markerClusterGroup();
 
-    var category_icon_array ={
-                        "Brauchtum und Veranstaltungen" :Icon_brauchtum,
-                        "Gemeinden"                     :Icon_gemeinden, 
-                        "Kulturelle Sehenswürdigkeiten" :Icon_kulturelle,
-                        "Point of Interest"             :Icon_interest, 
-                        "Sagen + Legenden"              :Icon_sagen,
-                        "Sprache und Dialekt"           :Icon_sprache,
-                        "Thementouren"                  :Icon_themen
-                    };
+    
+    console.log(category_layergroup_array);
+    // variables defined 
+    //Icon_brauchtum, Icon_gemeinden, Icon_interest, Icon_kulturelle, Icon_sagen, Icon_sprache,Icon_themen
+    //group_brauchtum, group_gemeinden, group_interest, group_kulturelle, group_sagen, group_sprache,group_themen
 
-    var category_icon_array2 ={
-                        "Brauchtum und Veranstaltungen" :"brauchtum",
-                        "Gemeinden"                     :"gemeinden", 
-                        "Kulturelle Sehenswürdigkeiten" :"kulturelle",
-                        "Point of Interest"             :"interest", 
-                        "Sagen + Legenden"              :"sagen",
-                        "Sprache und Dialekt"           :"sprache",
-                        "Thementouren"                  :"themen"
-                    };
-  
+    // var category_icon_array ={
+    //                     "Brauchtum und Veranstaltungen" :Icon_brauchtum,
+    //                     "Gemeinden"                     :Icon_gemeinden, 
+    //                     "Kulturelle Sehenswürdigkeiten" :Icon_kulturelle,
+    //                     "Point of Interest"             :Icon_interest, 
+    //                     "Sagen + Legenden"              :Icon_sagen,
+    //                     "Sprache und Dialekt"           :Icon_sprache,
+    //                     "Thementouren"                  :Icon_themen
+    //                 };
+
+    //var category_shortname_array = info_json.icons;
+    //console.log(category_shortname_array);
+    
+
 
     json_w_geocode.features.forEach(feature => {
 
         let category = feature.taxonomy.category.name;
-        let category_shortname = feature.taxonomy.category.shortname
-        let Icon_filename = category_icon_array2[category];
+        let category_shortname = feature.taxonomy.category.shortname;
+        //let Icon_filename = category_shortname_array[category];
 
 
 
@@ -118,19 +114,19 @@ async function main() {
         function createListItem({post_id, title,category_name, category_shortname}) {
             let htmltext = '<div class="datenbank_single_entry map_link_point category_'+ category_shortname+'" id="map_id_' +post_id + '" category="'+category_shortname +'">'
                             +'<div class="entry_title">'+ title +'</div>'
-                            +'<div class="entry_category"><img style="height: 20px; width: 20px; margin-right: 2px;" src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/'+Icon_filename+'.png"/>'+category_name+'</div>'
+                            +'<div class="entry_category"><img style="height: 20px; width: 20px; margin-right: 2px;" src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/'+category_shortname+'.png"/>'+category_name+'</div>'
                           +'</div>';
             return htmltext;
-          }
+        }
           
-          const datenbank_list = document.querySelector('#datenbank_list');
-          
-          datenbank_list.insertAdjacentHTML('beforeend', createListItem({
-            post_id: feature.id,
-            title: feature.properties.name, 
-            category_name: category, 
-            category_shortname: category_shortname
-          }));
+        const datenbank_list = document.querySelector('#datenbank_list');
+        
+        datenbank_list.insertAdjacentHTML('beforeend', createListItem({
+        post_id: feature.id,
+        title: feature.properties.name, 
+        category_name: category, 
+        category_shortname: category_shortname
+        }));
 
         let Icon_name = category_icon_array[category];
         let popuptext = "<a href ='#' target=\"_blank\">" + feature.properties.name + "</a>";
@@ -156,17 +152,23 @@ async function main() {
         // let group_abschaltung_uhrzeit = window[temp_string];
 
         // //console.log('marker.addTo(group_' +  abschaltung_slug_unter + ');');
-        // //eval('marker.addTo(group_' +  abschaltung_slug_unter + ');');
+        
         // marker.addTo(group_abschaltung_uhrzeit);
-        marker.addTo(group_abschaltung_all);
+        eval('marker.addTo(group_' +  category_shortname + ');');
+        marker.addTo(group_all);
 
 
 
     })
-    group_abschaltung_all.addTo(map);
-    //console.log(group_abschaltung_all);
-    //save_layerId_in_html(group_abschaltung_all);
-    //build_link(map, group_abschaltung_all);
+
+    mcgLayerSupportGroup_auto.addTo(map);
+    mcgLayerSupportGroup_auto.checkIn(group_all);
+    group_all.addTo(map);
+
+    
+    //console.log(group_all);
+    save_layerId_in_html(group_all);
+    build_link(map, group_all);
 
 
     function save_layerId_in_html(markers, option_name='post_id'){
@@ -188,17 +190,41 @@ async function main() {
             console.log(marker.getLatLng());
             var markerBounds = L.latLngBounds([marker.getLatLng()]);
             //console.log(markerBounds);
-            map.fitBounds(markerBounds);
-            map.setZoom(13.5);
+            // map.fitBounds(markerBounds);
+            map.setZoom(14);
+            map.flyTo(marker.getLatLng(), 14);    
             marker.openPopup();
-            //console.log(event);
-            //centerLeafletMapOnMarker(map, marker);
         }))
     }
         
 
 
+    jQuery(":checkbox").change(function() {
+        let text = '';
+        var index = 0;
+        var checkedArray=[];
+        var checkboxes = document.getElementsByName('kategory_filter');
+        mcgLayerSupportGroup_auto["removeLayer"]([group_all]);
+        
 
+        while (index < checkboxes.length ) {
+            let target_class = 'category_'+checkboxes[index].value;
+            let current_category = document.getElementsByClassName(target_class);
+            if (checkboxes[index].checked) {
+                for (i = 0; i < current_category.length; i++) current_category[i].style.display = 'block';
+                text = text + checkboxes[index].value +' / ';
+                checkedArray.push(checkboxes[index].value);
+                eval('mcgLayerSupportGroup_auto["addLayer"](group_'+checkboxes[index].value+');');
+
+            }else {
+
+                for (i = 0; i < current_category.length; i++) current_category[i].style.display = 'none';
+
+            };
+            ++index;
+        }
+    console.log(checkedArray);
+    });
 
 
 

@@ -45,7 +45,7 @@
 .post_content{
 	height: 90vh;
 	overflow-y: scroll;
-margin: 5% 2% 5% 2%;
+margin: 5% 2% 0% 2%;
 }
 
 </style>
