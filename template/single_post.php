@@ -49,7 +49,9 @@ margin: 5% 2% 5% 2%;
 }
 
 </style>
-<body>
+<body <?php body_class(); ?> >
+<div id="current_post_id" value="<?php echo get_the_ID(); ?>"></div>
+
 	<div calss="main_block" id="map"></div>
  
   <div class="main_block" id="side_bar">

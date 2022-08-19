@@ -1,3 +1,4 @@
+// For single_post.php //
 
 
 async function get_geojson($endpoint) {
@@ -16,10 +17,13 @@ async function main() {
     const info_json_endpoint = '/wp-json/Sinngrund-Kulturdatenbank-plugin/infojson';
     const info_json = await get_geojson(info_json_endpoint);
 
+    // Map initialize
+
+    //var map_center = json_w_geocode;
 	var options = {
  	center: info_json.map_center,
 	zoomSnap: 0.1,
- 	zoom: 12.5,
+ 	zoom: 14,
 	zoomControl: false
 	}
 
@@ -35,10 +39,10 @@ async function main() {
 	}).addTo(map);
 
 
-    var group_abschaltung_all= L.layerGroup();
 
     //------------------------ Marker and List initialized --------------------------------------------//
     //php directory url, start with ".", javascript start with nothing
+    var group_abschaltung_all= L.layerGroup();
     var icons_loc = info_json.icons_directory.replace(".", "");
 
     for (let [key, value] of Object.entries(info_json.icons)) {
@@ -119,38 +123,30 @@ async function main() {
     //build_link(map, group_abschaltung_all);
 
 
-    function save_layerId_in_html(markers, option_name='post_id'){
+
+
+    var current_postid = document.getElementById('current_post_id').getAttribute('value');
+    console.log(current_postid);
+    find_marker_by_post_id(group_abschaltung_all, current_postid);
+
+
+    function find_marker_by_post_id(markers, post_id){
+        console.log(markers);
         markers.eachLayer(marker => {
-            var post_id = marker['options'][option_name];
-            var map_id = markers.getLayerId(marker);
-            document.getElementById('map_id_'+post_id).setAttribute('value',map_id)
+            if (post_id == marker['options']['post_id']){
+                var map_id = markers.getLayerId(marker);
+                console.log(map_id);
+                console.log(markers.getLayer(map_id));
+                var marker = markers.getLayer(map_id);
+                var markerBounds = L.latLngBounds([marker.getLatLng()]);
+                //console.log(markerBounds);
+                map.fitBounds(markerBounds);
+                map.setZoom(13.5);
+                marker.openPopup();
+            };
         })
     }
-    
-    function build_link (map, markers){
-        const divs = document.querySelectorAll('.map_link_point');
-    
-        divs.forEach(el => el.addEventListener('click', event => {
-    
-            let map_id = parseInt(event.target.getAttribute("value"));
-            console.log(map_id);
-            var marker = markers.getLayer(map_id);
-            console.log(marker.getLatLng());
-            var markerBounds = L.latLngBounds([marker.getLatLng()]);
-            //console.log(markerBounds);
-            map.fitBounds(markerBounds);
-            map.setZoom(13.5);
-            marker.openPopup();
-            //console.log(event);
-            //centerLeafletMapOnMarker(map, marker);
-        }))
-    }
-        
 
 
-
-
-
-
-}
+}// Main closing 
 main();

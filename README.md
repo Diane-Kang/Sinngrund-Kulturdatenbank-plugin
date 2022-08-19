@@ -1,3 +1,69 @@
+## Functions in Bedarf
+
+    bezeichnet sich auf Checkbox im folgenden Abschnitt
+
+- [ ] Muss erledigen 
+
+- [ ] ? brauchen? 
+
+- [ ]  !?! Mehr Information benötigen 
+
+## funktionierende Funktionen
+
+- Admin menu 
+  
+  - Einstellungen -> Sinngrund
+    
+    - Main Page Slug eingeben: mehr Information unter **Admin Setting: make the page as a map(main) page**
+    
+    - Main Page Center eingeben
+  
+  - Beiträge 
+    
+    - Neu Spalte(geocode) für Postlist-tabelle
+    
+    - [ ] Neu Kategorien: Region z.B. Burgsinn Mittelsinn u.s.w 
+
+- Beiträge Erstellen  
+  
+  - Geocode Eingeben Block 
+    
+    - Manuelle (direct eingeben)
+    
+    - Adresse Suchen (use it button)
+    
+    - Marker auf der Karte ziehen 
+    
+    - [ ] Ohne Geocode kann man nicht veröffentlichen oder aktualisieren 
+    
+    - [ ] ? Ohne Kategorie kann man nicht veröffentlichen oder aktualisieren
+    
+    - [ ] Nur einige Blocks erlaubt
+
+- Seiten Erstellen 
+  
+  - Main map page 
+    
+    Automatisch erstellt wird aus Einstellungen -> Sinngrund 
+  
+  - [ ] !?!  Medien Seit
+
+- Main map page 
+  
+  - 
+
+## Important notice
+
+- each Post need proper geocode! -> later it will not be alowed to publish without gecode
+
+Main Page filter<- different marker group defined 
+
+- markergroup setting by category 
+  
+  Post: category
+  
+  category:short name +png : Icon name 
+
 ## Custom Template
 
     For map page and Post page, with target slug
@@ -66,8 +132,8 @@
   }
   ```
 
-- [x] and make the page as a map(main) page 
-  
+### Admin Setting: make the page as a map(main) page
+
   main_map_slug setting with input  
 
 ```mermaid
@@ -115,6 +181,38 @@ C--no-->G[Make a new page with the slug <br> set this page as main map page]
 
 ## Main Page and Post Template
 
+```mermaid
+classDiagram
+    Wp Setting --|> infoJson 
+    WP post --|> geoJson
+    geoJson --|> Marker
+    WP post --|> EntryList
+    EntryList --|> saveLayerIDinHTML
+    Marker --|>saveLayerIDinHTML
+    WP post : +int post_id
+    WP post : +int post_geocode
+    WP post : +String category
+
+    class Marker{
+        +leaflet layer_id
+        +post_id
+    }
+
+    class saveLayerIDinHTML{
+        +div_Linkpoint .Post_id value: layer_id
+        +callMarker(Post_id) getMarker(layer_id)
+    }
+    class EntryList{
+        +div_Linkpoint .Post_id 
+    }
+```
+
+```mermaid
+flowchart TB
+A[WP post]-->B[geojson]--leaflet-->D[map marker<br>markerpopup]
+A-->C[WP database]-->E[Entry List]
+```
+
 - main Page template
   
   - [x] Static html, category, map, search box, sort option box
@@ -122,10 +220,6 @@ C--no-->G[Make a new page with the slug <br> set this page as main map page]
 - post Page template
   
   - [x] Static html, map, post content
-
- 
-
-
 
 ## To-do (start from 15.Aug)
 
