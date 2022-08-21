@@ -7,33 +7,23 @@
   <div class="main_block" id="side_bar">
 
 		<p>Kategory</p>
-		<div id="checkboxes">
+		<div id="checkboxes"><!--div id checkboxes  -->
 
 		<?php  
-		$category_shortname_array = array(
-				"Brauchtum und Veranstaltungen" => "brauchtum",
-				"Gemeinden"                     => "gemeinden", 
-				"Kulturelle Sehenswürdigkeiten" => "kulturelle",
-				"Point of Interest"             => "interest", 
-				"Sagen + Legenden"              => "sagen",
-				"Sprache und Dialekt"           => "sprache",
-				"Thementouren"                  => "themen"
-			  );
-		
-		$category_icon_array = array(
-			"Brauchtum und Veranstaltungen" => "brauchtum.png",
-			"Gemeinden"                     => "gemeinden.png", 
-			"Kulturelle Sehenswürdigkeiten" => "kulturelle.png",
-			"Point of Interest"             => "interest.png", 
-			"Sagen + Legenden"              => "sagen.png",
-			"Sprache und Dialekt"           => "sprache.png",
-			"Thementouren"                  => "themen.png"
-		  );
+		$category_shortname_array = $sinngrundKultureBank::category_shortname_array();
+		// $category_shortname_array = array(
+		// 		"Brauchtum und Veranstaltungen" => "brauchtum",
+		// 		"Gemeinden"                     => "gemeinden", 
+		// 		"Kulturelle Sehenswürdigkeiten" => "kulturelle",
+		// 		"Point of Interest"             => "interest", 
+		// 		"Sagen + Legenden"              => "sagen",
+		// 		"Sprache und Dialekt"           => "sprache",
+		// 		"Thementouren"                  => "themen"
+		// 	  );
 
-
-		foreach ($category_icon_array as $name => $icon)  {
+		foreach ($category_shortname_array as $name => $shortname)  {
 			$category_shortname = $category_shortname_array[$name];
-			$category_icon = $category_icon_array[$name];
+			$category_icon = $category_shortname_array[$name].'.png';
 			$category_icon_src = '/wp-content/plug	ins/Sinngrund-Kulturdatenbank-plugin/icons/'. $category_icon;
             echo '<input type="checkbox" value="'.$category_shortname.'" name="kategory_filter" checked="true"><img style="height: 20px; width: 20px; margin-right: 2px;"  src="'.$category_icon_src.'"/>'. $name . '<br />';
         }
@@ -45,8 +35,8 @@
 			such nach 
 			<select  name="uhrzeit" id="abschaltung_uhrzeit">
 			<option value="0" selected >Aktuellst zuerst</option>
-			<option value="1" selected >Title:Alpabet?</option>
-			<option value="2" selected >Author:Alphabet</option>
+			<option value="1" >Title:Alpabet?</option>
+			<option value="2" >Author:Alphabet</option>
 			</select>
 		</div>
 

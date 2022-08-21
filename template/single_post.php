@@ -1,6 +1,6 @@
 <html style="margin-top: 0 !important;" class="no-js" <?php language_attributes(); ?>>
 <?php wp_head(); ?>
-<script type="text/javascript" src="<?php echo plugin_dir_url( __FILE__ ) . 'single_post.js'?>"></script>
+<!-- <script type="text/javascript" src="<?php echo plugin_dir_url( __FILE__ ) . 'single_post.js'?>"></script> -->
 <style type="text/css">
 #map { width:30%;height:100%;padding:0;margin:0; float:left;}
 

@@ -1,3 +1,5 @@
+# Plugin Overview
+
 ## Functions in Bedarf
 
     bezeichnet sich auf Checkbox im folgenden Abschnitt
@@ -6,7 +8,19 @@
 
 - [ ] ? brauchen? 
 
-- [ ]  !?! Mehr Information benötigen 
+- [ ] !?! Mehr Information benötigen 
+
+- [ ] **More information from Design nötwendig**
+  
+  - [ ] Icon 
+  
+  - [ ] Size of the Icon 
+  
+  - [ ] Easy way to get the length/relativ length of everything 
+  
+  - [ ] Font!
+  
+  - [ ] 
 
 ## funktionierende Funktionen
 
@@ -22,7 +36,7 @@
     
     - Neu Spalte(geocode) für Postlist-tabelle
     
-    - [ ] Neu Kategorien: Region z.B. Burgsinn Mittelsinn u.s.w 
+    - [ ] ?Neu Kategorien: Region z.B. Burgsinn Mittelsinn u.s.w 
 
 - Beiträge Erstellen  
   
@@ -48,9 +62,37 @@
   
   - [ ] !?!  Medien Seit
 
-- Main map page 
+- Main map page: Frontend 
   
-  - 
+  - Map with marker and category icon 
+  
+  - category filter 
+  
+  - post list 
+    
+    - category filter 
+    
+    - sort option 
+    
+    - [ ] ?!? search 
+      
+      search nach 
+    
+    - Click entry list 
+      
+      - Active the marker (zoomIn & Popup)
+      
+      - Eintrag ansehen button 
+        
+        **Here console shows error. But working**
+
+- Beitrag: Frontend  
+  
+  - Link Map mit Marker Zoom In 
+  
+  - Recht Content
+    
+    - [ ] Design? 
 
 ## Important notice
 
@@ -60,9 +102,11 @@ Main Page filter<- different marker group defined
 
 - markergroup setting by category 
   
-  Post: category
+  - **category and its short name array need be modified when there is changes of category names**
   
-  category:short name +png : Icon name 
+  - at Index.php - category_shortname_array()
+
+# Develop note
 
 ## Custom Template
 

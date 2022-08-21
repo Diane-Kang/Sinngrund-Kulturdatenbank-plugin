@@ -43,10 +43,11 @@ class SinngrundKultureBank {
 
 
     //---------------Frontend---------------- 
+    add_action( 'wp_enqueue_scripts', array($this,'jquery_dependency'), 20, 1 );
     //////-------------- Leaflet map dependecies---------------------//
     add_action( 'wp_enqueue_scripts', array($this,'leaflet_dependency'), 20, 1 );
-    //add_action( 'wp_enqueue_scripts', array($this, 'map_page_dependency'), 20, 1 );
-
+    //////-------------- Template javascript---------------------// 
+    add_action( 'wp_enqueue_scripts', array($this,'template_javascript'), 20, 1 );
     //////-------------- new template for the main map page and post page---------------------//
     add_filter('page_template', array($this, 'loadTemplate'), 99);
     add_filter('single_template', array($this, 'load_post_Template'), 99);
@@ -73,12 +74,28 @@ class SinngrundKultureBank {
   }//end of contructor 
 
 
+  function jquery_dependency(){
+    wp_enqueue_script('jQuery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js');
+  }
+
+  function template_javascript(){
+    if (is_page(esc_attr(get_option('sad_mainpage_slug')))){
+      wp_enqueue_script( 'main-page-js',                    plugin_dir_url( __FILE__ ) . '/template/main_page.js', array(), false, false);
+      wp_enqueue_style( 'main-page-css',                    plugin_dir_url( __FILE__ ) . '/template/main_page.css' , array(), false, false);
+    }
+    if (is_single()){
+      wp_enqueue_script( 'single-post-js',                    plugin_dir_url( __FILE__ ) . '/template/single_post.js', array(), false, false);
+      //wp_enqueue_style( 'single-post-css',                    plugin_dir_url( __FILE__ ) . '/template/main_page.css' , array(), false, false);
+    }
+
+  }
+
   function leaflet_dependency(){
     
     wp_enqueue_script( 'leaflet-js',                        plugin_dir_url( __FILE__ ) . '/node_modules/leaflet/dist/leaflet.js', array(), false, false );
     wp_enqueue_script( 'leaflet-marker-cluster-js',         plugin_dir_url( __FILE__ ) . '/node_modules/leaflet.markercluster/dist/leaflet.markercluster.js', array('leaflet-js'), false, false);
     wp_enqueue_script( 'leaflet-marker-cluster-group-js',   plugin_dir_url( __FILE__ ) . '/node_modules/leaflet.markercluster.layersupport/dist/leaflet.markercluster.layersupport.js', array('leaflet-marker-cluster-js'), false, false);
-    
+
     wp_enqueue_style( 'leaflet-main-css',                   plugin_dir_url( __FILE__ ) . '/node_modules/leaflet/dist/leaflet.css' , array(), false, false);
     wp_enqueue_style( 'leaflet-marker-cluster-css',         plugin_dir_url( __FILE__ ) . '/node_modules/leaflet.markercluster/dist/MarkerCluster.css', array(), false, false);
     wp_enqueue_style( 'leaflet-marker-cluster-default-css', plugin_dir_url( __FILE__ ) . '/node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css', array(), false, false);
@@ -303,7 +320,7 @@ class SinngrundKultureBank {
   // }
 
 
-  public function myarray(){
+  public function category_shortname_array(){// this array for the geojson and infojson 
     $category_shortname_array = array(
       "Brauchtum und Veranstaltungen" => "brauchtum",
       "Gemeinden"                     => "gemeinden", 
@@ -343,7 +360,7 @@ class SinngrundKultureBank {
     // settype ($lati, "float");
 
     $map_center_geo = array_map("floatval", explode(',', esc_attr(get_option('sad_map_center_point'))));
-    $myarray = $this->myarray();
+    $myarray = $this->category_shortname_array();
           
     $info_array= array( 'map_center' => $map_center_geo,
                         'icons_directory'=> $path_of_icons,
@@ -394,7 +411,7 @@ class SinngrundKultureBank {
         settype ($lati, "float");
 
 
-        $category_shortname_array = $this->myarray();
+        $category_shortname_array = $this->category_shortname_array();
         array_push($post_type_query_geojson, array(
             'type'=> 'Feature',
             'id' => get_the_ID(),
@@ -403,9 +420,11 @@ class SinngrundKultureBank {
                 'coordinates' =>  array($longi,$lati)
             ),
             'properties'=>array(
-                'name' => get_the_title(),
+                'name'    => get_the_title(),
                 'post_id' => get_the_ID(),
-                'url' => get_permalink()
+                'url'     => get_permalink(), 
+                'date'    => get_the_date(),
+                'author'  => get_the_author()
             ),
             'taxonomy'=>array(
                 'category'=>array(
@@ -451,7 +470,6 @@ class SinngrundKultureBank {
       )
     );
   }
-
 } // end of class 
 
 $sinngrundKultureBank = new SinngrundKultureBank();

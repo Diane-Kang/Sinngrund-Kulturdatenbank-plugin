@@ -64,5 +64,13 @@
 }
 
 .map_link_point * {
-  pointer-events: none
+  pointer-events: none;
+}
+
+.dn {
+  display: none;
+}
+
+.db {
+  display: block;
 }

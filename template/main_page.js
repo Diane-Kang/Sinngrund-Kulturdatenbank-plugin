@@ -104,32 +104,41 @@ async function main() {
 
         let category = feature.taxonomy.category.name;
         let category_shortname = feature.taxonomy.category.shortname;
-        //let Icon_filename = category_shortname_array[category];
 
-
-
-        // var tapahtumaTab = '<a href="#tapahtuma-' + feature.properties.name + '" data-toggle="tab"><p>' + feature.properties.name + '</p></a>';
-        // jQuery('<p>', {html: tapahtumaTab}).appendTo('#datenbank_list');
-
-        function createListItem({post_id, title,category_name, category_shortname}) {
-            let htmltext = '<div class="datenbank_single_entry map_link_point category_'+ category_shortname+'" id="map_id_' +post_id + '" category="'+category_shortname +'">'
-                            +'<div class="entry_title">'+ title +'</div>'
-                            +'<div class="entry_category"><img style="height: 20px; width: 20px; margin-right: 2px;" src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/'+category_shortname+'.png"/>'+category_name+'</div>'
-                          +'</div>';
-            return htmltext;
-        }
-          
         const datenbank_list = document.querySelector('#datenbank_list');
         
         datenbank_list.insertAdjacentHTML('beforeend', createListItem({
         post_id: feature.id,
         title: feature.properties.name, 
         category_name: category, 
-        category_shortname: category_shortname
+        category_shortname: category_shortname,
+        url: feature.properties.url,
+        date: feature.properties.date, 
+        author: feature.properties.author
         }));
 
+
+        function createListItem({post_id, title,category_name, category_shortname, url, date, author}) {
+            let htmltext = '<div class="datenbank_single_entry map_link_point category_'+ category_shortname+'" id="map_id_' +post_id + '" category="'+category_shortname +'" date="'+date+'" author="'+author+'">'
+                            +'<div class="entry_title">'+ title +'</div>'
+                            +'<div class="entry_date" style="">'+ date +'</div>'
+                            +'<div class="entry_author" style="">'+ author +'</div>'
+                            +'<div class="entry_category"><img style="height: 20px; width: 20px; margin-right: 2px;" src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/'+category_shortname+'.png"/>'+category_name+'</div>'
+                            +'<a href="' + url + '">'
+                            +     '<button class="dn">Eintrag ansehen</button>'
+                            +'</a>' 
+                          +'</div>';
+            return htmltext;
+        }
+          
+
+
         let Icon_name = category_icon_array[category];
-        let popuptext = "<a href ='#' target=\"_blank\">" + feature.properties.name + "</a>";
+        let popuptext = '<div class="popup_title"><b>'+ feature.properties.name +'</b></div>'
+                        +'<p>'+feature.taxonomy.category.name +'</p>'                           
+                        +'<a href="' + feature.properties.url + '">'
+                        +     '<button class="popup_button">Eintrag ansehen</button>'
+                        +'</a>' ;
         
         let marker_option = {
             icon:Icon_name,
@@ -192,12 +201,79 @@ async function main() {
             //console.log(markerBounds);
             // map.fitBounds(markerBounds);
             map.setZoom(14);
-            map.flyTo(marker.getLatLng(), 14);    
-            marker.openPopup();
+            map.flyTo(marker.getLatLng(), 14);
+            map.on("zoomend", () => { marker.openPopup(); });
+
+            var divClickedIn = event.target;
+            //hide all the buttons
+            divs.forEach(function(posted){
+                posted.classList.add('map_link_point');
+                var postedBtn = posted.querySelector('button');
+                postedBtn.classList.remove('db');
+            });
+        
+            // show the button in the clicked DIV
+            divClickedIn.querySelector('button').classList.add('db')
+            divClickedIn.classList.remove('map_link_point')
+    
+            
         }))
     }
         
+    function sortList(option) {
+        var list, i, switching, b, shouldSwitch;
+        list = document.getElementById("datenbank_list");
+        switching = true;
+        /* Make a loop that will continue until
+        no switching has been done: */
+        while (switching) {
+          // start by saying: no switching is done:
+          switching = false;
+          //b = list.getElementsByTagName("LI");
+          b = document.getElementsByClassName("datenbank_single_entry");
+          // Loop through all list-items:
+          for (i = 0; i < (b.length - 1); i++) {
+            // start by saying there should be no switching:
+            shouldSwitch = false;
+            /* check if the next item should
+            switch place with the current item: */
+            var check; 
+            if (option == 0){
+                let x = new Date(b[i].getAttribute("date"));
+                let y = new Date(b[i+1].getAttribute("date"));
+                check = (x<y);
+            }
+            else if (option == 1){
+                check = b[i].innerHTML.toLowerCase() > b[i + 1].innerHTML.toLowerCase();
+            }
+            if (option == 2){
+                check = b[i].getAttribute("author").toLowerCase() > b[i + 1].getAttribute("author").toLowerCase();
+            }
+            if (check) {
+              /* if next item is alphabetically
+              lower than current item, mark as a switch
+              and break the loop: */
+              shouldSwitch = true;
+              break;
+            }
+          }
+          if (shouldSwitch) {
+            /* If a switch has been marked, make the switch
+            and mark the switch as done: */
+            b[i].parentNode.insertBefore(b[i + 1], b[i]);
+            switching = true;
+          }
+        }
+      }
 
+    
+    jQuery('#abschaltung_uhrzeit').change(function(){
+        //if($(this).val() == 1){
+            sortList($(this).val());
+        //}
+        
+        //alert($(this).val());
+    })
 
     jQuery(":checkbox").change(function() {
         let text = '';
