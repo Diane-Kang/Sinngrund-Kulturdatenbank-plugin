@@ -1,5 +1,17 @@
-<html style="margin-top: 0 !important;" class="no-js" <?php language_attributes(); ?>>
-<?php wp_head(); ?>
+
+<html>
+
+<head>
+	<meta charset="<?php bloginfo( 'charset' ); ?>">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" >
+	<link rel="profile" href="https://gmpg.org/xfn/11"> 
+	<!-- wp_head() has all our dependency -->
+	<?php wp_head(); ?>
+
+</head>
+
+<!-- <html style="margin-top: 0 !important;" class="no-js" <?php language_attributes(); ?>> -->
+
 <!-- <script type="text/javascript" src="<?php echo plugin_dir_url( __FILE__ ) . 'single_post.js'?>"></script> -->
 <style type="text/css">
 #map { width:30%;height:100%;padding:0;margin:0; float:left;}
@@ -55,32 +67,30 @@ margin: 5% 2% 0% 2%;
 	<div calss="main_block" id="map"></div>
  
   <div class="main_block" id="side_bar">
+    <div class="post_content_block">
+      <div class="post_content">  
+      <h3><?php echo  get_the_title(); ?></h3>
+      
+      <div class="entry_category">
 
-		
-
-		<?php 
-		
-		$string = ""; // html string
-		
-		$string .= '<div class="post_content_block">';
-
-		  $string .= '<div class="post_content">';
-
-		  $string .= '<h3>'.get_the_title().'</h3>';
-		  $string .= get_the_content();
-
-		  $string .= '</div>'; // closeing class post_content
-		
-		
-		wp_reset_postdata();
-		
-		$string .= '</div>'; // closeing class datenbank list block 
-
-		echo $string;
-		?>
+        <?php 
+        $name = get_the_category()[0]->name;
+        $category_shortname_array = $sinngrundKultureBank->category_shortname_array();
+        $category_shortname = $category_shortname_array[$name];
+			  $category_icon = $category_shortname_array[$name].'.png';
+			  $category_icon_src = '/wp-content/plug	ins/Sinngrund-Kulturdatenbank-plugin/icons/'. $category_icon;
+        ?>
+        <p><img style="height: 20px; width: 20px; margin-right: 2px;"  src="<?php echo $category_icon_src ?>"/><b><?php echo get_the_category()[0]->name; ?></b> <?php echo get_the_date(); ?> </p>
+      </div>
+      <?php
+      echo get_the_content();
+      wp_reset_postdata();
+      ?>
+      </div> <!-- // closeing class post_content -->
+    </div> <!-- // closeing class datenbank list block -->
 
 	</div>
 
 </body>
-	
+<?php wp_footer(  ); ?>	
 </html>

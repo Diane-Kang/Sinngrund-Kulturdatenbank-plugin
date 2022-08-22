@@ -10,7 +10,8 @@
 		<div id="checkboxes"><!--div id checkboxes  -->
 
 		<?php  
-		$category_shortname_array = $sinngrundKultureBank::category_shortname_array();
+		$category_shortname_array  = $sinngrundKultureBank->category_shortname_array();
+		//$category_shortname_array = $sinngrundKultureBank::category_shortname_array();
 		// $category_shortname_array = array(
 		// 		"Brauchtum und Veranstaltungen" => "brauchtum",
 		// 		"Gemeinden"                     => "gemeinden", 
@@ -69,4 +70,5 @@
 	</div>
 
 </body>
+<?php wp_footer(  ); ?>
 </html>

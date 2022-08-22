@@ -5,8 +5,8 @@
  */
 
 ?><!DOCTYPE html >
-
-<html style="margin-top: 0 !important;" class="no-js" <?php language_attributes(); ?>>
+<!-- white space only showing up when you are administrator  -->
+<!-- <html style="margin-top: 0 !important;" class="no-js" <?php language_attributes(); ?>> --> 
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" >

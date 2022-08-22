@@ -19,8 +19,6 @@
   - [ ] Easy way to get the length/relativ length of everything 
   
   - [ ] Font!
-  
-  - [ ] 
 
 ## funktionierende Funktionen
 
