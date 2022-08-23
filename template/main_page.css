@@ -63,10 +63,6 @@
   padding-right: 10px;
 }
 
-.map_link_point * {
-  pointer-events: none;
-}
-
 .dn {
   display: none;
 }

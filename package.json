@@ -23,6 +23,9 @@
     "@wordpress/scripts": "^23.6.0"
   },
   "dependencies": {
+    "@wordpress/edit-post": "^6.12.0",
+    "@wordpress/icons": "^9.6.0",
+    "@wordpress/plugins": "^4.13.0",
     "leaflet": "^1.8.0",
     "leaflet.markercluster": "^1.5.3",
     "leaflet.markercluster.layersupport": "^2.0.1"

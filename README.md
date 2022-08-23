@@ -228,24 +228,41 @@ classDiagram
     Wp Setting --|> infoJson 
     WP post --|> geoJson
     geoJson --|> Marker
-    WP post --|> EntryList
-    EntryList --|> saveLayerIDinHTML
-    Marker --|>saveLayerIDinHTML
+    geoJson --|> EntryList
+    WP post --|> EntryList : not anymore
+    EntryList --|> MarkerIDtoHTML
+    Marker --|>MarkerIDtoHTML
     WP post : +int post_id
     WP post : +int post_geocode
     WP post : +String category
-
+    MarkerIDtoHTML--|> DynamicList
+    infoJson --|> DynamicList
     class Marker{
         +leaflet layer_id
         +post_id
     }
 
-    class saveLayerIDinHTML{
+    class MarkerIDtoHTML{
         +div_Linkpoint .Post_id value: layer_id
         +callMarker(Post_id) getMarker(layer_id)
     }
     class EntryList{
         +div_Linkpoint .Post_id 
+    }
+
+    class WpSetting{
+        +string Main page slug 
+        +int map center point 
+    }
+
+    class infoJson{
+        + category_shortname_array
+    }
+
+
+    class DynamicList{
+        + category Icon 
+        + category Filter
     }
 ```
 

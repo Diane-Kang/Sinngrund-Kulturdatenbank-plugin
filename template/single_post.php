@@ -75,7 +75,7 @@ margin: 5% 2% 0% 2%;
 
         <?php 
         $name = get_the_category()[0]->name;
-        $category_shortname_array = $sinngrundKultureBank->category_shortname_array();
+        $category_shortname_array = $sinngrundKultureBank->get_category_shortname_array();
         $category_shortname = $category_shortname_array[$name];
 			  $category_icon = $category_shortname_array[$name].'.png';
 			  $category_icon_src = '/wp-content/plug	ins/Sinngrund-Kulturdatenbank-plugin/icons/'. $category_icon;

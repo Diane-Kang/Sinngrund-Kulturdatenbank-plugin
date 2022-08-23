@@ -192,29 +192,24 @@ async function main() {
         const divs = document.querySelectorAll('.map_link_point');
     
         divs.forEach(el => el.addEventListener('click', event => {
-    
-            let map_id = parseInt(event.target.getAttribute("value"));
+
+            let map_id = parseInt(event.target.parentNode.getAttribute("value"));
             console.log(map_id);
             var marker = markers.getLayer(map_id);
-            console.log(marker.getLatLng());
-            var markerBounds = L.latLngBounds([marker.getLatLng()]);
-            //console.log(markerBounds);
-            // map.fitBounds(markerBounds);
             map.setZoom(14);
             map.flyTo(marker.getLatLng(), 14);
             map.on("zoomend", () => { marker.openPopup(); });
 
-            var divClickedIn = event.target;
-            //hide all the buttons
+
+            map.flyTo(marker.getLatLng(), 14);
+            // //hide all the buttons
             divs.forEach(function(posted){
-                posted.classList.add('map_link_point');
                 var postedBtn = posted.querySelector('button');
                 postedBtn.classList.remove('db');
             });
         
             // show the button in the clicked DIV
-            divClickedIn.querySelector('button').classList.add('db')
-            divClickedIn.classList.remove('map_link_point')
+            event.target.parentNode.querySelector('button').classList.add('db')
     
             
         }))

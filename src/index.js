@@ -1,7 +1,12 @@
 
+
+
+
 const el = wp.element.createElement;
 const { registerBlockType } = wp.blocks;
 const { InnerBlocks } = wp.blockEditor;
+
+
 
 const BLOCKS_TEMPLATE = [
   [ 'core/image', {} ],

@@ -1,5 +1,4 @@
 <html>
-
 <?php include 'head.php'; ?>
 <body>
 	<div calss="main_block" id="map"></div>
@@ -10,8 +9,7 @@
 		<div id="checkboxes"><!--div id checkboxes  -->
 
 		<?php  
-		$category_shortname_array  = $sinngrundKultureBank->category_shortname_array();
-		//$category_shortname_array = $sinngrundKultureBank::category_shortname_array();
+		$category_shortname_array  = $sinngrundKultureBank->get_category_shortname_array();
 		// $category_shortname_array = array(
 		// 		"Brauchtum und Veranstaltungen" => "brauchtum",
 		// 		"Gemeinden"                     => "gemeinden", 
