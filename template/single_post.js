@@ -20,9 +20,32 @@ async function main() {
     //var datenbank_single_entry = document.getElementsByClassName("datenbank_single_entry");
     //for (i = 0; i < all_unternehmen.length; i++) all_unternehmen[i].style.display = 'flex';
 
+    var input_json;
+    json_w_geocode.features.forEach(feature => {
+        if (!(feature.route.length == 0)){
+            console.log("here");
+            let string_json = decodeURIComponent(JSON.stringify(feature.route[0]));
+            console.log(decodeURIComponent(JSON.stringify(feature.route[0])));
+            eval("input_json = "+string_json.slice(1,-1)+ ";");
+            console.log("input_json = "+string_json.slice(1,-1)+ ";");
+        }
+    })
+    console.log(input_json);
+
+    console.log("ther")
+    var test_json = {"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"LineString","coordinates":[[9.55214,50.169774],[9.611221,50.174611],[9.589237,50.187583]]}}]}; 
+    console.log(test_json);
+
+
+
+    
     //------------------------Map initialized --------------------------------------------//
 
-	var options = {
+
+
+
+
+    var options = {
  	center: info_json.map_center,
 	zoomSnap: 0.1,
  	zoom: 12.5,
@@ -39,6 +62,8 @@ async function main() {
 	L.control.zoom({
     	position: 'bottomright'
 	}).addTo(map);
+
+    
 
     //------------------------ Icon & Layergroup by category initialized --------------------------------------------//
     //php directory url, start with ".", javascript start with nothing
@@ -108,6 +133,11 @@ async function main() {
         let category = feature.taxonomy.category.name;
         let category_shortname = feature.taxonomy.category.shortname;
         //let Icon_filename = category_shortname_array[category];
+        if (!(feature.route.length == 0)){
+            console.log("here");
+            console.log(decodeURIComponent(JSON.stringify(feature.route[0])));
+            
+        }
 
 
 
@@ -186,6 +216,14 @@ async function main() {
             };
         })
     }
+
+    //var drawnItems  = L.geoJson(data).addTo(map);
+    //drawnItems.addLayer(circle);
+    //map.addLayer(drawnItems);
+
+    var drawnroute  = L.geoJson(input_json).addTo(map);
+    map.fitBounds(drawnroute.getBounds());
+
 
 
 }// Main closing 

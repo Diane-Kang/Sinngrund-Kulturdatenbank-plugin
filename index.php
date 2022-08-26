@@ -49,7 +49,7 @@ class SinngrundKultureBank {
     //--------------Backend---------------- 
     //////--------------new Post page ----------------    
     //////////------------ Gutenberg modify----------------// 
-    add_action('enqueue_block_editor_assets', array($this, 'adminAssets'));
+    //add_action('enqueue_block_editor_assets', array($this, 'adminAssets'));
   
     //////////------------ Sidebar width----------------//
     add_action('admin_enqueue_scripts', array($this,'toast_enqueue_jquery_ui'));
@@ -58,6 +58,9 @@ class SinngrundKultureBank {
     //////////------------Meta data for new Post page----------------// 
     add_action('add_meta_boxes', array($this, 'basic_info_boxes'));
     add_action( 'save_post', array($this, 'save_basic_info_box' ));
+
+    add_action('add_meta_boxes', array($this, 'route_input_box'));
+    add_action( 'save_post', array($this, 'save_route_input_box' ));
 
     //////////------------Geocode searching for new Post page----------------//
     ////////// for Admin page/ backend dependecy admin_enqueue_scripts, for Frontend dependency wp_enqueue_scripts
@@ -81,8 +84,8 @@ class SinngrundKultureBank {
     //////-------------- Template javascript---------------------// 
     add_action( 'wp_enqueue_scripts', array($this,'template_javascript'), 20, 1 );
     //////-------------- new template for the main map page and post page---------------------//
-    add_filter('page_template', array($this, 'loadTemplate'), 99);
-    add_filter('single_template', array($this, 'load_post_Template'), 99);
+    add_filter('page_template', array($this, 'loadTemplate'));
+    add_filter('single_template', array($this, 'load_post_Template'));
     //////////-------------- delet header space/ otherwise always makes white blank(38px)top of the page---------------------//
     //add_action('get_header',array($this, 'remove_admin_login_header'));
     add_action('get_header',  function(){
@@ -109,12 +112,16 @@ class SinngrundKultureBank {
   }////////////////////////////////////////-----------------------------end of contructor 
 
 
+    //Gutenberg, block javascript 
+    function adminAssets() {
+      wp_enqueue_script('sinngrund_kulture_bank_block_type', plugin_dir_url(__FILE__) . '/build/index.js', array('wp-blocks', 'wp-element', 'wp-block-editor'));
+    }
 
+    
+  //////////------------ Sidebar width----------------//
   function toast_enqueue_jquery_ui(){
     wp_enqueue_script( 'jquery-ui-resizable');
   }
-  
-  
   function toast_resizable_sidebar(){ ?>
     <style>
       .interface-interface-skeleton__sidebar .interface-complementary-area{width:100%;}
@@ -123,22 +130,20 @@ class SinngrundKultureBank {
   
     </style>
   <?php }
-  
-  
+  //////////end------------ Sidebar width----------------//
   
 
   function jquery_dependency(){
-    wp_enqueue_script('jQuery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js');
+    wp_enqueue_script('jQuery');
   }
 
   function template_javascript(){
-    if (is_page(esc_attr(get_option('sad_mainpage_slug')))){
+    if (is_page(get_option('sad_mainpage_slug'))){
       wp_enqueue_script( 'main-page-js',                    plugin_dir_url( __FILE__ ) . '/template/main_page.js', array(), false, false);
       wp_enqueue_style( 'main-page-css',                    plugin_dir_url( __FILE__ ) . '/template/main_page.css' , array(), false, false);
     }
     if (is_single()){
       wp_enqueue_script( 'single-post-js',                    plugin_dir_url( __FILE__ ) . '/template/single_post.js', array(), false, false);
-      //wp_enqueue_style( 'single-post-css',                    plugin_dir_url( __FILE__ ) . '/template/main_page.css' , array(), false, false);
     }
 
   }
@@ -162,10 +167,6 @@ class SinngrundKultureBank {
   //   }
   // }
   
-  //Gutenberg, block javascript 
-  function adminAssets() {
-    wp_enqueue_script('sinngrund_kulture_bank_block_type', plugin_dir_url(__FILE__) . '/build/index.js', array('wp-blocks', 'wp-element', 'wp-block-editor'));
-  }
 
 
 
@@ -195,7 +196,7 @@ class SinngrundKultureBank {
     }
     $fields = [
         'latitude',
-        'longitude'
+        'longitude',
     ];
     foreach ( $fields as $field ) {
         if ( array_key_exists( $field, $_POST ) ) {
@@ -205,6 +206,57 @@ class SinngrundKultureBank {
   }
 
   //////////end------------Meta data for new Post page----------------// 
+
+
+
+
+    //////////------------route input box new Post page----------------// 
+  /**
+  * Meta box display callback.
+  *
+  * @param WP_Post $post Current post object.
+  */
+  
+  function route_input_box_display_callback( $post ) {
+    include plugin_dir_path( __FILE__ ) . '/route_input_box.php';
+  }
+  
+  function route_input_box(){
+    add_meta_box(   'route', // name
+                    __('Route'), //display text 
+                    array($this, 'route_input_box_display_callback'), // call back function  
+                    'post' );
+  }
+  
+  function save_route_input_box( $post_id ) {
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+    if ( $parent_id = wp_is_post_revision( $post_id ) ) {
+        $post_id = $parent_id;
+    }
+    $fields = [
+      'route'
+    ];
+    foreach ( $fields as $field ) {
+        if ( array_key_exists( $field, $_POST ) ) {
+            // update_post_meta( $post_id, $field, sanitize_text_field( $_POST[$field] ) );
+
+            update_post_meta( $post_id, 'route', $_POST[$field] );
+
+        }
+     }
+  }
+
+  //////////end------------Meta data for new Post page----------------// 
+
+
+
+
+
+
+
+
+
+
 
   /////////------- setting map page slug, and map ceter   //sad: Sinngrund Allianz Datenbank
   // 1. make admin menu(visually): function adminPage-add_option_page(name, display name, option/permision, slug, pagehtml)
@@ -333,7 +385,7 @@ class SinngrundKultureBank {
 
   //////-------------- new template for the main map page and post page---------------------//
   function loadTemplate($template) {
-    if (is_page(esc_attr(get_option('sad_mainpage_slug')))) {
+    if (is_page(get_option('sad_mainpage_slug'))) {
       return plugin_dir_path(__FILE__) . '/template/main_page.php';
     }
     return $template;
@@ -472,10 +524,6 @@ class SinngrundKultureBank {
         array_push($post_type_query_geojson, array(
           'type'=> 'Feature',
           'id' => get_the_ID(),
-          'geometry'=> array(
-              'type'=> 'Point',
-              'coordinates' =>  array($longi,$lati)
-          ),
           'properties'=>array(
               'name'    => get_the_title(),
               'post_id' => get_the_ID(),
@@ -492,6 +540,11 @@ class SinngrundKultureBank {
                   'icon_name' => $category_shortname_array[get_the_category()[0]->name].'.png'
               ) 
           ),
+          'geometry'=> array(
+            'type'=> 'Point',
+            'coordinates' =>  array($longi,$lati)
+          ),
+          'route'=> get_post_meta( get_the_ID(), $key = "route"),
           'reference'=> get_the_category()
         ));
       }// if end
