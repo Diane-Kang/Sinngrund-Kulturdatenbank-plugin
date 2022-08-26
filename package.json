@@ -21,6 +21,7 @@
   "homepage": "https://github.com/Dinae-Kang/Sinngrund-Kulturdatenbank-plugin#readme",
   "dependencies": {
     "leaflet": "^1.8.0",
+    "leaflet-draw": "^1.0.4",
     "leaflet.markercluster": "^1.5.3",
     "leaflet.markercluster.layersupport": "^2.0.1"
   }

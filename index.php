@@ -11,6 +11,7 @@
   npm install leaflet
   npm i leaflet.markercluster
   npm i leaflet.markercluster.layersupport
+  npm i leaflet-draw
 
 
 */
@@ -54,7 +55,7 @@ class SinngrundKultureBank {
     //////////------------ Sidebar width----------------//
     add_action('admin_enqueue_scripts', array($this,'toast_enqueue_jquery_ui'));
     add_action('admin_head', array($this, 'toast_resizable_sidebar'));
-  
+ 
     //////////------------Meta data for new Post page----------------// 
     add_action('add_meta_boxes', array($this, 'basic_info_boxes'));
     add_action( 'save_post', array($this, 'save_basic_info_box' ));
@@ -62,9 +63,14 @@ class SinngrundKultureBank {
     add_action('add_meta_boxes', array($this, 'route_input_box'));
     add_action( 'save_post', array($this, 'save_route_input_box' ));
 
+    //////////------------ metabox map reload by clicking expand button----------------//
+    add_action('admin_head', array($this, 'reload_metaboxes_map'));
+ 
     //////////------------Geocode searching for new Post page----------------//
     ////////// for Admin page/ backend dependecy admin_enqueue_scripts, for Frontend dependency wp_enqueue_scripts
     add_action( 'admin_enqueue_scripts', array($this,'leaflet_dependency'), 10, 1 );
+    add_action( 'admin_enqueue_scripts', array($this,'metabox_javascript'), 10, 1 );
+    
 
     //////------------add Admin Menu----------------//
     /////////------- setting map page, and map ceter 
@@ -112,6 +118,7 @@ class SinngrundKultureBank {
   }////////////////////////////////////////-----------------------------end of contructor 
 
 
+
     //Gutenberg, block javascript 
     function adminAssets() {
       wp_enqueue_script('sinngrund_kulture_bank_block_type', plugin_dir_url(__FILE__) . '/build/index.js', array('wp-blocks', 'wp-element', 'wp-block-editor'));
@@ -131,6 +138,13 @@ class SinngrundKultureBank {
     </style>
   <?php }
   //////////end------------ Sidebar width----------------//
+
+  function reload_metaboxes_map($hook) {
+    wp_enqueue_script('my_custom_script', plugin_dir_url(__FILE__) . '/meta_boxes/reload_metaboxes_map.js');
+}
+
+
+
   
 
   function jquery_dependency(){
@@ -143,7 +157,7 @@ class SinngrundKultureBank {
       wp_enqueue_style( 'main-page-css',                    plugin_dir_url( __FILE__ ) . '/template/main_page.css' , array(), false, false);
     }
     if (is_single()){
-      wp_enqueue_script( 'single-post-js',                    plugin_dir_url( __FILE__ ) . '/template/single_post.js', array(), false, false);
+      wp_enqueue_script( 'single-post-js',                  plugin_dir_url( __FILE__ ) . '/template/single_post.js', array(), false, false);
     }
 
   }
@@ -153,11 +167,19 @@ class SinngrundKultureBank {
     wp_enqueue_script( 'leaflet-js',                        plugin_dir_url( __FILE__ ) . '/node_modules/leaflet/dist/leaflet.js', array(), false, false );
     wp_enqueue_script( 'leaflet-marker-cluster-js',         plugin_dir_url( __FILE__ ) . '/node_modules/leaflet.markercluster/dist/leaflet.markercluster.js', array('leaflet-js'), false, false);
     wp_enqueue_script( 'leaflet-marker-cluster-group-js',   plugin_dir_url( __FILE__ ) . '/node_modules/leaflet.markercluster.layersupport/dist/leaflet.markercluster.layersupport.js', array('leaflet-marker-cluster-js'), false, false);
+    wp_enqueue_script( 'leaflet-draw-js',                   plugin_dir_url( __FILE__ ) . '/node_modules/leaflet-draw/dist/leaflet.draw.js',array(), false, false);
 
+    
     wp_enqueue_style( 'leaflet-main-css',                   plugin_dir_url( __FILE__ ) . '/node_modules/leaflet/dist/leaflet.css' , array(), false, false);
     wp_enqueue_style( 'leaflet-marker-cluster-css',         plugin_dir_url( __FILE__ ) . '/node_modules/leaflet.markercluster/dist/MarkerCluster.css', array(), false, false);
     wp_enqueue_style( 'leaflet-marker-cluster-default-css', plugin_dir_url( __FILE__ ) . '/node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css', array(), false, false);
+    wp_enqueue_style( 'leaflet-draw-css',                   plugin_dir_url( __FILE__ ) . '/node_modules/leaflet-draw/dist/leaflet.draw.css', array(), false, false);
 
+  }
+
+  function metabox_javascript(){
+    wp_enqueue_script( 'map-in-box-js',                        plugin_dir_url( __FILE__ ) . '/meta_boxes/map_in_box.js', array(), false, true );
+    
   }
 
   // function map_page_dependency(){
@@ -218,7 +240,7 @@ class SinngrundKultureBank {
   */
   
   function route_input_box_display_callback( $post ) {
-    include plugin_dir_path( __FILE__ ) . '/route_input_box.php';
+    include plugin_dir_path( __FILE__ ) . '/meta_boxes/route_box.php';
   }
   
   function route_input_box(){
