@@ -1,32 +1,50 @@
 // Metabox map initialize 
 function map_init(div_id){
   // Sinngrund
-  var startlat = 50.17203438669854;
-  var startlon = 9.639869965557914;
+  let startlat = 50.17203438669854;
+  let startlon = 9.639869965557914;
 
-  var options = {
+  let options = {
   center: [startlat, startlon],
   zoom: 12
   }
-
-
-  var route_map = L.map( div_id, options);
-
-
-  L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {attribution: 'OSM'}).addTo(route_map);
-
-
-  return route_map;
+  let map = L.map(div_id, options);
+  L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {attribution: 'OSM'}).addTo(map);
+  return map;
 }
 
 //----------------route_map------------------------
 var route_map = map_init('route_map');
+//var drawnItems = new L.FeatureGroup();
 
-var drawnItems = new L.FeatureGroup();
+var node = document.getElementById('display_route_encoded');
+var drawnItems =L.featureGroup();
+var route_json;
+console.log(node.innerHTML.length);
 
+if(node.innerHTML.length != 0){
+  let string_json = decodeURIComponent(JSON.stringify(node.innerHTML));
+  eval("route_json = "+string_json.slice(1,-1)+ ";");
+  console.log(route_json);
+  drawnItems  = L.geoJson(route_json).addTo(route_map);
+}
+//console.log(string_json);
+//console.log("var route_json = "+string_json.slice(1,-1)+ ";");
+
+//L.geoJson(route_json).addTo(route_map);
 route_map.addLayer(drawnItems);
 
+
+
 var drawControl = new L.Control.Draw({
+  position: 'topright',
+  draw:{
+    circle: false,
+    circlemarker:false, 
+    polygon:false,
+    rectangle:false,
+    marker:false
+  },
   edit: {
     featureGroup: drawnItems,
     edit: {
@@ -36,43 +54,40 @@ var drawControl = new L.Control.Draw({
       }
     }
   }
+
 });
 route_map.addControl(drawControl);
 
-
 route_map.on('draw:created', function(e) {
-  var type = e.layerType,
-    layer = e.layer;
-
-  if (type === 'marker') {
-    layer.bindPopup('A popup!');
-  }
-
-  drawnItems.addLayer(layer);
+  let type = e.layerType;
+  let layer = e.layer; //?
+  drawnItems.addLayer(e.layer);
 });
 
+
+
 document.getElementById('export').onclick = function(e) {
-  
-  
   // Extract GeoJson from featureGroup
   var data = drawnItems.toGeoJSON();
+  console.log(data.features.length);
+  if (data.features.length == 0){
+    console.log("here");
+    document.querySelector('#content_sinn').innerHTML = "No valid geodata";
+    return;
+  }
   var geodata = data.features[0].geometry.coordinates;
-  var string = "";
-  var geo_array = [];
 
+  // show points 
+  let string = "";
   geodata.forEach(coordinate=>{
-    string = string + coordinate+'<br>';
-    geo_array.push('['+coordinate+']');
+    string = string +'['+coordinate+']' +'<br>';
   })
-  // Stringify the GeoJson
-  var convertedData = 'text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
-
-  // Create export
   document.querySelector('#content_sinn').insertAdjacentHTML(
     'afterbegin',
-    geo_array
+    string
   );
 
+  //save to meta value
   document.getElementById('sad_route').value = encodeURIComponent(JSON.stringify(data));
   
   //document.getElementById('export').setAttribute('href', 'data:' + convertedData);
@@ -84,6 +99,11 @@ document.getElementById('export').onclick = function(e) {
 
 setTimeout(function(){route_map.invalidateSize();
 },1000); 
+
+
+
+
+
 
 
 //end----------------route_map------------------------

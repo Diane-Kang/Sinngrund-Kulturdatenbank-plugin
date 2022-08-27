@@ -20,24 +20,6 @@ async function main() {
     //var datenbank_single_entry = document.getElementsByClassName("datenbank_single_entry");
     //for (i = 0; i < all_unternehmen.length; i++) all_unternehmen[i].style.display = 'flex';
 
-    var input_json;
-    json_w_geocode.features.forEach(feature => {
-        if (!(feature.route.length == 0)){
-            console.log("here");
-            let string_json = decodeURIComponent(JSON.stringify(feature.route[0]));
-            console.log(decodeURIComponent(JSON.stringify(feature.route[0])));
-            eval("input_json = "+string_json.slice(1,-1)+ ";");
-            console.log("input_json = "+string_json.slice(1,-1)+ ";");
-        }
-    })
-    console.log(input_json);
-
-    console.log("ther")
-    var test_json = {"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"LineString","coordinates":[[9.55214,50.169774],[9.611221,50.174611],[9.589237,50.187583]]}}]}; 
-    console.log(test_json);
-
-
-
     
     //------------------------Map initialized --------------------------------------------//
 
@@ -133,12 +115,6 @@ async function main() {
         let category = feature.taxonomy.category.name;
         let category_shortname = feature.taxonomy.category.shortname;
         //let Icon_filename = category_shortname_array[category];
-        if (!(feature.route.length == 0)){
-            console.log("here");
-            console.log(decodeURIComponent(JSON.stringify(feature.route[0])));
-            
-        }
-
 
 
         // var tapahtumaTab = '<a href="#tapahtuma-' + feature.properties.name + '" data-toggle="tab"><p>' + feature.properties.name + '</p></a>';
@@ -200,6 +176,23 @@ async function main() {
     find_marker_by_post_id(group_all, current_postid);
 
 
+    var input_json;
+    json_w_geocode.features.forEach(feature => {
+        console.log(feature.id + "?"+ current_postid);
+        console.log(feature.route[0]);
+        if ( (feature.id == current_postid) && !(feature.route[0].length == 0)){
+            console.log("here");
+            let string_json = decodeURIComponent(JSON.stringify(feature.route[0]));
+            console.log(decodeURIComponent(JSON.stringify(feature.route[0])));
+            eval("input_json = "+string_json.slice(1,-1)+ ";");
+            console.log("input_json = "+string_json.slice(1,-1)+ ";");
+            var drawnroute  = L.geoJson(input_json).addTo(map);
+            map.fitBounds(drawnroute.getBounds());
+        }
+    })
+
+
+
     function find_marker_by_post_id(markers, post_id){
         console.log(markers);
         markers.eachLayer(marker => {
@@ -221,8 +214,7 @@ async function main() {
     //drawnItems.addLayer(circle);
     //map.addLayer(drawnItems);
 
-    var drawnroute  = L.geoJson(input_json).addTo(map);
-    map.fitBounds(drawnroute.getBounds());
+
 
 
 

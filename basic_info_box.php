@@ -13,15 +13,22 @@
             margin:0; }
     .address { cursor:pointer }
     .address:hover { color:#AA0000;text-decoration:underline }
-
+    .metadata_save_here{
+      width: 300px;
+      border-style: solid;
+      border-color: green;
+      padding: 10px;
+    }
 </style>
 
 <div class="container" style="clear:both;">
   <div id="map" style="width:50%; float:right;"></div>
-  <p>you can write geocordinate directly or get value from Search and as draging the Marker on the Map. To save post need to be published</p>
+  <p>you can write geocordinate directly or get value from Search and as draging the Marker on the Map. To save geocode, post need to be published</p>
   <br>
-  <b>Breitengrad(latitude)</b><input  id="latitude" type="text" name="latitude" size=12 value="<?php echo esc_attr( get_post_meta( get_the_ID(), 'latitude', true ) ); ?>">
-  <b>Längengrad(longitude)</b><input id="longitude" type="text" name="longitude" size=12 value="<?php echo esc_attr( get_post_meta( get_the_ID(), 'longitude', true ) ); ?>">
+  <div class="metadata_save_here">
+    <b>Breitengrad(latitude)</b><input  id="latitude" type="text" name="latitude" size=12 value="<?php echo esc_attr( get_post_meta( get_the_ID(), 'latitude', true ) ); ?>">
+    <b>Längengrad(longitude)</b><input id="longitude" type="text" name="longitude" size=12 value="<?php echo esc_attr( get_post_meta( get_the_ID(), 'longitude', true ) ); ?>">
+  </div>
   <br>
 
   <h3>Search</h3>
@@ -53,8 +60,12 @@ function save_geocode_metadata(){
 
 
 // Sinngrund
-var startlat = 50.17203438669854;
-var startlon = 9.639869965557914;
+var startlon = document.getElementById("longitude").value;
+var startlat = document.getElementById("latitude").value;
+
+// var startlat = 50.17203438669854;
+// var startlon = 9.639869965557914;
+
 
 var options = {
  center: [startlat, startlon],
