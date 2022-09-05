@@ -43,7 +43,7 @@ async function main() {
     var category_icon_array  = {};
     var category_layergroup_array  = {};
     for (let [category_name, shortname] of Object.entries(info_json.icons)) {
-        let icon_file = shortname +'.png';
+        let icon_file = shortname +'.svg';
         let option_array = {
             iconUrl:icons_loc+ '/' +icon_file,
             iconSize: [20, 20]
@@ -123,7 +123,7 @@ async function main() {
                             +'<div class="entry_title">'+ title +'</div>'
                             +'<div class="entry_date" style="">'+ date +'</div>'
                             +'<div class="entry_author" style="">'+ author +'</div>'
-                            +'<div class="entry_category"><img style="height: 20px; width: 20px; margin-right: 2px;" src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/'+category_shortname+'.png"/>'+category_name+'</div>'
+                            +'<div class="entry_category"><img style="height: 20px; width: 20px; margin-right: 2px;" src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/'+category_shortname+'.svg"/>'+category_name+'</div>'
                             +'<a href="' + url + '">'
                             +     '<button class="dn">Eintrag ansehen</button>'
                             +'</a>' 

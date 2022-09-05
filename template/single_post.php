@@ -77,7 +77,7 @@ margin: 5% 2% 0% 2%;
         $name = get_the_category()[0]->name;
         $category_shortname_array = $sinngrundKultureBank->get_category_shortname_array();
         $category_shortname = $category_shortname_array[$name];
-			  $category_icon = $category_shortname_array[$name].'.png';
+			  $category_icon = $category_shortname_array[$name].'.svg';
 			  $category_icon_src = '/wp-content/plug	ins/Sinngrund-Kulturdatenbank-plugin/icons/'. $category_icon;
         ?>
         <p><img style="height: 20px; width: 20px; margin-right: 2px;"  src="<?php echo $category_icon_src ?>"/><b><?php echo get_the_category()[0]->name; ?></b> <?php echo get_the_date(); ?> </p>

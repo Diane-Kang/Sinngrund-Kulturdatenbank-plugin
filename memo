@@ -1,14 +1,2 @@
-//   function reload_metaboxes_map(){
-    ?>
-    <script type="text/javascript">
-
-let el = document.querySelectorAll('.handlediv');
-el.forEach(item => {item.addEventListener('click', event => {
-    console.log("here");
-    route_map.invalidateSize();
-})})
-      
-      
-    </script>
-  <?php
-//   }
+js: <script type="text/javascript" src="<?php echo plugin_dir_url( __FILE__ ) . 'main_page.js'?>"></script>
+css: <link rel="stylesheet" type="text/css" href="<?php echo plugin_dir_url( __FILE__ ) . 'main_page.css'?>"> 

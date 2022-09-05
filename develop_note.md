@@ -35,7 +35,7 @@
     
     - Neu Spalte(geocode) für Postlist-tabelle
     
-    - [ ] ?Neu Kategorien: Region z.B. Burgsinn Mittelsinn u.s.w 
+    - Neu Kategorien: Region z.B. Burgsinn Mittelsinn u.s.w 
 
 - Beiträge Erstellen  
   
@@ -70,7 +70,9 @@
     
     Automatisch erstellt wird aus Einstellungen -> Sinngrund 
   
-  - [ ] !?!  Medien Seit
+  -  Medien Seit
+    - [ ] Ort. - Tag - Post Ort also Tag format 
+    - [ ] Author  
 
 - Main map page: Frontend 
   

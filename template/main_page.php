@@ -22,7 +22,7 @@
 
 		foreach ($category_shortname_array as $name => $shortname)  {
 			$category_shortname = $category_shortname_array[$name];
-			$category_icon = $category_shortname_array[$name].'.png';
+			$category_icon = $category_shortname_array[$name].'.svg';
 			$category_icon_src = '/wp-content/plug	ins/Sinngrund-Kulturdatenbank-plugin/icons/'. $category_icon;
             echo '<input type="checkbox" value="'.$category_shortname.'" name="kategory_filter" checked="true"><img style="height: 20px; width: 20px; margin-right: 2px;"  src="'.$category_icon_src.'"/>'. $name . '<br />';
         }

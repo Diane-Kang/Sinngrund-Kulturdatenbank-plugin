@@ -3,10 +3,9 @@
 /*
   Plugin Name: Sinngrund kulturebank plugin 
   Description: Es ist für Sinngrund kulturebank project
-  Version: 0.0
+  Version: 1.0
   Author: Page-effect 
   Author-email: Diane.kang@page-effect.com
-
 
   npm install leaflet
   npm i leaflet.markercluster
@@ -23,6 +22,10 @@ if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 class SinngrundKultureBank {
 
+  private $orte_array = array("Burgsinn", "Obersinn", "Aura", "Fellen", "Mittelsinn", "Rieneck");
+  function get_orte_array(){
+    return $this->orte_array;
+  }
 // Our map page only working with listed Category
 // Icon names need to be shortname + png 
   private $category_shortname_array = array(
@@ -32,7 +35,7 @@ class SinngrundKultureBank {
                                               "Point of Interest"             => "interest", 
                                               "Sagen + Legenden"              => "sagen",
                                               "Sprache und Dialekt"           => "sprache",
-                                              "Thementouren"                  => "themen"
+                                              "Thementouren"                  => "route"
                                             );
 
   function get_category_shortname_array(){
@@ -63,15 +66,31 @@ class SinngrundKultureBank {
     add_action('add_meta_boxes', array($this, 'route_input_box'));
     add_action( 'save_post', array($this, 'save_route_input_box' ));
 
+
+    //////////------------orte taxonomy : nonhierarchical   ----------------//
+    add_action( 'init', array($this, 'create_ort_taxonomy')); // for attachemnt and post 
+    add_action('save_post', array($this,'save_orte_taxonomy')); // save Ort taxonomy
+
+    //add_action('add_meta_boxes', array($this,'add_orte_meta_box')); // for post    
+    //add_action( 'init' , array($this, 'add_orte_tax_to_attachemnt'));
+    //add_action( 'init', array($this, 'change_tax_object_label' )); //post_tags->orte
+  
+    //////////------------Gutenberg – only allow specific blocks   ----------------//
+    add_filter( 'allowed_block_types', array($this, 'gute_whitelist_blocks'));
+
+    
+    
+
     //////////------------ metabox map reload by clicking expand button----------------//
     add_action('admin_head', array($this, 'reload_metaboxes_map'));
+    
+
  
     //////////------------Geocode searching for new Post page----------------//
     ////////// for Admin page/ backend dependecy admin_enqueue_scripts, for Frontend dependency wp_enqueue_scripts
     add_action( 'admin_enqueue_scripts', array($this,'leaflet_dependency'), 10, 1 );
     add_action( 'admin_enqueue_scripts', array($this,'metabox_javascript'), 10, 1 );
     
-
     //////------------add Admin Menu----------------//
     /////////------- setting map page, and map ceter 
     add_action('admin_menu', array($this, 'adminPage'));
@@ -112,11 +131,55 @@ class SinngrundKultureBank {
     // Rest API /wp-json/wp/v2/posts, add meta data 
     add_action('init', array($this, 'custom_meta_to_api'));
 
-   
+
+
+    add_shortcode('debugging_help', array($this,'show_this'));
+
+    add_action( 'init', array( $this, 'setup_taxonomies' ) );
+    //add_filter( 'add_attachment', array( $this, 'wpse_55801_attachment_author') );
 
   
   }////////////////////////////////////////-----------------------------end of contructor 
 
+  function wpse_55801_attachment_author( $attachment_ID ) 
+{
+    $attach = get_post( $attachment_ID );
+    $parent = get_post( $attach->post_parent );
+
+    $the_post = array();
+    $the_post['ID'] = $attachment_ID;
+    $the_post['post_author'] = $parent->post_author;
+    show_this(get_post_meta( $attachment_ID , 'category' , true ));
+    
+
+    wp_update_post( $the_post );
+}
+
+  
+
+
+  function add_entry_to_orte_taxonomy(){
+
+    $orte_list =$this->get_orte_array();
+    $string="";
+    foreach ($orte_list as $key => $ort) {
+      if(!term_exists($ort, 'orte')){
+        wp_insert_term($ort, 'orte');
+        $string .=  $ort . "   ";
+      }
+      else{
+        $string .= "already exist";
+      } 
+    }
+    return $string;
+  }
+  
+
+
+  function show_this($string) {
+    return $string;
+    }
+    
 
 
     //Gutenberg, block javascript 
@@ -148,12 +211,12 @@ class SinngrundKultureBank {
   
 
   function jquery_dependency(){
-    wp_enqueue_script('jQuery');
+    wp_enqueue_script('jquery');
   }
 
   function template_javascript(){
     if (is_page(get_option('sad_mainpage_slug'))){
-      wp_enqueue_script( 'main-page-js',                    plugin_dir_url( __FILE__ ) . '/template/main_page.js', array(), false, false);
+      wp_enqueue_script( 'main-page-js',                    plugin_dir_url( __FILE__ ) . '/template/main_page.js',  array( ), false, false);
       wp_enqueue_style( 'main-page-css',                    plugin_dir_url( __FILE__ ) . '/template/main_page.css' , array(), false, false);
     }
     if (is_single()){
@@ -177,9 +240,13 @@ class SinngrundKultureBank {
 
   }
 
-  function metabox_javascript(){
-    wp_enqueue_script( 'map-in-box-js',                        plugin_dir_url( __FILE__ ) . '/meta_boxes/map_in_box.js', array(), false, true );
-    
+  function metabox_javascript($hook_suffix){
+    global $post_type;
+    // only call the function at admin post-type:post edit page 
+    if( 'post.php' == $hook_suffix || 'post-new.php' == $hook_suffix ) {
+      if($post_type == 'post'){
+      wp_enqueue_script( 'map-in-box-js',                        plugin_dir_url( __FILE__ ) . '/meta_boxes/map_in_box.js', array(), false, true );
+    }}
   }
 
   // function map_page_dependency(){
@@ -270,11 +337,172 @@ class SinngrundKultureBank {
 
   //////////end------------Meta data for new Post page----------------// 
 
+  function setup_taxonomies() {
+
+    $attachment_taxonomies = array();
+
+    // Tags
+    $labels = array(
+        'name'              => _x( 'Media Tags', 'taxonomy general name', 'attachment_taxonomies' ),
+        'singular_name'     => _x( 'Media Tag', 'taxonomy singular name', 'attachment_taxonomies' ),
+        'search_items'      => __( 'Search Media Tags', 'attachment_taxonomies' ),
+        'all_items'         => __( 'All Media Tags', 'attachment_taxonomies' ),
+        'parent_item'       => __( 'Parent Media Tag', 'attachment_taxonomies' ),
+        'parent_item_colon' => __( 'Parent Media Tag:', 'attachment_taxonomies' ),
+        'edit_item'         => __( 'Edit Media Tag', 'attachment_taxonomies' ), 
+        'update_item'       => __( 'Update Media Tag', 'attachment_taxonomies' ),
+        'add_new_item'      => __( 'Add New Media Tag', 'attachment_taxonomies' ),
+        'new_item_name'     => __( 'New Media Tag Name', 'attachment_taxonomies' ),
+        'menu_name'         => __( 'Media Tags', 'attachment_taxonomies' ),
+    );
+
+    $args = array(
+        'hierarchical' => FALSE,
+        'labels'       => $labels,
+        'show_ui'      => TRUE,
+        'show_admin_column' => TRUE,
+        'query_var'    => TRUE,
+        'rewrite'      => TRUE,
+    );
+
+    $attachment_taxonomies[] = array(
+        'taxonomy'  => 'attachment_tag',
+        'post_type' => 'attachment',
+        'args'      => $args
+    );
+
+    // Categories
+    $labels = array(
+        'name'              => _x( 'Media Categories', 'taxonomy general name', 'attachment_taxonomies' ),
+        'singular_name'     => _x( 'Media Category', 'taxonomy singular name', 'attachment_taxonomies' ),
+        'search_items'      => __( 'Search Media Categories', 'attachment_taxonomies' ),
+        'all_items'         => __( 'All Media Categories', 'attachment_taxonomies' ),
+        'parent_item'       => __( 'Parent Media Category', 'attachment_taxonomies' ),
+        'parent_item_colon' => __( 'Parent Media Category:', 'attachment_taxonomies' ),
+        'edit_item'         => __( 'Edit Media Category', 'attachment_taxonomies' ), 
+        'update_item'       => __( 'Update Media Category', 'attachment_taxonomies' ),
+        'add_new_item'      => __( 'Add New Media Category', 'attachment_taxonomies' ),
+        'new_item_name'     => __( 'New Media Category Name', 'attachment_taxonomies' ),
+        'menu_name'         => __( 'Media Categories', 'attachment_taxonomies' ),
+    );
+
+    $args = array(
+        'hierarchical' => TRUE,
+        'labels'       => $labels,
+        'show_ui'      => TRUE,
+        'query_var'    => TRUE,
+        'rewrite'      => TRUE,
+    );
+
+    $attachment_taxonomies[] = array(
+        'taxonomy'  => 'attachment_category',
+        'post_type' => 'attachment',
+        'args'      => $args
+    );
+
+    $attachment_taxonomies = apply_filters( 'fb_attachment_taxonomies', $attachment_taxonomies );
+
+    foreach ( $attachment_taxonomies as $attachment_taxonomy ) {
+        register_taxonomy(
+            $attachment_taxonomy['taxonomy'],
+            $attachment_taxonomy['post_type'],
+            $attachment_taxonomy['args']
+        );
+    }
+
+  }
 
 
+  function create_ort_taxonomy(){
+ 
+    // Labels part for the GUI
+     
+    $labels = array(
+      'name' => _x( 'Orte', 'taxonomy general name' ),
+      'singular_name' => _x( 'Ort', 'taxonomy singular name' ),
+      'search_items' =>  __( 'Search Orte' ),
+      'all_items' => __( 'All Orte' ),
+      'parent_item' => __( 'Parent Ort' ),
+      'parent_item_colon' => __( 'Parent Ort:' ),
+      'edit_item' => __( 'Edit Ort' ), 
+      'update_item' => __( 'Update Ort' ),
+      'add_new_item' => __( 'Add New Ort' ),
+      'new_item_name' => __( 'New Ort Name' ),
+      'menu_name' => __( 'Orte' ),
+    );    
+   
+
+    $args = array(
+      'hierarchical' => TRUE, // Categorie like 
+      'labels'       => $labels,
+      'show_ui'      => TRUE,
+      'query_var'    => TRUE,
+      'rewrite'      => TRUE,
+      'show_in_rest' => TRUE, // for meta box side
+    );
+
+    $taxonomies = array(
+      'taxonomy'  => 'orte',
+      'post_type' => array('attachment','post'),
+      'args'      => $args
+    );
+
+    // Now register the non-hierarchical taxonomy like tag
+     
+    register_taxonomy($taxonomies['taxonomy'],$taxonomies['post_type'],$taxonomies['args']);
+
+  }
+
+  function add_orte_meta_box(){
+	  add_meta_box( 'taxonomy_box', __('Orte'), array($this,'fill_custom_meta_box_content'), 'post' ,'side');
+  }
+
+  function fill_custom_meta_box_content( $post ) {
+    $terms = get_terms( array(
+      'taxonomy' => 'orte',
+      'hide_empty' => false // Retrieve all terms
+    ));
+  
+    // We assume that there is a single category
+    $currentTaxonomyValues = get_the_terms($post->ID, 'orte');
+    $currentTaxonomytermids = array();
+    if($currentTaxonomyValues){foreach($currentTaxonomyValues as $value)  array_push($currentTaxonomytermids, $value->term_id);}
+      
+
+  ?>
+    <p>Choose taxonomy value</p>
+    <p>
+      <?php foreach($terms as $term): ?>
+        <input type="checkbox" name="orte[]" value="<?php echo $term->name;?>" <?php if(in_array($term->term_id,$currentTaxonomytermids)) echo "checked"; ?>>
+          <?php echo $term->name; ?>
+        </input><br/>
+      <?php endforeach; ?>
+    </p>
+  <?php
+  }
+
+  function save_orte_taxonomy($post_id){
+    if ( isset( $_REQUEST['orte'] ) ) 
+      wp_set_object_terms($post_id, $_POST['orte'], 'orte');
+  }
 
 
+  function gute_whitelist_blocks( $allowed_block_types ) {
+    return array(
+        'core/paragraph',
+        'core/heading',
+        'core/quote',
+        'core/list',
+        'core/table',
+        'core/image',
+        'core/gallery',
+        'core/media-text',
+        'core/audio',
+        'core/video',
+        'core/categories', 
 
+    );
+}
 
 
 
@@ -409,6 +637,9 @@ class SinngrundKultureBank {
   function loadTemplate($template) {
     if (is_page(get_option('sad_mainpage_slug'))) {
       return plugin_dir_path(__FILE__) . '/template/main_page.php';
+    }
+    if (is_page('gallery')) {
+      return plugin_dir_path(__FILE__) . '/template/gallery_page.php';
     }
     return $template;
   }
@@ -559,7 +790,7 @@ class SinngrundKultureBank {
                   'name'      => get_the_category()[0]->name,
                   'slug'      => get_the_category()[0]->slug, 
                   'shortname' => $category_shortname_array[get_the_category()[0]->name],
-                  'icon_name' => $category_shortname_array[get_the_category()[0]->name].'.png'
+                  'icon_name' => $category_shortname_array[get_the_category()[0]->name].'.svg'
               ) 
           ),
           'geometry'=> array(
