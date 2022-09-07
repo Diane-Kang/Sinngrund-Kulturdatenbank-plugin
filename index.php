@@ -3,7 +3,7 @@
 /*
   Plugin Name: Sinngrund kulturebank plugin 
   Description: Es ist für Sinngrund kulturebank project
-  Version: 1.0
+  Version: 2.1
   Author: Page-effect 
   Author-email: Diane.kang@page-effect.com
 
@@ -43,7 +43,7 @@ class SinngrundKultureBank {
   }
   function post_valid_check($category_name, $lati, $longi){
     $valid_category = (array_key_exists($category_name,$this->category_shortname_array) )? 1 : 0 ;
-    $valid_geocode = ( (50.15 < $lati &&  $lati < 50.21) && (9.54 < $longi && $longi < 9.69))? 1 :0 ;
+    $valid_geocode = ( (50.00 < $lati &&  $lati < 52.00) && (9.5 < $longi && $longi < 9.8))? 1 :0 ;
     return $valid_category * $valid_geocode;
   }
 
@@ -493,13 +493,10 @@ class SinngrundKultureBank {
         'core/heading',
         'core/quote',
         'core/list',
-        'core/table',
         'core/image',
-        'core/gallery',
         'core/media-text',
         'core/audio',
         'core/video',
-        'core/categories', 
 
     );
 }
@@ -626,7 +623,7 @@ class SinngrundKultureBank {
             if($this->post_valid_check($category_name , $lati, $longi)){
               echo "O";
             }
-            else echo "X";
+            else echo "X: Error mit Geocode oder/and Kategory";
     }
   }
   /////////end------- Add custom column, to see if the post has a right Geocode
