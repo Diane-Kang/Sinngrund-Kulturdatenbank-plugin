@@ -9,6 +9,7 @@
 - [ ] ? brauchen? 
 
 - [ ] !?! Mehr Information benötigen 
+
 - [ ] ! Sofort
 
 - [ ] **More information from Design nötwendig**
@@ -40,29 +41,34 @@
 - Beiträge Erstellen  
   
   - Geocode Eingeben Block (/meta_boxes)
+    
     1. Marker point eingeben 
+       
        - Manuelle (direct eingeben)
        - Adresse Suchen ("use it" button)
        - Marker auf der Karte ziehen  
        - 
+    
     2. Route(mehre Pointen eingeben)
+       
        - Beim Anklicken
        - Bearbeitbar 
        - Speichen die Daten als encoded String 
+       
        - [ ] ? Verbesser? Speichen die Daten als Object?
          https://wordpress.stackexchange.com/a/404178     
-
-    3. Allgemein 
-       - Structure /meta_boxes/
-         -  
+    
+    3. Allgemein Structure /meta_boxes/
+       
        - Map reload 
          - anclickend expand button 
          - /meta_boxes/reload_metaboxes_map.js
+  
   - Geocode/Kategory Validate checken  
        wenn es für ein Eintrag nicht geeignet : falsh Geocod/Kategory  
        es taucht auf der List nicht auf
+  
   - [ ] Nur einige Blocks erlaubt
-
 
 - Seiten Erstellen 
   
@@ -70,7 +76,8 @@
     
     Automatisch erstellt wird aus Einstellungen -> Sinngrund 
   
-  -  Medien Seit
+  - Medien Seit
+    
     - [ ] Ort. - Tag - Post Ort also Tag format 
     - [ ] Author  
 
@@ -86,9 +93,13 @@
     
     - sort option 
     
-    - [ ] ?!? search 
+    -  search 
       
-      search nach 
+      - [ ] seach autor: 
+        
+        How? : add author in content and set display none 
+    
+    
     
     - Click entry list 
       
@@ -105,6 +116,14 @@
   - Recht Content
     
     - [ ] Design? 
+
+- Gallery 
+  
+  - [ ] add Search
+    
+    search by caption, author 
+  
+  - 
 
 ## Important notice
 

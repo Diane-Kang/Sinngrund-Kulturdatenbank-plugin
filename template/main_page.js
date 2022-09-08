@@ -21,7 +21,7 @@ async function main() {
     center: info_json.map_center,
     zoomSnap: 0.1,
     zoom: 12.5,
-    zoomCotronl: false // deactivate default topleft zoom .. but there is,, why? 
+    zoomControl: false, // deactivate default topleft zoom .. but there is,, why? 
   };
 
   const map = L.map("main_page_map", main_map_options);

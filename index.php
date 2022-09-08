@@ -3,7 +3,7 @@
 /*
   Plugin Name: Sinngrund kulturebank plugin 
   Description: Es ist für Sinngrund kulturebank project
-  Version: 2.1
+  Version: 2.2
   Author: Page-effect 
   Author-email: Diane.kang@page-effect.com
 
@@ -116,7 +116,10 @@ class SinngrundKultureBank {
     add_action('get_header',  function(){
                                 remove_action('wp_head', '_admin_bar_bump_cb');
                               });
+    //-------- add hidden text(author) to conent for search function ----------//
+    add_filter('the_content', array($this, 'add_author_in_content'), 1);
     
+
     //-------------- Rest API ---------------------//
     ////// Rest API /wp-json/Sinngrund-Kulturdatenbank-plugin/geojson
     add_action( 'rest_api_init', array($this, 'geojson_generate_api'));
@@ -193,13 +196,20 @@ class SinngrundKultureBank {
     wp_enqueue_script( 'jquery-ui-resizable');
   }
   function toast_resizable_sidebar(){ ?>
-    <style>
-      .interface-interface-skeleton__sidebar .interface-complementary-area{width:100%;}
-      .edit-post-layout:not(.is-sidebar-opened) .interface-interface-skeleton__sidebar{display:none;}
-      .is-sidebar-opened .interface-interface-skeleton__sidebar{width:350px;}
-  
-    </style>
-  <?php }
+<style>
+.interface-interface-skeleton__sidebar .interface-complementary-area {
+  width: 100%;
+}
+
+.edit-post-layout:not(.is-sidebar-opened) .interface-interface-skeleton__sidebar {
+  display: none;
+}
+
+.is-sidebar-opened .interface-interface-skeleton__sidebar {
+  width: 350px;
+}
+</style>
+<?php }
   //////////end------------ Sidebar width----------------//
 
   function reload_metaboxes_map($hook) {
@@ -221,6 +231,7 @@ class SinngrundKultureBank {
     }
     if (is_single()){
       wp_enqueue_script( 'single-post-js',                  plugin_dir_url( __FILE__ ) . '/template/single_post.js', array(), false, false);
+      wp_enqueue_style( 'single-post-css',                    plugin_dir_url( __FILE__ ) . '/template/single_post.css' , array(), false, false);
     }
 
   }
@@ -470,15 +481,16 @@ class SinngrundKultureBank {
       
 
   ?>
-    <p>Choose taxonomy value</p>
-    <p>
-      <?php foreach($terms as $term): ?>
-        <input type="checkbox" name="orte[]" value="<?php echo $term->name;?>" <?php if(in_array($term->term_id,$currentTaxonomytermids)) echo "checked"; ?>>
-          <?php echo $term->name; ?>
-        </input><br/>
-      <?php endforeach; ?>
-    </p>
-  <?php
+<p>Choose taxonomy value</p>
+<p>
+  <?php foreach($terms as $term): ?>
+  <input type="checkbox" name="orte[]" value="<?php echo $term->name;?>"
+    <?php if(in_array($term->term_id,$currentTaxonomytermids)) echo "checked"; ?>>
+  <?php echo $term->name; ?>
+  </input><br />
+  <?php endforeach; ?>
+</p>
+<?php
   }
 
   function save_orte_taxonomy($post_id){
@@ -513,17 +525,17 @@ class SinngrundKultureBank {
   }
 
   function settingHTML() { ?>
-    <div class="wrap">
-      <h1>Sinngrund Allianz Datenbank Setting</h1>
-      <form action="options.php" method="POST">
-      <?php
+<div class="wrap">
+  <h1>Sinngrund Allianz Datenbank Setting</h1>
+  <form action="options.php" method="POST">
+    <?php
         settings_fields('singrundallianzplugin');
         do_settings_sections('sinngrund-datenbank-setting-page');
         submit_button();
       ?>
-      </form>
-    </div>
-  <?php }
+  </form>
+</div>
+<?php }
 
   function settings() {
     add_settings_section('sad_first_section', null, null, 'sinngrund-datenbank-setting-page');
@@ -538,9 +550,9 @@ class SinngrundKultureBank {
   }
 
   function slug_inputHTML() { ?>
-    <p>Current map Page : <?php echo esc_attr(get_option('sad_mainpage_slug')) ?> </p>
-    <select name="sad_mainpage_slug" id="">
-      <?php
+<p>Current map Page : <?php echo esc_attr(get_option('sad_mainpage_slug')) ?> </p>
+<select name="sad_mainpage_slug" id="">
+  <?php
       $pages = get_pages();
       foreach($pages as $page) {
         $string = '<option value="' . $page->post_name . '"';
@@ -555,16 +567,17 @@ class SinngrundKultureBank {
         $string .= '</option>';
         echo $string;}
       ?>
-    </select>
-  <?php 
+</select>
+<?php 
   }
 
   function map_center_point_HTML() { ?>
-    <p>input need to be seperated by comma(,)</p>
-    <p>longitude, latitude </p>
-    <p> default : 50.15489468904496, 9.629545376420513</p>
-    <input type="text" name="sad_map_center_point" size="50" value="<?php echo esc_attr(get_option('sad_map_center_point')) ?>">
-  <?php }
+<p>input need to be seperated by comma(,)</p>
+<p>longitude, latitude </p>
+<p> default : 50.15489468904496, 9.629545376420513</p>
+<input type="text" name="sad_map_center_point" size="50"
+  value="<?php echo esc_attr(get_option('sad_map_center_point')) ?>">
+<?php }
 
   function sanitize_slug($input) {
     $default_slug = 'sinngrund-kulturedatenbank-diane';//default slug here
@@ -648,6 +661,22 @@ class SinngrundKultureBank {
     return $template;
   }
   //////end-------------- new template for the main map page and post page---------------------//
+
+
+  function add_author_in_content ($content) {
+  //   if ('post' !== get_post_type()) {
+  //     return $content;
+  // }
+    Global $post;
+    $author = get_the_author_meta('display_name', $post->post_author); 
+    $date = get_the_date('d.m.Y');
+    $begincontent = '<p> Eintrag erstellt von ' .  $author . ' am ' . $date . '.</p>';
+    $fullcontent = $begincontent . $content;
+    return $fullcontent;
+
+}
+
+
 
   // //////////-------------- delet header space/ otherwise always makes white blank(38px)top of the page---------------------//
   // function remove_admin_login_header() {
