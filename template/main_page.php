@@ -27,17 +27,17 @@
       </div> <!-- closing div id checkboxes  -->
 
       <div class="sort_options_block">
-        such nach
+      Sortieren nach
         <select name="sort_options" id="main_page_list_sort_options">
-          <option value="0" selected>Aktuellst zuerst</option>
-          <option value="1">Title:Alpabet</option>
-          <option value="2">Author:Alphabet</option>
+          <option value="0" selected>Aktuellste zuerst</option>
+          <option value="1">Alpabetisch nach Title</option>
+          <option value="2">Alpabetisch nach Autor</option>
         </select>
       </div>
 
 
       <div class="search">
-        <input type="search" id="search" name="search" class="searchTerm" placeholder="What are you looking for?">
+        <input type="search" id="search" name="search" class="searchTerm" placeholder="Einträge durchsuchen">
         <button type="submit" class="searchButton">
           <svg viewBox="0 0 1024 1024">
             <path class="path1"
