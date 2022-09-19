@@ -1,0 +1,122 @@
+:root {
+    --l_blue: #009CDE;
+    --d_blue: #006691;
+    --d_text: #124054;
+    --red: #EB260C;
+    --l_grey:#808080;
+    --yellow:#F4AF16;
+    --d_green:#307857;
+    --l_green:#A9C600;
+    --magenta:#910F84;
+  }
+
+  body {
+    font-family: 'Barlow';
+    color: var(--d_text);
+  }
+
+  a {
+    text-decoration: underline;
+    color: var(--l_blue);
+  }
+
+  button {
+    border-radius: 3px;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 15px 30px 15px 15px;
+    border: 2px solid var(--d_text);
+    display: inline-block;
+    width: fit-content;
+    -ms-width: auto;
+    position: relative;
+    background-color: #fff;
+    color: var(--d_text);
+    margin-right: 30px;
+    cursor: pointer;
+  }
+
+  button::after {
+    position: absolute;
+    right: 5px;
+    left: auto;
+    padding: 10px 0;
+    top: 0;
+    bottom: auto;
+    font-size: 25px;
+    content: "\f139";
+    font-family: dashicons;
+  }
+
+  button:hover,
+  button:active {
+  background-color: var(--d_text);
+  color: #fff;
+  }
+
+  p {
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 30px;
+    color: var(--d_text);
+  }
+
+  #side_bar {
+    display: inline-block;
+    border: none;
+    box-shadow: -4px 0px 20px 0px var(--l_grey);
+    position: relative;
+    z-index: 999;
+  }
+  
+
+ /* barlow-300 - latin */
+@font-face {
+    font-family: 'Barlow';
+    font-style: normal;
+    font-weight: 300;
+    src: local(''),
+         url('/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/fonts/barlow-v12-latin/barlow-v12-latin-300.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+         url('/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/fonts/barlow-v12-latin/barlow-v12-latin-300.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  }
+  
+  /* barlow-regular - latin */
+  @font-face {
+    font-family: 'Barlow';
+    font-style: normal;
+    font-weight: 400;
+    src: local(''),
+         url('/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/fonts/barlow-v12-latin/barlow-v12-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+         url('/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/fonts/barlow-v12-latin/barlow-v12-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  }
+  
+  /* barlow-italic - latin */
+  @font-face {
+    font-family: 'Barlow';
+    font-style: italic;
+    font-weight: 400;
+    src: local(''),
+         url('/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/fonts/barlow-v12-latin/barlow-v12-latin-italic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+         url('/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/fonts/barlow-v12-latin/barlow-v12-latin-italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  }
+  
+  /* barlow-700 - latin */
+  @font-face {
+    font-family: 'Barlow';
+    font-style: normal;
+    font-weight: 700;
+    src: local(''),
+         url('/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/fonts/barlow-v12-latin/barlow-v12-latin-700.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+         url('/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/fonts/barlow-v12-latin/barlow-v12-latin-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  }
+  
+  /* barlow-800 - latin */
+  @font-face {
+    font-family: 'Barlow';
+    font-style: normal;
+    font-weight: 800;
+    src: local(''),
+         url('/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/fonts/barlow-v12-latin/barlow-v12-latin-800.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+         url('/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/fonts/barlow-v12-latin/barlow-v12-latin-800.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  }
+  

@@ -8,6 +8,12 @@
   width: fit-content;
 } */
 
+
+
+input[type="checkbox"] {
+border-color: red;
+}
+
 #main_page_map {
   width: 70%;
   height: 100%;
@@ -23,10 +29,6 @@
   margin: 0;
 }
 
-.main_block {
-  display: inline-block;
-  border: 1px solid black;
-}
 
 .search {
   width: 100%;
