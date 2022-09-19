@@ -61,12 +61,17 @@
     color: var(--d_text);
   }
 
-  #side_bar {
+  .main_block {
+    display: flex;
+  }
+
+  .sidebar {
     display: inline-block;
     border: none;
     box-shadow: -4px 0px 20px 0px var(--l_grey);
     position: relative;
     z-index: 999;
+    height: 100vh;
   }
   
 
