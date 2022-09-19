@@ -2,8 +2,13 @@
 
 /*
   Plugin Name: Sinngrund kulturebank plugin 
+<<<<<<< HEAD
   Description: Es ist für Sinngrund kulturebank project: last updated at 15.Sep 12:00
   Version: 2.3
+=======
+  Description: Es ist für Sinngrund kulturebank project: last updated at 17.Sep 12:00
+  Version: 2.4
+>>>>>>> be26c507df27d4befb9fbcd50afa444a5ab5756e
   Author: Page-effect 
   Author-email: Diane.kang@page-effect.com
 
@@ -501,6 +506,7 @@ class SinngrundKultureBank {
 
 
   function gute_whitelist_blocks( $allowed_block_types ) {
+    if(!is_single()) return TRUE;
     return array(
         'core/paragraph',
         'core/heading',
