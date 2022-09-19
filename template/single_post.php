@@ -3,13 +3,14 @@
 
 <body <?php body_class(); ?>>
   <div id="current_post_id" value="<?php echo get_the_ID(); ?>"></div>
+<div class="side_wrapper">
+  <div class="single_post_main_block map_block" id="single_post_map"></div>
 
-  <div class="single_post_main_block" id="single_post_map"></div>
-
-  <div class="single_post_main_block" id="single_post_side_bar">
+  <div class="single_post_main_block sidebar" id="single_post_side_bar">
     <div class="post_content_block">
       <div class="post_content">
-        <h3><?php echo  get_the_title(); ?></h3>
+        <a aria-label="zurück" href="/" class="close"><span class="dashicons dashicons-no-alt"></span></a>
+        <h1><?php echo  get_the_title(); ?></h1>
 
         <div class="entry_category">
 
@@ -45,7 +46,7 @@
     </div> <!-- // closeing class datenbank list block -->
 
   </div>
-
+  </div>
 </body>
 <?php wp_footer(  ); ?>
 
