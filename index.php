@@ -7,7 +7,6 @@
   Author: Page-effect 
   Author-email: Diane.kang@page-effect.com
 
-  test test from develp0dmian 
   npm install leaflet
   npm i leaflet.markercluster
   npm i leaflet.markercluster.layersupport
@@ -501,20 +500,33 @@ class SinngrundKultureBank {
   }
 
 
-  function gute_whitelist_blocks( $allowed_block_types ) {
-    if(!is_single()) return TRUE;
-    return array(
+  function gute_whitelist_blocks( $allowed_block_types) {
+    $user = wp_get_current_user();
+    $allowed_roles = array('editor', 'administrator');
+    $post = get_post();
+    if ($post->post_type == 'post'){ 
+      return array(
         'core/paragraph',
         'core/heading',
         'core/quote',
         'core/list',
         'core/image',
-        'core/media-text',
         'core/audio',
-        'core/video',
-
-    );
+        'core/video',  );
+    }
+    // if( !array_intersect($allowed_roles, $user->roles )){    
+    //   return array(
+    //       'core/paragraph',
+    //       'core/heading',
+    //       'core/quote',
+    //       'core/list',
+    //       'core/image',
+    //       'core/audio',
+    //       'core/video',  );
+    //} 
+    else return TRUE;
 }
+
 
 
 
