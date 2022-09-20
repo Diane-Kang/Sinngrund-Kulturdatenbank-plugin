@@ -7,13 +7,6 @@
   Author: Page-effect 
   Author-email: Diane.kang@page-effect.com
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-
->>>>>>> 343ea0e05a5a88b96a5bf0525d732882a6ab231e
->>>>>>> c323e82f98bd49a32c357058352f6b9ba8fc844e
   npm install leaflet
   npm i leaflet.markercluster
   npm i leaflet.markercluster.layersupport
