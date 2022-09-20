@@ -1,9 +1,10 @@
 <html>
 <?php include 'head.php'; ?>
 
-<body>
+<body class="kulturdatenbank">
   <div class="main_block main_page_left side_wrapper">
-  <?php include 'header_nav.php'; ?>
+  <?php include 'nav_header.php'; ?>
+  <?php include 'nav_footer.php'; ?>
     <div class="main_map_block" id="main_page_map"></div>
       
     <div class="main_block main_page_right sidebar" id="side_bar">
@@ -31,7 +32,7 @@
         <select name="sort_options" id="main_page_list_sort_options">
           <option value="0" selected>Aktuellste zuerst</option>
           <option value="1">Alpabetisch nach Title</option>
-          <option value="2">Alpabetisch nach Autor</option>
+          <!-- <option value="2">Alpabetisch nach Autor</option> -->
         </select>
       </div>
 
@@ -66,15 +67,6 @@
 		?>
 
     </div>
-    <div class="legal">
-    <nav class="footer_nav">
-        <ul>
-            <li><a href="/impressum/">Impressum</a></li>
-            <li><a href="/datenschutz">Datenschutzerklärung</a></li>
-        </ul>
-
-    </nav>
-</div>
 </body>
 <?php include 'foot.php'; ?>
 

@@ -1,9 +1,11 @@
 <html>
 <?php include 'head.php'; ?>
-<body>
-<h1>Mediendatenbank</h1>
-<nav>
-<?php $terms = get_terms([
+
+<body class="kulturdatenbank gallery">
+<?php include 'nav_header.php'; ?>
+    <h1>Mediendatenbank</h1>
+    <nav class="orte">
+        <?php $terms = get_terms([
     'taxonomy' => 'orte',
     'hide_empty' => false,
 ]); 
@@ -13,8 +15,21 @@
     
   
 ?>
-</nav>
-<?php 
+    </nav>
+    <h1>Mediendatenbank</h1>
+    <a aria-label="zurück" href="/" class="close"><span class="close close_icon"></span></a>
+    <div class="search">
+        <input type="search" id="search" name="search" class="searchTerm" placeholder="Einträge durchsuchen">
+        <button type="submit" class="searchButton">
+          <svg viewBox="0 0 1024 1024">
+            <path class="path1"
+              d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z">
+            </path>
+          </svg>
+        </button>
+      </div>
+      <div id="livesearch_media"></div>
+    <?php 
 $image_ids = get_posts(
     array(
         'post_type'      => 'attachment',
@@ -27,37 +42,39 @@ $image_ids = get_posts(
 // $images = array_map( "wp_get_attachment_url", $image_ids );
 $images = $image_ids;
 ?>
-<div class="grid-collection">
-    <div class="grid-content" style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 15px;">
-<?php
+    <div class="grid-collection">
+        <div class="grid-content">
+            <?php
 
 if ($images) {
     foreach ($images as $image) {?>
 
 
-        <div class="grid-item">
-            <div class="grid-main-wrap-image" style="width:300px; height:400px; overflow: hidden; text-align: center;  display: flex;
-  justify-content: center;
-  align-items: center;">
-                <div class="grid-item-wrap" >
-                    <img src="<?php echo wp_get_attachment_url($image); ?>"  alt="<?php ?>" style="display:inline-block; width:100%; position: relative; ">
-                </div>
-                
-            </div>
-            <div class="media_beschriftung"> <h5><?php echo wp_get_attachment_caption($image); ?></h5></div>
-            <div class="orte_tags"> <?php echo get_the_term_list( $image, 'orte', '', ', ' ); ?></div>
-            <div class="media_upload_date">Hochgeladen am <?php echo get_the_date('d.m.Y', $image); ?></div>
-            <div class="media_author">von <?php echo get_the_author_meta(  'display_name',get_post_field( 'post_author', $image )); ?></div>
-        </div>
+            <div class="grid-item">
+                <div class="grid-main-wrap-image">
+                    <div class="grid-item-wrap">
+                        <img src="<?php echo wp_get_attachment_url($image); ?>" alt="">
+                    </div>
 
-<?php    
+                </div>
+                <div class="media_beschriftung">
+                    <h5><?php echo wp_get_attachment_caption($image); ?></h5>
+                </div>
+                <div class="orte_tags"> <?php echo get_the_term_list( $image, 'orte', '', ', ' ); ?></div>
+                <div class="media_upload_date">Hochgeladen am <?php echo get_the_date('d.m.Y', $image); ?></div>
+                <div class="media_author">von
+                    <?php echo get_the_author_meta(  'display_name',get_post_field( 'post_author', $image )); ?></div>
+            </div>
+
+            <?php    
     }   
 }
 ?>
+        </div>
     </div>
-</div>
 
-
+    <?php include 'nav_footer.php'; ?>
 </body>
 <?php wp_footer(  ); ?>
+
 </html>

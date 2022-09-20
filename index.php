@@ -241,6 +241,11 @@ class SinngrundKultureBank {
       wp_enqueue_style( 'single-post-css',                    plugin_dir_url( __FILE__ ) . '/template/single_post.css' , array(), false, false);
     }
 
+    if (is_page('gallery')){
+      // wp_enqueue_script( 'single-post-js',                  plugin_dir_url( __FILE__ ) . '/template/single_post.js', array(), false, false);
+      wp_enqueue_style( 'gallery-css',                    plugin_dir_url( __FILE__ ) . '/template/gallery.css' , array(), false, false);
+    }
+
   }
 
   function leaflet_dependency(){
@@ -670,7 +675,7 @@ class SinngrundKultureBank {
       return plugin_dir_path(__FILE__) . '/template/main_page.php';
     }
     if (is_page('gallery')) {
-      return plugin_dir_path(__FILE__) . '/template/gallery_page_demo.php';
+      return plugin_dir_path(__FILE__) . '/template/gallery_page.php';
     }
     return $template;
   }

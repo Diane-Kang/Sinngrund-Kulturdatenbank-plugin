@@ -23,67 +23,7 @@ h1 {
   padding: 60px 90px;
   grid-row: 1/4;
   }
-
-.close {
-  width: 60px;
-  height: 60px;
-  display: block;
-  color: var(--d_blue);
-  text-decoration: none;
-  position: fixed;
-  right: 30px;
-  top: 30px;
-}
-
-.close  .dashicons {
-  width: 80px;
-  height: 80px;
-  position: fixed;
-  right: 30px;
-  top: 30px;
-}
-
-.close  .dashicons::before { 
-  font-size: 60px;
-}
-
-
-/*
-.search {
-  width: 100%;
-  position: relative;
-  display: flex;
-}
-
-.searchTerm {
-  width: 100%;
-  border: 3px solid #00b4cc;
-  border-right: none;
-  padding: 5px;
-  height: 36px;
-  border-radius: 5px 0 0 5px;
-  outline: none;
-  color: #9dbfaf;
-}
-
-.searchTerm:focus {
-  color: #00b4cc;
-}
-
-.searchButton {
-  width: 40px;
-  height: 36px;
-  border: 1px solid #00b4cc;
-  background: #00b4cc;
-  text-align: center;
-  color: black;
-  border-radius: 0 5px 5px 0;
-  cursor: pointer;
-  font-size: 20px;
-}
-
-*/
-
+  
 .post_content {
   overflow-y: scroll;
 }

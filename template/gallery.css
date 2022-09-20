@@ -1,0 +1,32 @@
+
+.gallery .menu.top {
+    position: static;
+    max-width: 400px;
+}
+
+.gallery .menu.top ul {
+    display: none;
+}
+
+h1 {
+    font-size: 30px;
+}
+
+.grid-content {
+    display: flex;
+    grid-template-columns: repeat(4, 250px);
+    grid-template-rows: repeat(auto-fill, 250px);
+    max-width: 1920px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid-item {
+    width:  400px;
+    padding: 0 10px;
+}
+
+.grid-content img {
+width: 400px;
+}
