@@ -1,10 +1,10 @@
 jQuery(document).ready(function($){
-    $('.close').click(function() {
+    $('.popup.info .close').click(function() {
        $('body').addClass('hide_info');
     });
     
-        $('.navicon-close').click(function() {
-       $('body').removeClass('nav-show-22');
+        $('.menu.top .info').click(function() {
+       $('body').removeClass('hide_info');
     });
     });
     
