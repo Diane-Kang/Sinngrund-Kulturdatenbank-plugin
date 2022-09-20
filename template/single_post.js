@@ -127,28 +127,28 @@ async function main() {
   json_w_geocode.features.forEach((feature) => {
     if (feature.id == current_postid && !(feature.route[0].length == 0)) {
       let string_json = decodeURIComponent(JSON.stringify(feature.route[0]));
-      console.log(decodeURIComponent(JSON.stringify(feature.route[0])));
+      //console.log(decodeURIComponent(JSON.stringify(feature.route[0])));
       eval("input_json = " + string_json.slice(1, -1) + ";");
-      console.log("input_json = " + string_json.slice(1, -1) + ";");
+      //console.log("input_json = " + string_json.slice(1, -1) + ";");
       var drawnroute = L.geoJson(input_json).addTo(map);
       map.fitBounds(drawnroute.getBounds(), { padding: [100, 100] });
     }
   });
 
   function find_marker_by_post_id(markers, post_id) {
-    console.log(markers);
+    //console.log(markers);
     markers.eachLayer((marker) => {
       if (post_id == marker["options"]["post_id"]) {
         var map_id = markers.getLayerId(marker);
-        console.log(map_id);
-        console.log(markers.getLayer(map_id));
+        //console.log(map_id);
+        //console.log(markers.getLayer(map_id));
         var marker = markers.getLayer(map_id);
         var markerBounds = L.latLngBounds([marker.getLatLng()]);
         //console.log(markerBounds);
         map.fitBounds(markerBounds);
         map.setZoom(16);
         let popuptext = '<div class="popup_title"><strong>'+ marker["options"]["name"] + '</strong></div>';
-        console.log(marker["options"]["icon"]["options"]["iconUrl"]);
+        //console.log(marker["options"]["icon"]["options"]["iconUrl"]);
         let bigIcon = L.icon({
           iconUrl : marker["options"]["icon"]["options"]["iconUrl"],
           iconSize: [60, 60],

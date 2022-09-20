@@ -1,15 +1,18 @@
 <html>
 <?php include 'head.php'; ?>
 
-<body <?php body_class(); ?>>
+<!-- <body <?php body_class(); ?> class="kulturdatenbank"> -->
+<body class="kulturdatenbank <?php echo get_the_category()[0]->slug; ?>">
   <div id="current_post_id" value="<?php echo get_the_ID(); ?>"></div>
 <div class="side_wrapper">
   <div class="single_post_main_block map_block" id="single_post_map"></div>
+  <?php include 'nav_header.php'; ?>
+  <?php include 'nav_footer.php'; ?>
 
   <div class="single_post_main_block sidebar" id="single_post_side_bar">
     <div class="post_content_block">
       <div class="post_content">
-        <a aria-label="zurück" href="/" class="close"><span class="dashicons dashicons-no-alt"></span></a>
+        <a aria-label="zurück" href="/" class="close"><span class="close close_icon"></span></a>
         <h1><?php echo  get_the_title(); ?></h1>
 
         <div class="entry_category">
