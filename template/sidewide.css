@@ -1,5 +1,5 @@
 :root {
-    --l_blue: #009CDE;
+    --l_blue: #009CDE; /* rgba(0, 156, 222, 1) */
     --d_blue: #006691;
     --d_text: #124054;
     --red: #EB260C;
@@ -10,6 +10,14 @@
     --magenta:#910F84;
   }
 
+  .d_blue {
+    color: var(--d_blue);
+  }
+
+  .l_blue {
+    color: var(--l_blue);
+  }
+
   body {
     font-family: 'Barlow';
     color: var(--d_text);
@@ -18,6 +26,11 @@
   a {
     text-decoration: underline;
     color: var(--l_blue);
+  }
+
+  a:hover,
+  a:active {
+  opacity: 0.75;
   }
 
   button {
@@ -55,13 +68,102 @@
   }
 
   p {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 300;
-    line-height: 30px;
+    line-height: 32px;
     color: var(--d_text);
   }
 
-  #side_bar {
+  /* Basic Side Grid */
+.side_wrapper {
+  display: grid;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.menu.top {
+  grid-row: 1/2;
+  grid-column: 1/2;
+}
+
+.main_map_block {
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  grid-row: 1/2;
+  grid-column: 1/2;
+  /* float: left; */
+}
+
+.sidebar {
+  margin: 0;
+  min-width: 360px;
+  grid-column: 2/3;
+}
+
+.legal {
+  grid-row: 2/3;
+  grid-column: 1/4;
+}
+
+
+  /* Navi*/
+  .menu.top {
+    position: absolute;
+    z-index: 999;
+    width: 100%;
+  }
+
+  .menu.top ul {
+  display: grid;
+  grid-template-columns: auto max-content max-content;
+  padding: 60px 30px 0 60px;
+  margin: 0;
+  }
+
+  .menu li {
+    list-style-type: none;
+  }
+  .menu a {
+    text-decoration: none;
+  }
+
+  .logo {
+    margin: 0;
+    font-size: 36px;
+    font-weight: 700;
+  }
+
+  .logo span{
+    display: block;
+    text-shadow: 0 0 1px var(--d_text);
+  }
+
+.info, .medien {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 0 15px;
+  text-shadow: 0 0 8px var(--d_text);
+  position: relative;
+}
+
+/*
+.medien::before {
+  content: "\e800";
+  font-family: "fonticons";
+font-size: 30px;
+  margin: 0;
+  border-bottom: none;
+  position: absolute;
+  left: 0px;
+  top: -12px;
+  color: #fff;
+  background-color: var(--l_blue);
+}
+*/
+
+  .sidebar {
     display: inline-block;
     border: none;
     box-shadow: -4px 0px 20px 0px var(--l_grey);
