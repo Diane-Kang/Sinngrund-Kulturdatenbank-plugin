@@ -816,6 +816,8 @@ class SinngrundKultureBank {
 
       $category_shortname_array = $this->category_shortname_array;
       $category_name = get_the_category()[0]->name;
+//      console.log(has_excerpt(), the_excerpt());
+      // $preview_text = has_excerpt() ? the_excerpt() : "";
       if($this->post_valid_check($category_name, $lati, $longi)){
         array_push($post_type_query_geojson, array(
           'type'=> 'Feature',
@@ -825,7 +827,9 @@ class SinngrundKultureBank {
               'post_id' => get_the_ID(),
               'url'     => get_permalink(), 
               'date'    => get_the_date(),
-              'author'  => get_the_author()
+              'author'  => get_the_author(),
+              'thumbnail_url' => get_the_post_thumbnail_url(),
+              'excerpt' => has_excerpt() ? get_the_excerpt() : "",
           ),
           'taxonomy'=>array(
               'category'=>array(
@@ -841,7 +845,8 @@ class SinngrundKultureBank {
             'coordinates' =>  array($longi,$lati)
           ),
           'route'=> get_post_meta( get_the_ID(), $key = "route"),
-          'reference'=> get_the_category()
+          'meta_list'=> get_post_meta(get_the_ID()),
+          // 'reference'=> get_the_category()
         ));
       }// if end
     }//while end 
