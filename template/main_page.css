@@ -21,12 +21,72 @@
 .sidebar {
   max-width: 560px;
   height: 100vh;
+  background-color: rgba(128, 128, 128, 0.1);
+}
+
+/*Map */
+.main_map_block .marker-cluster {
+  background-image: url(/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/icon-stern.svg);
+  background-color: rgba(255,255,255,0);
+  background-size: contain;
+  width: 60px !important;
+  height: 60px !important;
+}
+
+.main_map_block .marker-cluster div {
+  background-color: rgba(255,255,255,0);
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.main_map_block .marker-cluster span {
+  color: #fff;
+  font-size: 20px;
+ font-weight: 700;
+}
+
+.leaflet-popup {
+  padding: 7.5px;
+  border: 3px;
+}
+
+.popup_title {
+font-size: 18px;
+font-weight: 700;
+}
+
+
+.leaflet-popup p {
+margin: 0;
+font-size: 18px;
+}
+
+.leaflet-popup a {
+  padding: 0;
+  font-size: 18px;
+  display: block;
+  border: none;
+  margin-top: 15px;
+}
+
+.main_map_block.leaflet-container a.leaflet-popup-close-button {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #fff;
+  border-radius: 50px;
+  box-shadow: 0 0 5px 1px var(--l_grey);
 }
 
 
 /*Sidebar*/
 .category_filter_section {
-  padding: 60px 45px 15px 60px;
+  padding: 30px 45px 15px 45px;
 }
 
 .category {
@@ -91,41 +151,78 @@ font-size: 30px;
 */
 
 .sort_options_block {
-  padding: 15px 60px;
+  padding: 15px 60px; 
+  color: var(--l_grey);
+  font-size: 15px;
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+}
+
+#main_page_list_sort_options {
+  padding: 7.5px 15px;
+  color: var(--d_blue);
+  font-weight: 700;
+  box-shadow: 1px 1px 2px 0px var(--l_grey);
+  margin-left: 15px;
+  font-size: 15px;
+  background-color: rgba(128, 128, 128, 0.1);
+  border: none;
 }
 
 .search {
-  width: 100%;
-  
-  border-right: none;
-  padding: 15px 45px;
-  height: 36px;
-  border-radius: 5px 0 0 5px;
-  outline: none;
-  color: #9dbfaf;
   position: relative;
-  display: flex;
+  width: 80%;
+  margin: 0px 60px 30px 60px;
+  background-color: rgba(128, 128, 128, 0.1);
 }
 
-.searchTerm {
-  border: 2px solid var(--l_blue);
+.searchTerm {  
+  border: none;
+  padding: 5px 15px;
+  height: 45px;
+  border-radius: 5px;
+  outline: none;
+  color: var(--l_grey);
+  box-shadow: inset 0px 0px 1px 1px var(--l_grey);
+  width: 100%;
 }
 
-.searchTerm:focus {
-  color: #var(--l_blue);
-}
 
 .searchButton {
-  width: 40px;
-  height: 36px;
-  border: 1px solid #00b4cc;
-  background: #00b4cc;
-  text-align: center;
-  color: black;
-  border-radius: 0 5px 5px 0;
+  width: 30px;
+  height: 30px;
+  border: none;
+  color: rgba(255,255,255,0);
   cursor: pointer;
-  font-size: 20px;
+  font-size: 30px;
+  background-image: url(/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/Icon-search.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  right: 15px;
+  top: 7.5px;
+  padding: 15px;
+  margin: 0;
 }
+
+.searchButton svg{
+visibility: hidden;
+}
+
+#livesearch {
+padding: 0 60px;
+box-shadow: inset 0 0 1px 1px;
+margin:  0 7.5px;
+}
+
+#livesearch .entry_title:first-child {
+padding-top: 7.5px;
+}
+
+#livesearch .entry_title:last-child {
+  padding-bottom: 7.5px;
+  }
 
 .datenbank_list_block {
   box-shadow: inset 0px 0px 1px 1px #000000;

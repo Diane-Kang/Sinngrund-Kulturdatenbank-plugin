@@ -3,7 +3,7 @@
     --d_blue: #006691;
     --d_text: #124054;
     --red: #EB260C;
-    --l_grey:#808080;
+    --l_grey:#808080; /**rgba(128, 128, 128, 1)*/
     --yellow:#F4AF16;
     --d_green:#307857;
     --l_green:#A9C600;
@@ -73,6 +73,41 @@
     line-height: 32px;
     color: var(--d_text);
   }
+
+  /* Welcome Popup */
+body.hide_info .popup.info {
+display: none;
+}
+
+  .popup.info {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
+
+.content_wrapper {
+  max-width: 800px;
+  background-color: #fff;
+  display: block;
+}
+
+.content_wrapper::before {
+  max-width: 800px;
+  background-color: #fff;
+  display: block;
+}
+
+.content_wrapper img {
+  max-width: 100px;
+ 
+}
 
   /* Basic Side Grid */
 .side_wrapper {
