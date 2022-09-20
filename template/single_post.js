@@ -45,10 +45,10 @@ async function main() {
   //// lager number: take more markers around in the long range of radius 
   var mcgLayerSupportGroup_auto = L.markerClusterGroup.layerSupport({
     maxClusterRadius: function (mapZoom) {
-      if (mapZoom > 13) {
+      if (mapZoom > 15) {
         return 5;
       } else {
-        return 20;
+        return 40;
       }
     },
   });
@@ -66,7 +66,7 @@ async function main() {
     let icon_file = shortname + ".svg";
     let option_array = {
       iconUrl: icons_loc + "/" + icon_file,
-      iconSize: [20, 20],
+      iconSize: [40, 40],
     };
     category_icon_array[category_name] = L.icon(option_array);
     category_layergroup_array[category_name]=L.layerGroup();
@@ -81,13 +81,17 @@ async function main() {
  
 
     let Icon_name = category_icon_array[category];
-    let popuptext =
-      '<div class="popup_title"><strong>'+ feature.properties.name + "</strong></div>" +
-      "<p>" + feature.taxonomy.category.name + "</p>" +
-      '<a href="' +  feature.properties.url + '">' +
-        '<button class="popup_button">Eintrag ansehen</button>' +
-      "</a>";
-
+    let popuptext, popupimage, popupexcerpt;
+    popuptext =   '<div class="popup_title"><strong>'+ feature.properties.name + '</strong></div>';
+    popupimage =  feature.properties.thumbnail_url ? '<img src="' + feature.properties.thumbnail_url + '" alt="'+ feature.properties.title +' thumbnail image" width="50px" height="50px"></img>' : ''; 
+    popupexcerpt = feature.properties.excerpt ? '<p>' + feature.properties.excerpt + '</p>' : '' ;
+    popuptext = popuptext + popupimage + popupexcerpt;
+    popuptext = popuptext +
+                '<div class="popupcategory">'+category+'</div>' + 
+                '<a href="' +  feature.properties.url + '">' +
+                  '<button class="popup_button">Eintrag ansehen</button>' +
+                '</a>';
+                
     let marker_option = {
       icon: Icon_name,
       name: feature.properties.name,
@@ -127,7 +131,7 @@ async function main() {
       eval("input_json = " + string_json.slice(1, -1) + ";");
       console.log("input_json = " + string_json.slice(1, -1) + ";");
       var drawnroute = L.geoJson(input_json).addTo(map);
-      map.fitBounds(drawnroute.getBounds(), { padding: [70, 70] });
+      map.fitBounds(drawnroute.getBounds(), { padding: [100, 100] });
     }
   });
 
@@ -142,7 +146,15 @@ async function main() {
         var markerBounds = L.latLngBounds([marker.getLatLng()]);
         //console.log(markerBounds);
         map.fitBounds(markerBounds);
-        map.setZoom(13.5);
+        map.setZoom(16);
+        let popuptext = '<div class="popup_title"><strong>'+ marker["options"]["name"] + '</strong></div>';
+        console.log(marker["options"]["icon"]["options"]["iconUrl"]);
+        let bigIcon = L.icon({
+          iconUrl : marker["options"]["icon"]["options"]["iconUrl"],
+          iconSize: [60, 60],
+        })
+        marker.setIcon(bigIcon);
+        marker.bindPopup(popuptext);
         marker.openPopup();
       }
     });
