@@ -90,6 +90,8 @@ async function main() {
         url: feature.properties.url,
         date: feature.properties.date,
         author: feature.properties.author,
+        thumbnail_url: feature.properties.thumbnail_url,
+        excerpt: feature.properties.excerpt,
       })
     );
 
@@ -102,6 +104,8 @@ async function main() {
       url,
       date,
       author,
+      thumbnail_url,
+      excerpt,
     }) {
       let htmltext =
         '<div class="datenbank_single_entry map_link_point category_'+category_shortname + 
@@ -126,12 +130,16 @@ async function main() {
     
     // Marker setting
     let Icon_name = category_icon_array[category];
-    let popuptext =
-      '<div class="popup_title"><strong>'+ feature.properties.name + "</strong></div>" +
-      "<p>" + feature.taxonomy.category.name + "</p>" +
-      '<a href="' +  feature.properties.url + '">' +
-        '<button class="popup_button">Eintrag ansehen</button>' +
-      "</a>";
+    let popuptext, popupimage, popupexcerpt;
+    popuptext =   '<div class="popup_title"><strong>'+ feature.properties.name + '</strong></div>';
+    popupimage =  feature.properties.thumbnail_url ? '<img src="' + feature.properties.thumbnail_url + '" alt="'+ feature.properties.title +' thumbnail image" width="50px" height="50px"></img>' : ''; 
+    popupexcerpt = feature.properties.excerpt ? '<p>' + feature.properties.excerpt + '</p>' : '' ;
+    popuptext = popuptext + popupimage + popupexcerpt;
+    popuptext = popuptext +
+                '<div class="popupcategory">'+category+'</div>' + 
+                '<a href="' +  feature.properties.url + '">' +
+                  '<button class="popup_button">Eintrag ansehen</button>' +
+                '</a>';
 
     let marker_option = {
       icon: Icon_name,

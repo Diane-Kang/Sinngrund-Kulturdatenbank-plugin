@@ -1,2 +1,14 @@
-js: <script type="text/javascript" src="<?php echo plugin_dir_url( __FILE__ ) . 'main_page.js'?>"></script>
-css: <link rel="stylesheet" type="text/css" href="<?php echo plugin_dir_url( __FILE__ ) . 'main_page.css'?>"> 
+js:
+<script
+  type="text/javascript"
+  src="<?php echo plugin_dir_url( __FILE__ ) . 'main_page.js'?>"
+></script>
+css:
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="<?php echo plugin_dir_url( __FILE__ ) . 'main_page.css'?>"
+/>
+
+what i need to do 1. get popup image url/get preview text (exist next. not exist
+return) -> save to geojeon -> bind to the pop up text 2. Icon resize
