@@ -229,8 +229,8 @@ class SinngrundKultureBank {
   }
 
   function template_javascript(){
-    wp_enqueue_style( 'sidewide_css',                    plugin_dir_url( __FILE__ ) . '/template/sidewide.css' , array(), false, false);
-   // wp_enqueue_style( 'iconfont',                    plugin_dir_url( __FILE__ ) . '/fonts/fontello-0c4f7996/css/fonticons.css' , array(), false, false);
+    wp_enqueue_style( 'sidewide_css',                    plugin_dir_url( __FILE__ ) . '/template/sidewide.css' , false);
+    wp_enqueue_script( 'welcome_popup',                    plugin_dir_url( __FILE__ ) . '/template/welcome_popup.js',  array('jquery'), false, false);
 
     if (is_page(get_option('sad_mainpage_slug'))){
       wp_enqueue_script( 'main-page-js',                    plugin_dir_url( __FILE__ ) . '/template/main_page.js',  array(), false, false);

@@ -90,23 +90,64 @@ display: none;
     justify-content: center;
     align-items: center;
     align-content: center;
+    background-color: rgba(128, 128, 128, 0.8);
   }
 
 .content_wrapper {
-  max-width: 800px;
+  max-width: 1200px;
   background-color: #fff;
   display: block;
+  position: relative;
+
 }
 
-.content_wrapper::before {
-  max-width: 800px;
-  background-color: #fff;
+.welcome_image {
+  background-color: #ccc;
   display: block;
+  width: 100%;
+  height: 100px;
+}
+
+.close_icon {
+right: -7.5px;
+top: -7.5px;
+position: absolute;
+border: none;
+padding: 7.5px;
+border-radius: 50px;
+box-shadow: 0 0 5px 1px var(--l_grey);
+}
+
+.close_icon::after {
+content: "";
+}
+
+.text_wrapper {
+  padding: 0 90px 90px 90px;
+  display: grid;
+  grid-template-columns: 70% 30%;
+  text-shadow: none;
+  align-content: center;
+  align-items: center;
+}
+
+.popup.info .left {
+  justify-self: stretch;
+  align-self: stretch;
+}
+
+.popup.info .right {
+  text-align: center;
+  align-self: stretch;
+}
+
+.popup.info .close {
+  margin-right: 0;
 }
 
 .content_wrapper img {
   max-width: 100px;
- 
+  margin: auto;
 }
 
   /* Basic Side Grid */
