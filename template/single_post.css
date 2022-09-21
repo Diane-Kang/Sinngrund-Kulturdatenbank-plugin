@@ -11,6 +11,33 @@ h1 {
   grid-template-rows: 100vh 100px;
 }
 
+
+/*Header nav*/
+.menu.top li {
+  /*
+    
+    float: left;
+    */
+    list-style-type: none;
+    position: absolute;
+    top: 30px;
+    left: 30px;
+  }
+
+  .menu.top li:nth-child(2) {
+right: 100px;
+left: 25%;
+top: 60px;
+position: fixed;
+  }
+
+  .menu.top li:nth-child(3) {
+right: 0;
+left: 32%;
+top: 60px;
+position: fixed;
+  }
+
 .map_block {
   position: fixed;
   left: 0;

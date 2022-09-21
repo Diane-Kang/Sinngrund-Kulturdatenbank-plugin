@@ -17,6 +17,32 @@
   overflow-y: hidden;
 }
 
+/* Header Nav */
+.menu.top li {
+  /*
+    
+    float: left;
+    */
+    list-style-type: none;
+    position: absolute;
+    top: 30px;
+    left: 30px;
+  }
+
+  .menu.top li:nth-child(2) {
+right: 100px;
+left: 60%;
+top: 60px;
+position: fixed;
+  }
+
+  .menu.top li:nth-child(3) {
+right: 0;
+left: 67%;
+top: 60px;
+position: fixed;
+  }
+
 
 .sidebar {
   max-width: 560px;

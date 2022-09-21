@@ -5,7 +5,7 @@ background-color: rgba(128, 128, 128, 0.1);
 .gallery .menu.top {
     position: static;
     max-width: 400px;
-    
+    width: 400px;   
 }
 
 .gallery .menu.top .info,
