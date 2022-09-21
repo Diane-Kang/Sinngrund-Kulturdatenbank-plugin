@@ -42,10 +42,10 @@ async function main() {
   //// lager number: take more markers around in the long range of radius 
   var mcgLayerSupportGroup_auto = L.markerClusterGroup.layerSupport({
     maxClusterRadius: function (mapZoom) {
-      if (mapZoom > 13) {
+      if (mapZoom > 15) {
         return 5;
       } else {
-        return 20;
+        return 40;
       }
     },
   });
@@ -63,7 +63,7 @@ async function main() {
     let icon_file = shortname + ".svg";
     let option_array = {
       iconUrl: icons_loc + "/" + icon_file,
-      iconSize: [20, 20],
+      iconSize: [40, 40],
     };
     category_icon_array[category_name] = L.icon(option_array);
     category_layergroup_array[category_name]=L.layerGroup();
@@ -186,13 +186,16 @@ async function main() {
         let map_id = parseInt(event.target.parentNode.getAttribute("value"));
         console.log(map_id);
         var marker = markers.getLayer(map_id);
-        map.setZoom(14);
-        map.flyTo(marker.getLatLng(), 14);
-        map.on("zoomend", () => {
-          marker.openPopup();
-        });
+        
+        //map.flyTo(marker.getLatLng(), 16);
+        // map.setZoom(16);
+        // map.on("zoomend", () => {
+        //   marker.openPopup();
+        // });
 
-        map.flyTo(marker.getLatLng(), 14);
+        map.flyTo(marker.getLatLng(), 16);
+        map.once('moveend', ()=>marker.openPopup())
+
         // //hide all the buttons
         divs.forEach(function (posted) {
           var postedBtn = posted.querySelector("button");
