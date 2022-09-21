@@ -2,7 +2,9 @@
 <?php include 'head.php'; ?>
 
 <body class="kulturdatenbank gallery">
+    
 <?php include 'nav_header.php'; ?>
+<div class="gallery_wrapper">
     <h1>Mediendatenbank</h1>
     <nav class="orte">
         <?php $terms = get_terms([
@@ -16,7 +18,6 @@
   
 ?>
     </nav>
-    <h1>Mediendatenbank</h1>
     <a aria-label="zurück" href="/" class="close"><span class="close close_icon"></span></a>
     <div class="search">
         <input type="search" id="search" name="search" class="searchTerm" placeholder="Einträge durchsuchen">
@@ -72,8 +73,9 @@ if ($images) {
 ?>
         </div>
     </div>
-
+    </div>
     <?php include 'nav_footer.php'; ?>
+    
 </body>
 <?php wp_footer(  ); ?>
 
