@@ -69,8 +69,9 @@
   </div>
   <?php include 'nav_header.php'; ?>
   <?php include 'nav_footer.php'; ?>
-  <?php include 'foot.php'; ?>
+
 </body>
 
+<?php include 'foot.php'; ?>
 
 </html>

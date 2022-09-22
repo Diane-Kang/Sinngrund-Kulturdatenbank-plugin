@@ -11,6 +11,33 @@ h1 {
   grid-template-rows: 100vh 100px;
 }
 
+
+/*Header nav*/
+.menu.top li {
+  /*
+    
+    float: left;
+    */
+    list-style-type: none;
+    position: absolute;
+    top: 30px;
+    left: 30px;
+  }
+
+  .menu.top li:nth-child(2) {
+right: 100px;
+left: 25%;
+top: 60px;
+position: fixed;
+  }
+
+  .menu.top li:nth-child(3) {
+right: 0;
+left: 32%;
+top: 60px;
+position: fixed;
+  }
+
 .map_block {
   position: fixed;
   left: 0;
@@ -19,11 +46,59 @@ h1 {
   width: 40%;
 }
 
+.entry_category p {
+  display: flex;
+  align-items: center;
+  }
+
+.entry_category img {
+  width: 30px;
+  }
+
+.entry_category b {
+  padding: 0 7.5px;
+  font-weight: 700;
+  }
+
+  .brauchtum-und-veranstaltungen b {
+    color: var(--d_blue);
+  }
+
+  .gemeinden b {
+    color: var(--l_grey);
+  } 
+
+ 
+
+.kulturelle-sehenswurdigkeiten b {
+color: var(--red);
+}
+
+.point-of-interest b {
+  color: var(--d_green);
+}
+
+.sagen-legenden b {
+  color: var(--l_green);
+}
+
+.sprache-und-dialekt b {
+  color: var(--magenta);
+}
+
+.thementouren b{
+  color: var(--yellow);
+}
+
+.wp-block-image {
+  margin: 0;
+}
+
 .sidebar {
   padding: 60px 90px;
   grid-row: 1/4;
   }
-  
+
 .post_content {
   overflow-y: scroll;
 }
