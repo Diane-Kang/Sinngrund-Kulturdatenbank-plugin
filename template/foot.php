@@ -1,6 +1,5 @@
 <?php wp_footer(  ); ?>
-<div class="popup info <?php echo  isset($_COOKIE['KDB_visitor_visit_time']) ? 'hide_info': NULL; ?>"
-  id="geeting_info_popup">
+<div class="popup info" id="geeting_info_popup">
   <div class="content_wrapper">
     <div class="welcome_image"></div>
     <button class="close close_icon" aria-label="Close"><span class="dashicons dashicons-no-alt"></span></button>
@@ -8,7 +7,6 @@
       <div class="left">
         <h2><span class="d_blue">Willkommen in der</span><span class="l_blue">Kulturdatenbank Sinngrund</span>
         </h2>
-        <p><?php echo do_shortcode('[greet_me]'); ?></p>
         <p>
           Hier sammeln und kartografieren wir den kulturellen Schatz
           dieser Region. Sie möchten etwas beitragen und Ihr Wissen mit

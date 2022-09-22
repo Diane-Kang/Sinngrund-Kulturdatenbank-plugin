@@ -106,6 +106,12 @@ class SinngrundKultureBank {
     add_action( 'wp_enqueue_scripts', array($this,'jquery_dependency'), 20, 1 );
     //////-------------- Leaflet map dependecies---------------------//
     add_action( 'wp_enqueue_scripts', array($this,'leaflet_dependency'), 20, 1 );
+    //////-------------- Cookie setting---------------------// 
+    add_action('init',  function(){
+                           $date = new DateTime("now", new DateTimeZone('Europe/Berlin') );
+                          setcookie('KDB_visitor_visit_time',$date->format('Y-m-d H:i:s'), 0);
+                        }
+    );
     //////-------------- Template javascript---------------------// 
     add_action( 'wp_enqueue_scripts', array($this,'template_javascript'), 20, 1 );
     //////-------------- new template for the main map page and post page---------------------//
@@ -225,6 +231,8 @@ class SinngrundKultureBank {
   }
 
   function template_javascript(){
+    // COOKIE 
+
     wp_enqueue_style( 'sidewide_css',                    plugin_dir_url( __FILE__ ) . '/template/sidewide.css' , false);
     wp_enqueue_script( 'welcome_popup',                    plugin_dir_url( __FILE__ ) . '/template/welcome_popup.js',  array('jquery'), false, false);
 
