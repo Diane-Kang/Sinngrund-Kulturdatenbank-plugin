@@ -3,10 +3,9 @@
 
 <body class="kulturdatenbank">
   <div class="main_block main_page_left side_wrapper">
-  <?php include 'nav_header.php'; ?>
-  <?php include 'nav_footer.php'; ?>
+
     <div class="main_map_block" id="main_page_map"></div>
-      
+
     <div class="main_block main_page_right sidebar" id="side_bar">
 
       <div id="checkboxes" class="category_filter_section">
@@ -28,7 +27,7 @@
       </div> <!-- closing div id checkboxes  -->
 
       <div class="sort_options_block">
-      Sortieren nach
+        Sortieren nach
         <select name="sort_options" id="main_page_list_sort_options">
           <option value="0" selected>Aktuellste zuerst</option>
           <option value="1">Alpabetisch nach Title</option>
@@ -47,27 +46,31 @@
           </svg>
         </button>
       </div>
+
       <div id="livesearch"></div>
 
       <?php 
-		$the_query = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 400 ) );
+		    $the_query = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 400 ) );
 		
-		$string = ""; // html string
+		    $string = ""; // html string
 
-		$string .= '<div class="datenbank_list_block">';
-		$string .= '	<div class="datenbank_list" id="datenbank_list">';
-	  	$string .= '	</div>'; // closeing class datenbank_list
-			
-		/* Restore original Post Data*/
-		wp_reset_postdata();
-		
-		$string .= '</div>'; // closeing class datenbank list block 
+        $string .= '<div class="datenbank_list_block">';
+        $string .= '	<div class="datenbank_list" id="datenbank_list">';
+          $string .= '	</div>'; // closeing class datenbank_list
+          
+        /* Restore original Post Data*/
+        wp_reset_postdata();
+        
+        $string .= '</div>'; // closeing class datenbank list block 
 
-		echo $string;
-		?>
-
+        echo $string;
+        ?>
     </div>
+  </div>
+  <?php include 'nav_header.php'; ?>
+  <?php include 'nav_footer.php'; ?>
+  <?php include 'foot.php'; ?>
 </body>
-<?php include 'foot.php'; ?>
+
 
 </html>
