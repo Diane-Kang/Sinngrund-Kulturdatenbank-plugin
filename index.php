@@ -50,7 +50,31 @@ class SinngrundKultureBank {
 
   function __construct() {
 
-    //--------------Backend---------------- 
+    //--------------Backend----------------
+    
+    ////--------------Admin dashbard page ----------------    
+    //////------------Amdin page style ----------------//
+    add_action( 'admin_enqueue_scripts', array($this, 'load_admin_styles' ));
+
+    //////------------Amdin Post list columns ----------------//
+    /////////------- Add custom column, to see if the post has a right Geocode
+    add_filter('manage_posts_columns', array($this, 'custom_posts_table_head'));
+    add_action( 'manage_posts_custom_column', array($this, 'plugin_custom_column'), 10, 2);
+
+    //For Contributor, admin page
+    add_action('admin_init', array($this, 'allow_contributor_uploads'));
+    add_action('admin_menu', array($this, 'hide_the_dashboard' ));
+    //add_action('after_setup_theme',array($this, 'remove_admin_bar'));
+    add_action('load-index.php',  function () {
+                                    if( !array_intersect( array('administrator'), wp_get_current_user()->roles ) ) {
+                                      wp_redirect( admin_url( 'edit.php?post_type=post' ) );
+                                    }
+                                  }
+    );
+
+    
+
+    
     //////--------------new Post page ----------------    
     //////////------------ Gutenberg modify----------------// 
     //add_action('enqueue_block_editor_assets', array($this, 'adminAssets'));
@@ -78,14 +102,9 @@ class SinngrundKultureBank {
     //////////------------Gutenberg – only allow specific blocks   ----------------//
     add_filter( 'allowed_block_types', array($this, 'gute_whitelist_blocks'));
 
-    
-    
-
     //////////------------ metabox map reload by clicking expand button----------------//
     add_action('admin_head', array($this, 'reload_metaboxes_map'));
     
-
- 
     //////////------------Geocode searching for new Post page----------------//
     ////////// for Admin page/ backend dependecy admin_enqueue_scripts, for Frontend dependency wp_enqueue_scripts
     add_action( 'admin_enqueue_scripts', array($this,'leaflet_dependency'), 10, 1 );
@@ -96,12 +115,7 @@ class SinngrundKultureBank {
     add_action('admin_menu', array($this, 'adminPage'));
     add_action('admin_init', array($this, 'settings'));
 
-    //////------------Amdin Post list columns ----------------//
-    /////////------- Add custom column, to see if the post has a right Geocode
-    add_filter('manage_posts_columns', array($this, 'custom_posts_table_head'));
-    add_action( 'manage_posts_custom_column', array($this, 'plugin_custom_column'), 10, 2);
-
-
+    
     //---------------Frontend---------------- 
     add_action( 'wp_enqueue_scripts', array($this,'jquery_dependency'), 20, 1 );
     //////-------------- Leaflet map dependecies---------------------//
@@ -144,11 +158,32 @@ class SinngrundKultureBank {
 
     add_shortcode('debugging_help', array($this,'show_this'));
 
-    add_action( 'init', array( $this, 'setup_taxonomies' ) );
+    //add_action( 'init', array( $this, 'setup_taxonomies' ) );
     //add_filter( 'add_attachment', array( $this, 'wpse_55801_attachment_author') );
 
   
   }////////////////////////////////////////-----------------------------end of contructor 
+
+  function hide_the_dashboard(){
+    $user = wp_get_current_user();
+    $allowed_roles = array('editor', 'administrator');
+    //if( !current_user_can( 'manage_options' ) ){
+    //if(!is_super_admin()){
+    //if ( in_array( 'contributor', $user_roles, true ) ) {
+    if( !array_intersect($allowed_roles, $user->roles ) ) {
+      remove_menu_page( 'tools.php' );  
+      remove_menu_page( 'edit-comments.php' );
+      remove_menu_page('upload.php');
+      remove_menu_page('index.php');
+      remove_menu_page('profile.php');
+    }
+  }
+ function allow_contributor_uploads() {
+    $contributor = get_role("contributor");
+    $contributor->add_cap("upload_files");
+    }
+
+    
 
   function wpse_55801_attachment_author( $attachment_ID ) 
 {
@@ -251,6 +286,12 @@ class SinngrundKultureBank {
     }
 
   }
+
+  function load_admin_styles() {
+    wp_enqueue_style( 'kulturedatenbank_admin_css', plugin_dir_url( __FILE__ ) . '/template/KDB-admin-style.css', false, '1.0.0' );
+    
+  }
+
 
   function leaflet_dependency(){
     
