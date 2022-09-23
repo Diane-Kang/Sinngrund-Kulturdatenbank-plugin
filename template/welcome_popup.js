@@ -6,6 +6,14 @@ jQuery(document).ready(function($){
         $('.menu.top .info').click(function() {
        $('body').removeClass('hide_info');
     });
+
+    $('.popup.info .next').click(function() {
+      $('.slide.show').removeClass('show').next().addClass('show');
+   });
+
+   $('.popup.info .prev').click(function() {
+      $('.slide.show').removeClass('show').prev().addClass('show');
+   });
     
     console.log(document.cookie.indexOf('KDB_visitor_visit_time='));
     console.log(document.cookie)

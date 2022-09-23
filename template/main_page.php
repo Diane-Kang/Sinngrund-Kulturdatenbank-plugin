@@ -71,9 +71,9 @@
     </div>
   </div>
 
-
+  <?php include 'foot.php'; ?>
 </body>
 
-<?php include 'foot.php'; ?>
+
 
 </html>
