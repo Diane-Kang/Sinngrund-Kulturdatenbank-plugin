@@ -11,107 +11,39 @@
 /* Basic Side Grid */
 .side_wrapper {
   grid-template-columns: 75% 25%;
-  grid-template-rows: 100vh 100px;
-  grid-row: 1/3;
-  max-height: 100vh;
-  overflow-y: hidden;
 }
 
 /* Header Nav */
-.menu.top li {
-  /*
-    
-    float: left;
-    */
-    list-style-type: none;
-    position: fixed;
-    top: 60px;
-    left: 60px;
-  }
 
   .menu.top li:nth-child(2) {
-right: 100px;
 left: 60%;
-top: 60px;
   }
 
   .menu.top li:nth-child(3) {
-right: 0;
 left: 67%;
-top: 60px;
   }
 
+/*Sidebar Rahmen*/
 
 .sidebar {
   max-width: 560px;
-  height: 100vh;
-  background-color: rgba(128, 128, 128, 0.1);
-}
-
-/*Map */
-.main_map_block .marker-cluster {
-  background-image: url(/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/icon-stern.svg);
-  background-color: rgba(255,255,255,0);
-  background-size: contain;
-  width: 60px !important;
-  height: 60px !important;
-}
-
-.main_map_block .marker-cluster div {
-  background-color: rgba(255,255,255,0);
-  margin: 0;
-  width: 100%;
-  height: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
+  flex-flow: column;
+  height: 100%;
 }
 
-.main_map_block .marker-cluster span {
-  color: #fff;
-  font-size: 20px;
- font-weight: 700;
+.category_filter_section, 
+.sort_options_block,
+.search {
+  flex: 0 1 auto;
 }
 
-.leaflet-popup {
-  padding: 7.5px;
-  border: 3px;
+.datenbank_list {
+  overflow-y: scroll;
+  flex: 1 1 auto;
 }
 
-.popup_title {
-font-size: 18px;
-font-weight: 700;
-}
-
-
-.leaflet-popup p {
-margin: 0;
-font-size: 18px;
-}
-
-.leaflet-popup a {
-  padding: 0;
-  font-size: 18px;
-  display: block;
-  border: none;
-  margin-top: 15px;
-}
-
-.main_map_block.leaflet-container a.leaflet-popup-close-button {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  background-color: #fff;
-  border-radius: 50px;
-  box-shadow: 0 0 5px 1px var(--l_grey);
-}
-
-
-/*Sidebar*/
-.category_filter_section {
-  padding: 30px 45px 15px 45px;
-}
+/*Sidebar */
 
 .category {
 margin: 0;
@@ -121,6 +53,7 @@ color: var(--d_blue);
 }
 
 .category_filter_section {
+  padding: 30px 45px 15px 45px;
 margin: 0;
 }
 
@@ -161,19 +94,6 @@ opacity: 0.75;
   border-bottom: 2px dotted var(--d_text);
 }
 
-/*
-.single_category_wrapper .cat_label::before{
-  content: "\e800";
-  font-family: "fonticons";
-font-size: 30px;
-  margin: 0 15px;
-  border-bottom: none;
-  position: absolute;
-  left: -55px;
-  top: 0;
-}
-*/
-
 .sort_options_block {
   padding: 15px 60px; 
   color: var(--l_grey);
@@ -194,15 +114,8 @@ font-size: 30px;
   border: none;
 }
 
-
-
 .datenbank_list_block {
   box-shadow: inset 0px 0px 1px 1px var(--l_grey);
-}
-
-.datenbank_list {
-  height: 60vh;
-  overflow-y: scroll;
 }
 
 .datenbank_single_entry {
@@ -214,7 +127,6 @@ font-size: 30px;
   display: none;
 }
 
-
 .datenbank_single_entry:nth-child(odd) {
 background-color: rgba(0, 156, 222, 0.1);
 padding-bottom: 0;
@@ -225,7 +137,23 @@ padding-bottom: 0;
   padding-bottom: 22.5px;
 }
 
+.datenbank_list .entry_title {
+font-size: 17px;
+line-height: 25px;
+font-weight: 600;
+}
 
+.entry_category img {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  top: 5px;
+  margin-right: 7.5px;
+}
+
+.datenbank_single_entry.marked {
+background-color: var(--d_blue);
+}
 
 .dn {
   display: none;
