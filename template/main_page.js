@@ -72,6 +72,41 @@ async function main() {
   var group_all = L.layerGroup();
 
 
+
+  function createListItem({
+    post_id,
+    title,
+    category_name,
+    category_shortname,
+    url,
+    date,
+    author,
+    thumbnail_url,
+    excerpt,
+
+  }) {
+    let htmltext =
+      '<div class="datenbank_single_entry map_link_point category_'+category_shortname + 
+            '" id="map_id_'+ post_id + 
+            '" category="' + category_shortname +
+            '" date="' + date +
+            '" author="' + author +
+      '">' +
+        '<div class="entry_title">' + title + "</div>" +
+        '<div class="entry_date" style="">' + date + "</div>" +
+        '<div class="entry_author" style="">' + author + "</div>" +
+        '<div class="entry_category">'+
+          '<img style="height: 20px; width: 20px; margin-right: 2px;" src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/' + category_shortname + '.svg"/>' +
+          category_name +
+        "</div>" +
+        '<a href="' + url + '">' +
+          '<button class="dn">Eintrag ansehen</button>' +
+        "</a>" +
+        "</div>";
+    return htmltext;
+  }
+
+
    //------------------------ Determine markers and generate entry List of main page based on the geojson--------------------------------------------//
   
   json_w_geocode.features.forEach((feature) => {
@@ -96,37 +131,38 @@ async function main() {
     );
 
     // Entry Format for List
-    function createListItem({
-      post_id,
-      title,
-      category_name,
-      category_shortname,
-      url,
-      date,
-      author,
-      thumbnail_url,
-      excerpt,
-    }) {
-      let htmltext =
-        '<div class="datenbank_single_entry map_link_point category_'+category_shortname + 
-              '" id="map_id_'+ post_id + 
-              '" category="' + category_shortname +
-              '" date="' + date +
-              '" author="' + author +
-        '">' +
-          '<div class="entry_title">' + title + "</div>" +
-          '<div class="entry_date" style="">' + date + "</div>" +
-          '<div class="entry_author" style="">' + author + "</div>" +
-          '<div class="entry_category">'+
-            '<img style="height: 20px; width: 20px; margin-right: 2px;" src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/' + category_shortname + '.svg"/>' +
-            category_name +
-          "</div>" +
-          '<a href="' + url + '">' +
-            '<button class="dn">Eintrag ansehen</button>' +
-          "</a>" +
-          "</div>";
-      return htmltext;
-    }
+    // function createListItem({
+    //   post_id,
+    //   title,
+    //   category_name,
+    //   category_shortname,
+    //   url,
+    //   date,
+    //   author,
+    //   thumbnail_url,
+    //   excerpt,
+
+    // }) {
+    //   let htmltext =
+    //     '<div class="datenbank_single_entry map_link_point category_'+category_shortname + 
+    //           '" id="map_id_'+ post_id + 
+    //           '" category="' + category_shortname +
+    //           '" date="' + date +
+    //           '" author="' + author +
+    //     '">' +
+    //       '<div class="entry_title">' + title + "</div>" +
+    //       '<div class="entry_date" style="">' + date + "</div>" +
+    //       '<div class="entry_author" style="">' + author + "</div>" +
+    //       '<div class="entry_category">'+
+    //         '<img style="height: 20px; width: 20px; margin-right: 2px;" src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/' + category_shortname + '.svg"/>' +
+    //         category_name +
+    //       "</div>" +
+    //       '<a href="' + url + '">' +
+    //         '<button class="dn">Eintrag ansehen</button>' +
+    //       "</a>" +
+    //       "</div>";
+    //   return htmltext;
+    // }
     
     // Marker setting
     let Icon_name = category_icon_array[category];
@@ -172,9 +208,11 @@ async function main() {
     markers.eachLayer((marker) => {
       var post_id = marker["options"][option_name];
       var map_id = markers.getLayerId(marker);
-      document
+      if (document.getElementById("map_id_" + post_id)){
+        document
         .getElementById("map_id_" + post_id)
         .setAttribute("value", map_id);
+      }
     });
   }
 
@@ -289,29 +327,47 @@ async function main() {
     console.log(checkedArray);
   });
 
-  function createlivesearchreasult({      title,    }) {
-    let htmltext =
-        '<div class="entry_title">' + title + "</div>";
-    return htmltext;
-  }
+
+
 
   var GetSearch = document.getElementById('search');
   GetSearch.addEventListener("keyup", function(){
       //InfoData = {slug:GetSearch.value}
       jQuery.ajax({
          type: "GET",
-         url: 'wp-json/wp/v2/posts?search=' + GetSearch.value ,
+         // url: 'wp-json/wp/v2/posts?search=' + GetSearch.value ,
+         url: 'wp-json/Sinngrund-Kulturdatenbank-plugin/geojson?term=' + GetSearch.value ,
          data: '',
          datatype: "html",
          success: function(results) {
-            let livesearch = document.querySelector("#livesearch");
-            livesearch.innerHTML = "";
-            results.forEach((result)=>{  
-              livesearch.insertAdjacentHTML("beforeend", createlivesearchreasult({ title: result.title.rendered, }) );
-            });
-            console.log(results);
+            // let livesearch = document.querySelector("#livesearch");
+            // livesearch.innerHTML = "";
+            // results.forEach((result)=>{  
+            //   livesearch.insertAdjacentHTML("beforeend", createlivesearchreasult({ title: result.title.rendered, }) );
+            // });
+            // console.log(results);
 
-            if(GetSearch.value == '') livesearch.innerHTML = "";
+            // if(GetSearch.value == '') livesearch.innerHTML = "";
+            let datenbank_list_result = document.querySelector("#datenbank_list");
+            datenbank_list_result.innerHTML = "";
+            results.features.forEach((feature)=>{  
+              datenbank_list_result.insertAdjacentHTML(
+                "beforeend",
+                createListItem({
+                  post_id: feature.id,
+                  title: feature.properties.name,
+                  category_name: feature.taxonomy.category.name,
+                  category_shortname: feature.taxonomy.category.shortname,
+                  url: feature.properties.url,
+                  date: feature.properties.date,
+                  author: feature.properties.author,
+                  thumbnail_url: feature.properties.thumbnail_url,
+                  excerpt: feature.properties.excerpt,
+                })
+              );
+            });
+            save_layerId_in_html(group_all); // marker/layerId saved in html 
+            build_link(map, group_all); // click event 
          }
      });
   });

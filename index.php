@@ -61,16 +61,25 @@ class SinngrundKultureBank {
     add_filter('manage_posts_columns', array($this, 'custom_posts_table_head'));
     add_action( 'manage_posts_custom_column', array($this, 'plugin_custom_column'), 10, 2);
 
-    //For Contributor, admin page
+    ////---------For Contributor, admin page
     add_action('admin_init', array($this, 'allow_contributor_uploads'));
     add_action('admin_menu', array($this, 'hide_the_dashboard' ));
-    //add_action('after_setup_theme',array($this, 'remove_admin_bar'));
     add_action('load-index.php',  function () {
                                     if( !array_intersect( array('administrator'), wp_get_current_user()->roles ) ) {
                                       wp_redirect( admin_url( 'edit.php?post_type=post' ) );
                                     }
                                   }
     );
+
+    ////-----------For login page ---- 
+    /////// url changed by Plugin: change-wp-admin-login /wp-login -> /zugang
+    add_filter( 'login_headerurl', function (){return home_url();} );
+    add_action( 'login_enqueue_scripts',      function (){
+                                                wp_enqueue_style( 'custom-login',  plugin_dir_url(__FILE__) . 'template/login_page.css' );
+                                                //wp_enqueue_script( 'custom-login',  plugin_dir_url(__FILE__) . '/style-login.js' );
+                                              }
+    );
+    
 
     
 
@@ -82,6 +91,12 @@ class SinngrundKultureBank {
     //////////------------ Sidebar width----------------//
     add_action('admin_enqueue_scripts', array($this,'toast_enqueue_jquery_ui'));
     add_action('admin_head', array($this, 'toast_resizable_sidebar'));
+
+    add_action( 'init', array($this, 'cc_gutenberg_register_files') );
+
+
+
+
  
     //////////------------Meta data for new Post page----------------// 
     add_action('add_meta_boxes', array($this, 'basic_info_boxes'));
@@ -164,6 +179,23 @@ class SinngrundKultureBank {
   
   }////////////////////////////////////////-----------------------------end of contructor 
 
+
+  function cc_gutenberg_register_files() {
+    // script file
+    wp_register_script(
+        'cc-block-script',
+        plugin_dir_url(__FILE__) .'/js/block-script.js', // adjust the path to the JS file
+        array( 'wp-blocks', 'wp-edit-post' )
+    );
+    // register block editor script
+    register_block_type( 'cc/ma-block-files', array(
+        'editor_script' => 'cc-block-script'
+    ) );
+
+}
+
+
+
   function hide_the_dashboard(){
     $user = wp_get_current_user();
     $allowed_roles = array('editor', 'administrator');
@@ -173,7 +205,7 @@ class SinngrundKultureBank {
     if( !array_intersect($allowed_roles, $user->roles ) ) {
       remove_menu_page( 'tools.php' );  
       remove_menu_page( 'edit-comments.php' );
-      remove_menu_page('upload.php');
+      //remove_menu_page('upload.php');
       remove_menu_page('index.php');
       remove_menu_page('profile.php');
     }
@@ -288,7 +320,13 @@ class SinngrundKultureBank {
   }
 
   function load_admin_styles() {
-    wp_enqueue_style( 'kulturedatenbank_admin_css', plugin_dir_url( __FILE__ ) . '/template/KDB-admin-style.css', false, '1.0.0' );
+    wp_enqueue_style( 'kulturedatenbank_admin_css', plugin_dir_url( __FILE__ ) . '/template/KDB-admin-style-all.css', false, '1.0.0' );
+    $user = wp_get_current_user();
+    if ( in_array( 'contributor', (array) $user->roles ) ) {
+      wp_enqueue_style( 'kulturedatenbank_admin_css_contributor', plugin_dir_url( __FILE__ ) . '/template/KDB-admin-style-contributor.css', false, '1.0.0' );
+    }
+
+    
     
   }
 
@@ -379,10 +417,14 @@ class SinngrundKultureBank {
   }
   
   function route_input_box(){
-    add_meta_box(   'route', // name
-                    __('Route'), //display text 
-                    array($this, 'route_input_box_display_callback'), // call back function  
-                    'post' );
+    $user = wp_get_current_user();
+    $allowed_roles = array('editor', 'administrator');
+    if( array_intersect($allowed_roles, $user->roles )){ 
+      add_meta_box(   'route', // name
+                      __('Route'), //display text 
+                      array($this, 'route_input_box_display_callback'), // call back function  
+                      'post' );
+    }
   }
   
   function save_route_input_box( $post_id ) {
@@ -852,9 +894,10 @@ class SinngrundKultureBank {
     ) );
   }
 
-  function geojson_generator() {
+  function geojson_generator($data) {
     $post_type_query = new WP_Query(array(
-        'post_type' => 'post'
+        'post_type' => 'post',
+        's' => sanitize_text_field($data['term'])
     ));
 
     $post_type_query_geojson = array();

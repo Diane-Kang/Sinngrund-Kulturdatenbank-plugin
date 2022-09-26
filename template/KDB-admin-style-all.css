@@ -1,0 +1,29 @@
+#adminmenu,
+#adminmenu .wp-submenu,
+#adminmenuback,
+#adminmenuwrap {
+  background-color: #006691;
+}
+.attachment-info .description {
+  display: none;
+}
+.attachment-info .setting[data-setting="alt"],
+.attachment-info .setting[data-setting="title"],
+.attachment-info .setting[data-setting="description"],
+.attachment-info .setting[data-setting="url"] {
+  display: none;
+}
+
+.attachment-info .setting[data-setting="caption"] .name {
+  position: absolute;
+  visibility: hidden;
+}
+.attachment-info .setting[data-setting="caption"] .name:after {
+  content: "Bildtitel";
+  visibility: visible;
+  display: block;
+}
+
+.attachment-info .actions .view-attachment {
+  display: none;
+}

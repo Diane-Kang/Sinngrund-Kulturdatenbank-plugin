@@ -52,7 +52,9 @@
     2. Route(mehre Pointen eingeben)
        
        - Beim Anklicken
+       
        - Bearbeitbar 
+       
        - Speichen die Daten als encoded String 
        
        - [ ] ? Verbesser? Speichen die Daten als Object?
@@ -93,13 +95,11 @@
     
     - sort option 
     
-    -  search 
+    - search 
       
       - [ ] seach autor: 
         
         How? : add author in content and set display none 
-    
-    
     
     - Click entry list 
       
@@ -802,4 +802,50 @@ wp.blocks.registerBlockType("sinngrund/kulture-datenbank", {
     )
   }
 })
+```
+
+## Change the WordPress configuration
+
+The second method is a bit more advanced as you will need to adapt some WordPress files via FTP.
+
+You will need to open the following files:
+
+- **wp-config.php**: this file can be found in the root of your WordPress installation
+- **functions.php**: this file can be found in the theme directory of the currently active theme you use
+- **.htaccess**: this (hidden) file is found in the root of your WordPress installation
+
+For each file, you should add the following information (given you want your new URL to look like: example.com/**login**):
+
+**wp-config.php**
+
+You
+ want to define in the WordPress configuration file where the 
+administrator directory is to be found, and change the cookie path:
+
+```
+define('WP_ADMIN_DIR', 'login');  
+define( 'ADMIN_COOKIE_PATH', SITECOOKIEPATH . WP_ADMIN_DIR);  
+```
+
+**functions.php**
+
+Filter to switch the old with the new URL:
+
+```
+add_filter('site_url',  'wpadmin_filter', 10, 3);  
+
+function wpadmin_filter( $url, $path, $orig_scheme ) {  
+    $old  = array( "/(wp-admin)/");  
+    $admin_dir = WP_ADMIN_DIR;  
+    $new  = array($admin_dir);  
+    return preg_replace( $old, $new, $url, 1);  
+}
+```
+
+**.htaccess**
+
+We set a redirect at WordPress level for the admin area:
+
+```
+RewriteRule ^login/(.*) wp-admin/$1?%{QUERY_STRING} [L]
 ```

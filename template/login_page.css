@@ -1,0 +1,23 @@
+/* register button */
+#nav > a:nth-child(1) {
+  display: none;
+}
+
+.login label {
+  font-size: 17px;
+}
+
+#login h1 a,
+.login h1 a {
+  background-image: url(../assets/Kulturedatenbank_sinngrund.png);
+  /* height: 65px; */
+  width: 320px;
+  /* background-size: 320px 65px; */
+  background-size: 320px 77px;
+  background-repeat: no-repeat;
+  /* padding-bottom: 30px; */
+}
+
+#login h1::after {
+  content: "text from login_page.css";
+}
