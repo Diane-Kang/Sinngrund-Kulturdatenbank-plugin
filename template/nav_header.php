@@ -1,3 +1,4 @@
+<?php if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly   ?>
 <nav class="menu top">
   <ul>
     <li><a class="logo" href="/">

@@ -1,4 +1,5 @@
 <html>
+<?php if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly   ?>
 <?php include 'head.php'; ?>
 
 <!-- <body <?php body_class(); ?> class="kulturdatenbank"> -->
