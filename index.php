@@ -2,8 +2,8 @@
 
 /*
   Plugin Name: Sinngrund kulturebank plugin 
-  Description: Es ist für Sinngrund kulturebank project: last updated at 12.Sep 14:00
-  Version: 2.5
+  Description: Es ist für Sinngrund kulturebank project: last updated at 27.Sep 16:00
+  Version: 2.6 
   Author: Page-effect 
   Author-email: Diane.kang@page-effect.com
 
