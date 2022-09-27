@@ -158,8 +158,9 @@ class SinngrundKultureBank {
     //-------------- Rest API ---------------------//
     ////// Rest API /wp-json/Sinngrund-Kulturdatenbank-plugin/geojson
     add_action( 'rest_api_init', array($this, 'geojson_generate_api'));
-    ////// Rest API /wp-json/Sinngrund-Kulturdatenbank-plugin/geojson
+    ////// Rest API /wp-json/Sinngrund-Kulturdatenbank-plugin/infojson
     add_action( 'rest_api_init', array($this, 'infojson_generate_api'));
+
 
     //shortcode for beitrag list 
     //add_shortcode('show_list_shortcode', array($this, 'show_list_function'));
@@ -300,7 +301,7 @@ class SinngrundKultureBank {
   function template_javascript(){
     // COOKIE 
 
-    wp_enqueue_style( 'sidewide_css',                    plugin_dir_url( __FILE__ ) . '/template/sidewide.css' , false);
+    wp_enqueue_style( 'sidewide_css',                     plugin_dir_url( __FILE__ ) . '/template/sidewide.css' , false);
     wp_enqueue_script( 'welcome_popup',                    plugin_dir_url( __FILE__ ) . '/template/welcome_popup.js',  array('jquery'), false, false);
 
     if (is_page(get_option('sad_mainpage_slug'))){
@@ -313,7 +314,7 @@ class SinngrundKultureBank {
     }
 
     if (is_page('gallery')){
-      // wp_enqueue_script( 'single-post-js',                  plugin_dir_url( __FILE__ ) . '/template/single_post.js', array(), false, false);
+      wp_enqueue_script( 'gallery-js',                    plugin_dir_url( __FILE__ ) . '/template/gallery_page.js', array(), false, false);
       wp_enqueue_style( 'gallery-css',                    plugin_dir_url( __FILE__ ) . '/template/gallery.css' , array(), false, false);
     }
 
@@ -881,7 +882,6 @@ class SinngrundKultureBank {
     return $info_array;
   }
   //////end-------------------------------- Rest API /wp-json/Sinngrund-Kulturdatenbank-plugin/infojson
-
 
 
 

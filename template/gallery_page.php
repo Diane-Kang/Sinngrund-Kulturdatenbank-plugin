@@ -20,6 +20,9 @@
   
 ?>
     </nav>
+
+
+
     <a aria-label="zurück" href="/" class="close"><span class="close close_icon"></span></a>
     <div class="search">
       <input type="search" id="search" name="search" class="searchTerm" placeholder="Einträge durchsuchen">
@@ -36,7 +39,8 @@
 $image_ids = get_posts(
     array(
         'post_type'      => 'attachment',
-        'post_mime_type' => 'image',
+        'post_mime_type' => array( 'video','image','audio'),
+        'terms' => $terms,
         'post_status'    => 'inherit',
         'posts_per_page' => - 1,
         'fields'         => 'ids',
@@ -46,14 +50,14 @@ $image_ids = get_posts(
 $images = $image_ids;
 ?>
     <div class="grid-collection">
-      <div class="grid-content">
+      <div class="grid-content" id="media-list">
         <?php
 
 if ($images) {
     foreach ($images as $image) {?>
 
 
-        <div class="grid-item">
+        <!-- <div class="grid-item">
           <div class="grid-main-wrap-image">
             <div class="grid-item-wrap">
               <img src="<?php echo wp_get_attachment_url($image); ?>" alt="">
@@ -67,7 +71,7 @@ if ($images) {
           <div class="media_upload_date">Hochgeladen am <?php echo get_the_date('d.m.Y', $image); ?></div>
           <div class="media_author">von
             <?php echo get_the_author_meta(  'display_name',get_post_field( 'post_author', $image )); ?></div>
-        </div>
+        </div> -->
 
         <?php    
     }   
