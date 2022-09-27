@@ -51,23 +51,26 @@
         </button>
       </div>
 
-      <div id="livesearch"></div>
-
+      <!-- <div id="livesearch"></div> -->
+      <div class="datenbank_list_block">
+        <div class="datenbank_list" id="datenbank_list">
+        </div>
+      </div>
       <?php 
-		    $the_query = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 400 ) );
+		    //$the_query = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 400 ) );
 		
-		    $string = ""; // html string
+		    // $string = ""; // html string
 
-        $string .= '<div class="datenbank_list_block">';
-        $string .= '	<div class="datenbank_list" id="datenbank_list">';
-          $string .= '	</div>'; // closeing class datenbank_list
+        // $string .= '<div class="datenbank_list_block">';
+        // $string .= '	<div class="datenbank_list" id="datenbank_list">';
+        //   $string .= '	</div>'; // closeing class datenbank_list
           
-        /* Restore original Post Data*/
-        wp_reset_postdata();
+        // /* Restore original Post Data*/
+        // //wp_reset_postdata();
         
-        $string .= '</div>'; // closeing class datenbank list block 
+        // $string .= '</div>'; // closeing class datenbank list block 
 
-        echo $string;
+        // echo $string;
         ?>
     </div>
   </div>

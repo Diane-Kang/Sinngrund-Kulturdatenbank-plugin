@@ -2,8 +2,8 @@
 
 /*
   Plugin Name: Sinngrund kulturebank plugin 
-  Description: Es ist für Sinngrund kulturebank project: last updated at 12.Sep 14:00
-  Version: 2.5
+  Description: Es ist für Sinngrund kulturebank project: last updated at 27.Sep 16:00
+  Version: 2.6 
   Author: Page-effect 
   Author-email: Diane.kang@page-effect.com
 
@@ -158,8 +158,9 @@ class SinngrundKultureBank {
     //-------------- Rest API ---------------------//
     ////// Rest API /wp-json/Sinngrund-Kulturdatenbank-plugin/geojson
     add_action( 'rest_api_init', array($this, 'geojson_generate_api'));
-    ////// Rest API /wp-json/Sinngrund-Kulturdatenbank-plugin/geojson
+    ////// Rest API /wp-json/Sinngrund-Kulturdatenbank-plugin/infojson
     add_action( 'rest_api_init', array($this, 'infojson_generate_api'));
+
 
     //shortcode for beitrag list 
     //add_shortcode('show_list_shortcode', array($this, 'show_list_function'));
@@ -896,7 +897,6 @@ class SinngrundKultureBank {
     return $info_array;
   }
   //////end-------------------------------- Rest API /wp-json/Sinngrund-Kulturdatenbank-plugin/infojson
-
 
 
 
