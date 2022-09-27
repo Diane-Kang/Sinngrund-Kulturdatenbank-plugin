@@ -8,7 +8,7 @@
     <?php include 'nav_header.php'; ?>
     <?php include 'nav_footer.php'; ?>
 
-    <div class="main_map_block" id="main_page_map"></div>
+    <div class="main_map_block map_block" id="main_page_map"></div>
 
     <div class="main_block main_page_right sidebar" id="side_bar">
 

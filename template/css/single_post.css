@@ -1,49 +1,29 @@
-h1 {
-  font-weight: 400;
-  font-size: 34px;
-  color: var(--d_blue);
-  margin: 0;
-}
-
 /* Basic Side Grid */
 .side_wrapper {
   grid-template-columns: 40% 60%;
-  grid-template-rows: 100vh 100px;
+}
+
+.sidebar {
+  padding: 60px 90px;
+  grid-row: 1/4;
+  }
+
+.post_content {
+  overflow-y: scroll;
 }
 
 
 /*Header nav*/
-.menu.top li {
-  /*
-    
-    float: left;
-    */
-    list-style-type: none;
-    position: fixed;
-    top: 60px;
-    left: 60px;
-  }
-
   .menu.top li:nth-child(2) {
-right: 100px;
 left: 25%;
-top: 60px;
   }
 
   .menu.top li:nth-child(3) {
-right: 0;
 left: 32%;
-top: 60px;
   }
 
-.map_block {
-  position: fixed;
-  left: 0;
-  top: 0;
-  height: 100vh;
-  width: 40%;
-}
 
+/* content */
 .entry_category p {
   display: flex;
   align-items: center;
@@ -58,6 +38,7 @@ top: 60px;
   font-weight: 700;
   }
 
+/* Farben der Kategorien */
   .brauchtum-und-veranstaltungen b {
     color: var(--d_blue);
   }
@@ -66,7 +47,6 @@ top: 60px;
     color: var(--l_grey);
   } 
 
- 
 
 .kulturelle-sehenswurdigkeiten b {
 color: var(--red);
@@ -92,12 +72,4 @@ color: var(--red);
   margin: 0;
 }
 
-.sidebar {
-  padding: 60px 90px;
-  grid-row: 1/4;
-  }
-
-.post_content {
-  overflow-y: scroll;
-}
 

@@ -1,0 +1,212 @@
+.leaflet-container a {
+  color: var(--d_blue);
+}
+
+/* Basic Side Grid */
+
+
+html, body, .side_wrapper {
+  overflow-y: hidden;
+}
+
+
+.kulturdatenbank {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+  }
+  
+  .side_wrapper {
+    flex: 1 1 auto;
+    display: grid;
+    grid-template-rows: 100%;
+    position: relative;
+    overflow-y: hidden;
+  }
+  
+  .menu.top {
+    grid-row: 1/2;
+    grid-column: 1/2;
+  }
+  
+  /*
+  .map_wrapper {  
+    position: fixed;
+    left: 0;
+    top: 0;  
+    grid-row: 1/2;
+    grid-column: 1/2;
+  }
+  */
+
+  .map_block {  
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    grid-row: 1/2;
+    grid-column: 1/2;
+  }
+  
+  .sidebar {
+    margin: 0;
+    min-width: 360px;
+    grid-column: 2/3;
+    position: fixed;
+    right: 0;
+    top: 0;
+    overflow-y: scroll;
+    overflow-x: scroll;
+  }
+  
+  .legal {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+  }
+
+/* Header Nav */
+
+.menu.top {
+  position: absolute;
+  z-index: 999;
+  width: 1px;
+}
+
+.menu.top li {
+    position: fixed;
+    top: 60px;
+    left: 60px;
+  }
+
+  .menu.top li:nth-child(2) {
+right: 100px;
+top: 60px;
+  }
+
+  .menu.top li:nth-child(3) {
+right: 0;
+top: 60px;
+  }
+
+/*Map */
+.main_map_block .marker-cluster {
+    background-image: url(/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/icon-stern.svg);
+    background-color: rgba(255,255,255,0);
+    background-size: contain;
+    width: 60px !important;
+    height: 60px !important;
+  }
+  
+  .main_map_block .marker-cluster div {
+    background-color: rgba(255,255,255,0);
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
+  
+  .main_map_block .marker-cluster span {
+    color: #fff;
+    font-size: 20px;
+   font-weight: 700;
+  }
+  
+  .leaflet-popup {
+    padding: 7.5px;
+    border: 3px;
+    width: 450px;
+  }
+
+  .leaflet-popup-content {
+    display: flex;
+    flex-direction: row;
+    width: 400px !important;
+    position: relative;
+  }
+
+  .leaflet-popup-content img {
+    width: 100%;
+    height: auto;
+    padding-right: 10px;
+    align-self: start;
+    display: block;
+  }
+
+  .text_wrapper {
+    flex-direction: column;
+  }
+  
+  .popup_title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--d_text);
+  }
+
+  .popupcategory {
+    display: none;
+  }
+  
+  .leaflet-popup p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.1em;
+  padding-top: 5px;
+  }
+  
+  .leaflet-popup a {
+    padding: 0;
+    font-size: 18px;
+    display: block;
+    border: none;
+    margin-top: 0;
+    grid-column: 2/3;
+    grid-row: 3/4;
+    border: none;
+    position: relative;
+  }
+
+  .leaflet-popup a button{
+    border: none;
+  }
+
+  .leaflet-popup a button:hover,
+  .leaflet-popup a button:active{
+background-color: #fff;  
+color: var(--d_text);
+opacity: 0.75;
+}
+
+  .leaflet-popup a button::after {
+  left: -10px;
+  right: auto;
+  background-size: 60%;
+  }
+
+  /* Close X Map Popup */
+  
+  .main_map_block.leaflet-container a.leaflet-popup-close-button {
+    position: absolute;
+    top: -3px;
+    right: -2px;
+    margin: 0;
+    background-color: #fff;
+    border-radius: 50px;
+    box-shadow: 0 0 2px 1px var(--l_grey);
+    color: var(--d_text);
+  }
+
+  /*Sidebar*/
+
+  .sidebar {
+    background-color: rgba(128, 128, 128, 0.1);
+    display: inline-block;
+    border: none;
+    box-shadow: -4px 0px 20px 0px var(--l_grey);
+    position: relative;
+    z-index: 999;
+  }
+

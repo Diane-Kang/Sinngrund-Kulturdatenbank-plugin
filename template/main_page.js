@@ -96,7 +96,7 @@ async function main() {
         '<div class="entry_date" style="">' + date + "</div>" +
         '<div class="entry_author" style="">' + author + "</div>" +
         '<div class="entry_category">'+
-          '<img style="height: 20px; width: 20px; margin-right: 2px;" src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/' + category_shortname + '.svg"/>' +
+          '<img src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/' + category_shortname + '.svg"/>' +
           category_name +
         "</div>" +
         '<a href="' + url + '">' +
@@ -168,14 +168,26 @@ async function main() {
     let Icon_name = category_icon_array[category];
     let popuptext, popupimage, popupexcerpt;
     popuptext =   '<div class="popup_title"><strong>'+ feature.properties.name + '</strong></div>';
-    popupimage =  feature.properties.thumbnail_url ? '<img src="' + feature.properties.thumbnail_url + '" alt="'+ feature.properties.title +' thumbnail image" width="50px" height="50px"></img>' : ''; 
+    popupimage =  feature.properties.thumbnail_url ? '<img src="' + feature.properties.thumbnail_url + '" alt="'+ feature.properties.title +' thumbnail image" width="50px" height="50px"></img>' : '';  
     popupexcerpt = feature.properties.excerpt ? '<p>' + feature.properties.excerpt + '</p>' : '' ;
-    popuptext = popuptext + popupimage + popupexcerpt;
-    popuptext = popuptext +
-                '<div class="popupcategory">'+category+'</div>' + 
-                '<a href="' +  feature.properties.url + '">' +
-                  '<button class="popup_button">Eintrag ansehen</button>' +
-                '</a>';
+    // popuptext = popuptext + popupimage + popupexcerpt;
+    // popuptext = popuptext +
+    //             '<div class="popupcategory">'+category+'</div>' + 
+    //             '<a href="' +  feature.properties.url + '">' +
+    //               '<button class="popup_button">Eintrag ansehen</button>' +
+    //             '</a>';
+
+
+    let popuptext2 =   popupimage +
+                      '<div class="text_wrapper">' +
+                        '<div class="popup_title">' + popuptext + '</div>' +
+                        '<div class="popupcategory">'+category + '</div>' + 
+                        '<p>' + popupexcerpt + '</p>' +
+                        '<a href="' +  feature.properties.url + '">' +
+                          '<button class="popup_button">Eintrag ansehen</button>' +
+                        '</a>' +
+                      '</div>';
+
 
     let marker_option = {
       icon: Icon_name,
@@ -186,7 +198,7 @@ async function main() {
     let marker = L.marker(
                           [feature.geometry.coordinates[1], feature.geometry.coordinates[0]],
                           marker_option
-                        ).bindPopup(popuptext);
+                        ).bindPopup(popuptext2);
 
     // Add marker to related category map_layergroup and group_all 
     marker.addTo(category_layergroup_array[category]);
@@ -242,6 +254,10 @@ async function main() {
 
         // show the button in the clicked DIV
         event.target.parentNode.querySelector("button").classList.add("db");
+        let marked_ones = document.querySelectorAll(".datenbank_single_entry");
+        marked_ones.forEach((mark) =>
+        mark.classList.remove("marked"));
+        event.target.parentNode.classList.add("marked");
       })
     );
   }

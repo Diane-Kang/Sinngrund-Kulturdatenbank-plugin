@@ -75,7 +75,7 @@ class SinngrundKultureBank {
     /////// url changed by Plugin: change-wp-admin-login /wp-login -> /zugang
     add_filter( 'login_headerurl', function (){return home_url();} );
     add_action( 'login_enqueue_scripts',      function (){
-                                                wp_enqueue_style( 'custom-login',  plugin_dir_url(__FILE__) . 'template/login_page.css' );
+                                                wp_enqueue_style( 'custom-login',  plugin_dir_url(__FILE__) . 'template/css/login_page.css' );
                                                 //wp_enqueue_script( 'custom-login',  plugin_dir_url(__FILE__) . '/style-login.js' );
                                               }
     );
@@ -301,30 +301,45 @@ class SinngrundKultureBank {
   function template_javascript(){
     // COOKIE 
 
-    wp_enqueue_style( 'sidewide_css',                     plugin_dir_url( __FILE__ ) . '/template/sidewide.css' , false);
+    wp_enqueue_style( 'sidewide_css',                    plugin_dir_url( __FILE__ ) . '/template/css/sidewide.css' , false);
     wp_enqueue_script( 'welcome_popup',                    plugin_dir_url( __FILE__ ) . '/template/welcome_popup.js',  array('jquery'), false, false);
+
+    //if has map
+    if (is_page(get_option('sad_mainpage_slug')) || is_single()){
+      wp_enqueue_style( 'has_map_css',                    plugin_dir_url( __FILE__ ) . '/template/css/has_map.css' , array(), false, false);
+    }
+
+     // if has no map
+     if (! is_page(get_option('sad_mainpage_slug')) && ! is_single()){
+      wp_enqueue_style( 'no_map_css',                    plugin_dir_url( __FILE__ ) . '/template/css/no_map_side.css' , array(), false, false);
+    }
+
+    // if has search
+    if (is_page(get_option('sad_mainpage_slug')) || is_page('gallery')){
+      wp_enqueue_style( 'search_css',                    plugin_dir_url( __FILE__ ) . '/template/css/search.css' , array(), false, false);
+    }
 
     if (is_page(get_option('sad_mainpage_slug'))){
       wp_enqueue_script( 'main-page-js',                    plugin_dir_url( __FILE__ ) . '/template/main_page.js',  array(), false, false);
-      wp_enqueue_style( 'main-page-css',                    plugin_dir_url( __FILE__ ) . '/template/main_page.css' , array(), false, false);
+      wp_enqueue_style( 'main-page-css',                    plugin_dir_url( __FILE__ ) . '/template/css/main_page.css' , array(), false, false);
     }
     if (is_single()){
       wp_enqueue_script( 'single-post-js',                  plugin_dir_url( __FILE__ ) . '/template/single_post.js', array(), false, false);
-      wp_enqueue_style( 'single-post-css',                    plugin_dir_url( __FILE__ ) . '/template/single_post.css' , array(), false, false);
+      wp_enqueue_style( 'single-post-css',                    plugin_dir_url( __FILE__ ) . '/template/css/single_post.css' , array(), false, false);
     }
 
     if (is_page('gallery')){
-      wp_enqueue_script( 'gallery-js',                    plugin_dir_url( __FILE__ ) . '/template/gallery_page.js', array(), false, false);
-      wp_enqueue_style( 'gallery-css',                    plugin_dir_url( __FILE__ ) . '/template/gallery.css' , array(), false, false);
+      // wp_enqueue_script( 'single-post-js',                  plugin_dir_url( __FILE__ ) . '/template/single_post.js', array(), false, false);
+      wp_enqueue_style( 'gallery-css',                    plugin_dir_url( __FILE__ ) . '/template/css/gallery.css' , array(), false, false);
     }
 
   }
 
   function load_admin_styles() {
-    wp_enqueue_style( 'kulturedatenbank_admin_css', plugin_dir_url( __FILE__ ) . '/template/KDB-admin-style-all.css', false, '1.0.0' );
+    wp_enqueue_style( 'kulturedatenbank_admin_css', plugin_dir_url( __FILE__ ) . '/template/css/KDB-admin-style-all.css', false, '1.0.0' );
     $user = wp_get_current_user();
     if ( in_array( 'contributor', (array) $user->roles ) ) {
-      wp_enqueue_style( 'kulturedatenbank_admin_css_contributor', plugin_dir_url( __FILE__ ) . '/template/KDB-admin-style-contributor.css', false, '1.0.0' );
+      wp_enqueue_style( 'kulturedatenbank_admin_css_contributor', plugin_dir_url( __FILE__ ) . '/template/css/KDB-admin-style-contributor.css', false, '1.0.0' );
     }
 
     
