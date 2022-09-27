@@ -10,7 +10,7 @@ wp.data.dispatch( 'core/edit-post').removeEditorPanel( 'discussion-panel' ); // 
 wp.data.dispatch( 'core/edit-post').removeEditorPanel( 'template' ); // Template
 
 
-jQuery(document).ready(function($){
-  $("aria-expanded").attr("false");
-});
-document.querySelector(".components-panel__body-toggle").setAttribute("aria-expanded", "false");
+// jQuery(document).ready(function($){
+//   $("aria-expanded").attr("false");
+// });
+// document.querySelector(".components-panel__body-toggle").setAttribute("aria-expanded", "false");
