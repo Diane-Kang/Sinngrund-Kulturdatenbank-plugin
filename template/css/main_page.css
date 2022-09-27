@@ -153,7 +153,33 @@ font-weight: 600;
 
 .datenbank_single_entry.marked {
 background-color: var(--d_blue);
+color: #fff;
+padding-bottom: 30px;
+cursor: default;
 }
+
+.datenbank_single_entry.marked .entry_category {
+border: none;
+padding-bottom: 7.5px;
+}
+
+.datenbank_single_entry.marked a {
+ text-decoration: none;
+  }
+
+.datenbank_single_entry.marked button {
+  background-color: var(--d_blue);
+  color: #fff;
+  border-color: #fff;
+  padding: 10px 30px;  
+}
+
+.datenbank_single_entry.marked button::after {
+ padding: 5px 0;
+ background-image: url(/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/right-svgrepo-com-white.svg);
+ background-size: 50%; 
+}
+
 
 .dn {
   display: none;

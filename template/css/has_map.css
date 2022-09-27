@@ -90,7 +90,7 @@ top: 60px;
   }
 
 /*Map */
-.main_map_block .marker-cluster {
+.map_block .marker-cluster {
     background-image: url(/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/icon-stern.svg);
     background-color: rgba(255,255,255,0);
     background-size: contain;
@@ -98,7 +98,7 @@ top: 60px;
     height: 60px !important;
   }
   
-  .main_map_block .marker-cluster div {
+  .map_block .marker-cluster div {
     background-color: rgba(255,255,255,0);
     margin: 0;
     width: 100%;
@@ -109,7 +109,7 @@ top: 60px;
     align-content: center;
   }
   
-  .main_map_block .marker-cluster span {
+  .map_block .marker-cluster span {
     color: #fff;
     font-size: 20px;
    font-weight: 700;
@@ -118,7 +118,7 @@ top: 60px;
   .leaflet-popup {
     padding: 7.5px;
     border: 3px;
-    width: 450px;
+   width: 450px; 
   }
 
   .leaflet-popup-content {
@@ -188,7 +188,7 @@ opacity: 0.75;
 
   /* Close X Map Popup */
   
-  .main_map_block.leaflet-container a.leaflet-popup-close-button {
+  .map_block.leaflet-container a.leaflet-popup-close-button {
     position: absolute;
     top: -3px;
     right: -2px;
