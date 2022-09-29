@@ -22,12 +22,45 @@ left: 25%;
 left: 32%;
   }
 
+/*Map Popup*/
+
+.single_post_main_block .leaflet-popup-content-wrapper {
+background-color: rgba(255,255,255,0);
+box-shadow: none;
+}
+
+.single_post_main_block .popup_title {
+font-size: 20px;
+font-weight: 700;
+line-height: 1.5em;
+text-shadow: 0px 0px 2px #fff;
+color: var(--d_text);
+}
+
+.single_post_main_block.leaflet-container a.leaflet-popup-close-button, 
+.single_post_main_block.leaflet-container .leaflet-popup-tip-container,
+.single_post_main_block.leaflet-container .leaflet-popup-content img,
+.single_post_main_block.leaflet-container .leaflet-popup-content  a,
+.single_post_main_block.leaflet-container .leaflet-popup-content  p,
+.single_post_main_block.leaflet-container .leaflet-popup-content .popupcategory {
+  display: none;
+}
 
 /* content header*/
 .entry_category b {
   padding: 0 7.5px;
   font-weight: 700;
   }
+
+  .entry_category p {
+    display: flex;
+    align-items: center;
+    padding-bottom: 40px;
+    }
+  
+  .entry_category img {
+    width: 30px;
+    }
 
 /* Farben der Kategorien */
   .brauchtum-und-veranstaltungen b {
@@ -60,23 +93,64 @@ color: var(--red);
 }
 
 /* Entry Content Text */
-.entry_category h2 {
+.post_content h2 {
 color: var(--d_blue);
 }
 
-.entry_category p {
-  display: flex;
-  align-items: center;
+  .post_content p {
+    margin: 20px 0;
   }
-
-.entry_category img {
-  width: 30px;
-  }
-
-
 
 .wp-block-image {
   margin: 0;
 }
 
+.content_footer {
+  padding-top: 60px;
+  margin-top: 60px;
+  border-top: 2px dotted var(--d_text);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+}
 
+.content_footer button {
+  background-color: rgba(255,255,255,0);
+  padding: 15px 55px 15px 30px;
+  display: block;
+}
+
+.content_footer button::after {
+  right: 25px;
+  background-image: url(/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/share-svgrepo-com.svg); 
+}
+
+.content_footer button:hover,
+.content_footer button:hover {
+color: var(--d_text);
+}
+
+.content_footer p {
+font-size: 17px;
+}
+
+/* Media Querries */
+@media screen and (max-width: 980px) {
+  .post_content .close {
+    bottom: 30px;
+    top: auto;
+    padding: 10px;
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    background-color: rgba(128, 128, 128, 0);
+    border-radius: 50%;
+  }
+
+  .close .close_icon::before {
+    
+    border-radius: 50%;
+
+  }
+}

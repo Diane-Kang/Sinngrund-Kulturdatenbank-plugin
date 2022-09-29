@@ -45,3 +45,8 @@
   #livesearch {
     display: none;
   }
+
+  /* Media Querries */
+@media screen and (max-width: 980px) {
+
+}

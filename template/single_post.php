@@ -32,16 +32,16 @@
           </div>
           <?php
         echo get_the_content();?>
-          <hr>
           <div class="content_footer">
             <button>Eintrag teilen</button>
-            <?php 
+            <p><?php 
           Global $post;
           $author = get_the_author_meta('display_name', $post->post_author); 
           $date = get_the_date('d.m.Y');
           $string = 'Eintrag erstellt von ' .  $author . ' am ' . $date . '.';
           echo $string; 
         ?>
+          </p>
           </div>
           <?php
       // echo $sinngrundKultureBank->add_author_in_content(get_the_content()) . 'this';

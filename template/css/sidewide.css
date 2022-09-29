@@ -2,6 +2,7 @@ html, body, .side_wrapper {
   width: 100%;
   height: 100%;
   overflow-x: scroll;
+  box-sizing: border-box;
 }
 
 /* colors */
@@ -283,6 +284,12 @@ display: grid;
   color: var(--d_blue);
 }
 
+/* Media Querries */
+@media screen and (max-width: 980px) {
+
+}
+
+/*Fonts*/
 /* barlow-300 - latin */
 @font-face {
   font-family: "Barlow";
