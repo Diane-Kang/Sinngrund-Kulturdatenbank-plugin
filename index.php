@@ -2,8 +2,8 @@
 
 /*
   Plugin Name: Sinngrund kulturebank plugin 
-  Description: Es ist für Sinngrund kulturebank project: last updated at 27.Sep 16:00
-  Version: 2.6 
+  Description: Es ist für Sinngrund kulturebank project: last updated at 27.Sep 20:00
+  Version: 2.7 
   Author: Page-effect 
   Author-email: Diane.kang@page-effect.com
 
@@ -329,7 +329,7 @@ class SinngrundKultureBank {
     }
 
     if (is_page('gallery')){
-      // wp_enqueue_script( 'single-post-js',                  plugin_dir_url( __FILE__ ) . '/template/single_post.js', array(), false, false);
+      wp_enqueue_script( 'gallery-js',                  plugin_dir_url( __FILE__ ) . '/template/gallery_page.js', array(), false, true);
       wp_enqueue_style( 'gallery-css',                    plugin_dir_url( __FILE__ ) . '/template/css/gallery.css' , array(), false, false);
     }
 
@@ -435,12 +435,12 @@ class SinngrundKultureBank {
   function route_input_box(){
     $user = wp_get_current_user();
     $allowed_roles = array('editor', 'administrator');
-    if( array_intersect($allowed_roles, $user->roles )){ 
+   // if( array_intersect($allowed_roles, $user->roles )){ 
       add_meta_box(   'route', // name
                       __('Route'), //display text 
                       array($this, 'route_input_box_display_callback'), // call back function  
                       'post' );
-    }
+   // }
   }
   
   function save_route_input_box( $post_id ) {

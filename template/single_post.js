@@ -126,11 +126,12 @@ async function main() {
   // and zoom in the there 
   json_w_geocode.features.forEach((feature) => {
     if (feature.id == current_postid && !(feature.route[0].length == 0)) {
+      let route_json = JSON.parse(decodeURIComponent(feature.route[0]));
       let string_json = decodeURIComponent(JSON.stringify(feature.route[0]));
       //console.log(decodeURIComponent(JSON.stringify(feature.route[0])));
-      eval("input_json = " + string_json.slice(1, -1) + ";");
+      //eval("input_json = " + string_json.slice(1, -1) + ";");
       //console.log("input_json = " + string_json.slice(1, -1) + ";");
-      var drawnroute = L.geoJson(input_json).addTo(map);
+      var drawnroute = L.geoJson(route_json).addTo(map);
       map.fitBounds(drawnroute.getBounds(), { padding: [100, 100] });
     }
   });

@@ -34,6 +34,7 @@
         </svg>
       </button>
     </div>
+
     <div id="livesearch_media"></div>
     <?php 
 $image_ids = get_posts(

@@ -1,4 +1,4 @@
-
+async function main() {
 function createMediaList({
   source_url,
   caption_rendered,
@@ -30,7 +30,7 @@ function createMediaList({
 
 jQuery.ajax({
   type: "GET",
-  url: '/wp-json/wp/v2/media?per_page=60' ,
+  url: '/wp-json/wp/v2/media' ,
   data: '',
   datatype: "html",
   success: function(results) {
@@ -50,3 +50,35 @@ jQuery.ajax({
      });
   }
 });
+
+
+
+var GetSearch = document.getElementById('search');
+GetSearch.addEventListener("keyup", function(){
+    //InfoData = {slug:GetSearch.value}
+    jQuery.ajax({
+      type: "GET",
+      // url: 'wp-json/wp/v2/posts?search=' + GetSearch.value ,
+      url: '/wp-json/wp/v2/media?search='  + GetSearch.value ,
+      data: '',
+      datatype: "html",
+      success: function(results) {
+        let datenbank_list_result = document.querySelector("#media-list");
+        datenbank_list_result.innerHTML = "";
+        results.forEach((feature)=>{  
+          datenbank_list_result.insertAdjacentHTML(
+            "beforeend",
+            createMediaList({
+              source_url: feature.source_url,
+              caption_rendered : feature.caption.rendered,
+              orte : feature.orte, //list of orte tags
+              date : feature.date,
+              author_id : feature.author,
+            })
+          );
+        });
+      }
+   });
+});
+}
+main();

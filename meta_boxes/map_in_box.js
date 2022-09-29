@@ -17,23 +17,25 @@ function map_init(div_id){
 var route_map = map_init('route_map');
 //var drawnItems = new L.FeatureGroup();
 
-var node = document.getElementById('display_route_encoded');
 var drawnItems =L.featureGroup();
-var route_json;
-console.log(node.innerHTML.length);
-
-if(node.innerHTML.length != 0){
-  let string_json = decodeURIComponent(JSON.stringify(node.innerHTML));
-  eval("route_json = "+string_json.slice(1,-1)+ ";");
-  console.log(route_json);
-  drawnItems  = L.geoJson(route_json).addTo(route_map);
-}
-//console.log(string_json);
-//console.log("var route_json = "+string_json.slice(1,-1)+ ";");
-
-//L.geoJson(route_json).addTo(route_map);
+//var drawnItems = new L.FeatureGroup();
 route_map.addLayer(drawnItems);
 
+
+var node = document.getElementById('display_route_encoded');
+
+console.log("??")
+console.log(node.innerHTML);
+
+if(node.innerHTML.length > 4){
+  //let string_json = decodeURIComponent(JSON.stringify(node.innerHTML));
+  //eval("route_json = "+string_json.slice(1,-1)+ ";");
+  let route_json = JSON.parse(decodeURIComponent(node.innerHTML));
+  //let route_json = string_json.slice(1,-1);
+  console.log(route_json);
+  drawnItems  = L.geoJson(route_json).addTo(route_map);
+  route_map.addLayer(drawnItems);
+}
 
 
 var drawControl = new L.Control.Draw({
@@ -46,23 +48,23 @@ var drawControl = new L.Control.Draw({
     marker:false
   },
   edit: {
-    featureGroup: drawnItems,
-    edit: {
-      selectedPathOptions: {
-        maintainColor: true,
-        moveMarkers: true
-      }
-    }
+   featureGroup: drawnItems
+  //   edit: {
+  //     selectedPathOptions: {
+  //       maintainColor: true,
+  //       moveMarkers: true
+  //     }
+  //   }
   }
-
 });
+
 route_map.addControl(drawControl);
 
-route_map.on('draw:created', function(e) {
-  let type = e.layerType;
-  let layer = e.layer; //?
-  drawnItems.addLayer(e.layer);
+route_map.on(L.Draw.Event.CREATED, function(e) {
+  drawnItems.addLayer((e.layer));
 });
+
+
 
 
 
@@ -80,11 +82,12 @@ document.getElementById('export').onclick = function(e) {
   // show points 
   let string = "";
   geodata.forEach(coordinate=>{
-    string = string +'['+coordinate+']' +'<br>';
+    string = string +'['+coordinate[1] + ' ' +coordinate[0] +']' +'<br>';
   })
+  document.querySelector('#content_sinn').innerHTML= "";
   document.querySelector('#content_sinn').insertAdjacentHTML(
     'afterbegin',
-    string
+    '[Latitude, Longitude]<br>'+ string
   );
 
   //save to meta value
@@ -98,7 +101,7 @@ document.getElementById('export').onclick = function(e) {
 
 
 setTimeout(function(){route_map.invalidateSize();
-},1000); 
+},5000); 
 
 
 
