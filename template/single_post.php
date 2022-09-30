@@ -31,12 +31,8 @@
               <?php echo get_the_date(); ?> </p>
           </div>
           <?php
-<<<<<<< HEAD
-        echo get_the_content();?>
-=======
         //echo get_the_content();
         the_content()?>
->>>>>>> 9a7c93079668fab60c65dee3d07dbd5c208ef463
           <div class="content_footer">
             <button>Eintrag teilen</button>
             <p><?php 
