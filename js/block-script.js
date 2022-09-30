@@ -14,3 +14,15 @@ wp.data.dispatch( 'core/edit-post').removeEditorPanel( 'template' ); // Template
 //   $("aria-expanded").attr("false");
 // });
 // document.querySelector(".components-panel__body-toggle").setAttribute("aria-expanded", "false");
+
+wp.domReady(function () {
+  const allowedEmbedBlocks = [
+    'vimeo',
+    'youtube',
+  ];
+  wp.blocks.getBlockVariations('core/embed').forEach(function (blockVariation) {
+    if (-1 === allowedEmbedBlocks.indexOf(blockVariation.name)) {
+      wp.blocks.unregisterBlockVariation('core/embed', blockVariation.name);
+    }
+  });
+});
