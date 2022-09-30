@@ -148,7 +148,7 @@ async function main() {
         //console.log(markerBounds);
         //map.fitBounds(markerBounds);
         //map.setZoom(16);
-        let popuptext = '<div class="popup_title"><strong>'+ marker["options"]["name"] + '</strong></div>';
+        let popuptext = '<div class="popup_title">'+ marker["options"]["name"] + '</div>';
         //console.log(marker["options"]["icon"]["options"]["iconUrl"]);
         let bigIcon = L.icon({
           iconUrl : marker["options"]["icon"]["options"]["iconUrl"],
