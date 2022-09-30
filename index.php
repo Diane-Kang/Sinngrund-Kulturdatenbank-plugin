@@ -3,7 +3,7 @@
 /*
   Plugin Name: Sinngrund kulturebank plugin 
   Description: Es ist für Sinngrund kulturebank project: last updated at 27.Sep 20:00
-  Version: 2.7 
+  Version: 2.8 
   Author: Page-effect 
   Author-email: Diane.kang@page-effect.com
 
@@ -161,6 +161,8 @@ class SinngrundKultureBank {
     ////// Rest API /wp-json/Sinngrund-Kulturdatenbank-plugin/infojson
     add_action( 'rest_api_init', array($this, 'infojson_generate_api'));
 
+    add_action('rest_api_init', array($this, 'create_api_posts_meta_field'));
+
 
     //shortcode for beitrag list 
     //add_shortcode('show_list_shortcode', array($this, 'show_list_function'));
@@ -182,6 +184,7 @@ class SinngrundKultureBank {
 
 
   function cc_gutenberg_register_files() {
+   
     // script file
     wp_register_script(
         'cc-block-script',
@@ -192,6 +195,7 @@ class SinngrundKultureBank {
     register_block_type( 'cc/ma-block-files', array(
         'editor_script' => 'cc-block-script'
     ) );
+    
 
 }
 
@@ -618,6 +622,11 @@ class SinngrundKultureBank {
     $user = wp_get_current_user();
     $allowed_roles = array('editor', 'administrator');
     $post = get_post();
+    
+    // if(get_current_user_id != 1){
+    //   return TURE;
+    // }
+    // else 
     if ($post->post_type == 'post'){ 
       return array(
         'core/paragraph',
@@ -626,7 +635,8 @@ class SinngrundKultureBank {
         'core/list',
         'core/image',
         'core/audio',
-        'core/video',  );
+        'core/video',
+        'core/embed',  );
     }
     // if( !array_intersect($allowed_roles, $user->roles )){    
     //   return array(
@@ -862,7 +872,28 @@ class SinngrundKultureBank {
 
 
   
+  function create_api_posts_meta_field() {
 
+    // register_rest_field ( 'name-of-post-type', 'name-of-field-to-return', array-of-callbacks-and-schema() )
+    register_rest_field( 'attachment', 'post-meta-fields', array(
+           'get_callback'    => array($this,'get_post_meta_for_api'),
+           'schema'          => null,
+        )
+    );
+  }
+
+  function get_post_meta_for_api( $object ) {
+    
+    //get the id of the post object array
+    $post_id = $object['id'];
+    $terms = get_the_terms($post_id, 'orte');
+    // foreach ($terms as $term){
+    //   $ortlist .= $term->name;
+    // }  
+    $ortlist = join(', ', wp_list_pluck($terms, 'name'));
+    //return the post meta
+    return $ortlist;
+  }
   
   //////-------------------------------- Rest API /wp-json/Sinngrund-Kulturdatenbank-plugin/infojson
   function infojson_generate_api() {
