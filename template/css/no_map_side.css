@@ -17,3 +17,8 @@
     position: static;
     font-size: 20px;
     }
+
+    /* Media Querries */
+@media screen and (max-width: 980px) {
+
+}
