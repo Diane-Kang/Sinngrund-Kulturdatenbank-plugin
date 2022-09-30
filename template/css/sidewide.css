@@ -144,6 +144,7 @@ display: block;
   padding: 7.5px;
   border-radius: 50px;
   box-shadow: 0 0 5px 1px var(--l_grey);
+  margin: 0;
 }
 
 .close_icon::after {
@@ -177,10 +178,20 @@ display: grid;
   font-weight: 700;
 }
 
+.popup.info button a {
+  text-decoration: none;
+  color: var(--d_text);
+}
+
+.popup.info button:hover a,
+.popup.info button:active a {
+  color: #fff;
+}
 
 .popup.info .right {
   text-align: center;
   align-self: stretch;
+  justify-self: stretch;
 }
 
 .popup.info .slide .close {
@@ -192,7 +203,6 @@ display: grid;
   display: block;
   margin: 0 auto;
   left: 0;
-  right: 0;
 }
 
 .content_wrapper img {
