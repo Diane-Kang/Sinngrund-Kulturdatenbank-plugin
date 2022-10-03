@@ -20,7 +20,7 @@
           einfach die kurze Einführung in die Kulturdatenbank an:
         </p>
         <button class="einfuehrung next">Einführung ansehen</button>
-        <button class="mitmachen"><a target="_blank" href="<?php echo site_url("zugang") ?>">Mitmachen</a></button>
+        <a class="mitmachen button" target="_blank" href="<?php echo site_url("zugang") ?>">Mitmachen</a>
       </div>
 
 
@@ -37,7 +37,7 @@
 
         </div>
 
-        <button class="close" aria-label="Close">Zur Datenbank</button>
+        <button class="close text_button button" aria-label="Close">Zur Datenbank</button>
       </div>
     </div>
     <div class="slide two">
