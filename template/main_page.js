@@ -90,8 +90,7 @@ async function main() {
             '" id="map_id_'+ post_id + 
             '" category="' + category_shortname +
             '" date="' + date +
-            '" author="' + author +
-      '">' +
+            '" author="' + author +'">' +
         '<div class="entry_title">' + title + "</div>" +
         '<div class="entry_date" style="">' + date + "</div>" +
         '<div class="entry_author" style="">' + author + "</div>" +
@@ -99,10 +98,10 @@ async function main() {
           '<img src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/' + category_shortname + '.svg"/>' +
           category_name +
         "</div>" +
-        '<a href="' + url + '">' +
-          '<button class="dn">Eintrag ansehen</button>' +
-        "</a>" +
-        "</div>";
+        '<a class="dn button main-page-button" href="' + url + '">Eintrag ansehen' +
+         // '<button class="dn">Eintrag ansehen</button>' +
+        '</a>' +
+        '</div>';
     return htmltext;
   }
 
@@ -183,8 +182,8 @@ async function main() {
                         '<div class="popup_title">' + popuptext + '</div>' +
                         '<div class="popupcategory">'+category + '</div>' + 
                         '<p>' + popupexcerpt + '</p>' +
-                        '<a href="' +  feature.properties.url + '">' +
-                          '<button class="popup_button">Eintrag ansehen</button>' +
+                        '<a class="popup_button button" href="' +  feature.properties.url + '">Eintrag ansehen' +
+                        //  '<button class="popup_button">Eintrag ansehen</button>' +
                         '</a>' +
                       '</div>';
 
@@ -248,12 +247,12 @@ async function main() {
 
         // //hide all the buttons
         divs.forEach(function (posted) {
-          var postedBtn = posted.querySelector("button");
+          var postedBtn = posted.querySelector(".button");
           postedBtn.classList.remove("db");
         });
 
         // show the button in the clicked DIV
-        event.target.parentNode.querySelector("button").classList.add("db");
+        event.target.parentNode.querySelector(".button").classList.add("db");
         let marked_ones = document.querySelectorAll(".datenbank_single_entry");
         marked_ones.forEach((mark) =>
         mark.classList.remove("marked"));

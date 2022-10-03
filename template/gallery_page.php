@@ -7,6 +7,7 @@
 
   <?php include 'nav_header.php'; ?>
   <div class="gallery_wrapper">
+    <div class="head_wrapper">
     <h1>Mediendatenbank</h1>
     <nav class="orte">
       <?php $terms = get_terms([
@@ -34,6 +35,8 @@
         </svg>
       </button>
     </div>
+    </div>
+
 
     <div id="livesearch_media"></div>
     <?php 

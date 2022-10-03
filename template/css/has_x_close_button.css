@@ -1,0 +1,90 @@
+ /* Close X Map Popup */
+  
+ .map_block.leaflet-container a.leaflet-popup-close-button {
+    position: absolute;
+    top: -3px;
+    right: -2px;
+    margin: 0;
+    background-color: #fff;
+    border-radius: 50px;
+    box-shadow: 0 0 2px 1px var(--l_grey);
+    color: var(--d_text);
+  }
+
+  .content_wrapper .close.close_icon {
+    right: -7.5px;
+    top: -7.5px;
+    position: absolute;
+    border: none;
+    padding: 7.5px;
+    border-radius: 50px;
+    box-shadow: 0 0 5px 1px var(--l_grey);
+    margin: 0;
+  }
+  
+  .close_icon::after {
+    content: "";
+    background-image: none;
+  }
+
+  .popup.info .slide .close_icon {
+    margin-right: 0;
+    position: relative;
+    width: max-content;
+    height: auto;
+    color: var(--d_text);
+    display: block;
+    margin: 0 auto;
+    left: 0;
+  }
+
+  /* Big Close */
+.close.close_icon {
+  width: 60px;
+  height: 60px;
+  display: block;
+  color: var(--d_blue);
+  text-decoration: none;
+  position: fixed;
+  right: 30px;
+  top: 60px;
+}
+
+.close .close_icon {
+  width: 60px;
+  height: 60px;
+  position: fixed;
+  right: 30px;
+  top: 60px;
+}
+
+.close .close_icon::before {
+  content: "";
+  background-image: url("/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/close-svgrepo-com.svg");
+  width: 40px;
+  height: 40px;
+  display: flex;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* Media Querries */
+@media screen and (max-width: 980px) {
+  .post_content .close {
+    bottom: 30px;
+    top: auto;
+    padding: 10px;
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    background-color: rgba(128, 128, 128, 0);
+    border-radius: 50%;
+  }
+
+  .close .close_icon::before {
+    
+    border-radius: 50%;
+
+  }
+}
