@@ -5,7 +5,7 @@
     <img class="welcome_image"
       src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/assets/Banner Kulturdatenbank.png"
       alt="Bilder aus dem Sinngrund">
-    <button class="close close_icon" aria-label="Close"><span class="dashicons dashicons-no-alt"></span></button>
+    <button class="close close_icon" aria-label="Close"></button>
     <div class="slide one show">
       <div class="left">
         <h2><span class="d_blue">Willkommen in der</span><span class="l_blue">Kulturdatenbank Sinngrund</span>
