@@ -13,7 +13,7 @@ function createMediaList({
         '<div class="grid-item-wrap">' +
           '<img class="image" src="' + source_url + '" alt=""/>' +
           '<img class="lens" src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/Icon-search.svg" alt="Lupe" aria-label="vergrößern"/>' +
-          '<img class="close close_icon" src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/close-svgrepo-com.svg" alt="Schließen" aria-label="schließen"/>'
+          '<div class="close close_icon" aria-label="schließen"></div>'
         '</div>'+
       '</div>' +
       '<div class="media_beschriftung">' +

@@ -1,28 +1,15 @@
-console.log(jQuery('.gallery_wrapper'));    
+jQuery(document).ready(function($){
 
+ //Not working without setTimeout Function, check later
+   setTimeout(function() {    
 
-jQuery( window ).on( "load", function() {
-//jQuery(document).ready(function($){
-    console.log(jQuery('.gallery_wrapper'));
-   // console.log(jQuery('.gallery_wrapper'));
-    // console.log(jQuery('<img>'));
-   //  console.log(document.getElementsByClassName('lens'));
-   setTimeout(function() {                                      //Not working without setTimeout Function, check later
-     console.log(jQuery('.lens'));
-
-        jQuery('.grid-item-wrap').click(function() {
-            jQuery(this).addClass('img_fullscreen');
-       //     alert('click');
+        $('.grid-item-wrap').click(function() {
+            $(this).addClass('fullscreen');
         });
-    
-    
-     jQuery('.close_icon').click(function() {
-        event.preventDefault()
-        jQuery('.grid-item-wrap').addClass('close_lightbox_fix'); // Remove Class not Working, check late
-    });
-}, 2000);
-
-
-
-    //jQuery('img.lens').click(function(){alert('hello')})
+        
+        $('.close_icon').click(function() {
+            event.stopPropagation();
+            $('.grid-item-wrap').removeClass('fullscreen');       
+        });    
+    }, 20);
     });
