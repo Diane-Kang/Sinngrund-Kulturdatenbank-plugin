@@ -24,6 +24,12 @@
   display: block;
 }
 
-.attachment-info .actions .view-attachment {
+.attachment-info .actions .view-attachment,
+.attachment-info .actions .links-separator,
+.attachment-info .actions a {
+  display: none;
+}
+
+.media-frame .view-list {
   display: none;
 }

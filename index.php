@@ -50,7 +50,6 @@ class SinngrundKultureBank {
 
   function __construct() {
 
-    //--------------Backend----------------
     
     ////--------------Admin dashbard page ----------------    
     //////------------Amdin page style ----------------//
@@ -106,10 +105,13 @@ class SinngrundKultureBank {
     add_action( 'save_post', array($this, 'save_route_input_box' ));
 
 
+
     //////////------------orte taxonomy : nonhierarchical   ----------------//
     add_action( 'init', array($this, 'create_ort_taxonomy')); // for attachemnt and post 
     add_action('save_post', array($this,'save_orte_taxonomy')); // save Ort taxonomy
 
+    add_action( 'init', array($this, 'create_Fotograph_taxonomy')); // for attachemnt
+    add_action('save_post', array($this,'save_Fotograph_taxonomy')); // save Ort taxonomy
     //add_action('add_meta_boxes', array($this,'add_orte_meta_box')); // for post    
     //add_action( 'init' , array($this, 'add_orte_tax_to_attachemnt'));
     //add_action( 'init', array($this, 'change_tax_object_label' )); //post_tags->orte
@@ -478,81 +480,47 @@ class SinngrundKultureBank {
 
   //////////end------------Meta data for new Post page----------------// 
 
-  function setup_taxonomies() {
+  function setup_taxonomies($tax_id, $post_type, $tax_display_name, $tax_display_name_pl) {
 
-    $attachment_taxonomies = array();
+    $new_taxonomies = array();
 
     // Tags
     $labels = array(
-        'name'              => _x( 'Media Tags', 'taxonomy general name', 'attachment_taxonomies' ),
-        'singular_name'     => _x( 'Media Tag', 'taxonomy singular name', 'attachment_taxonomies' ),
-        'search_items'      => __( 'Search Media Tags', 'attachment_taxonomies' ),
-        'all_items'         => __( 'All Media Tags', 'attachment_taxonomies' ),
-        'parent_item'       => __( 'Parent Media Tag', 'attachment_taxonomies' ),
-        'parent_item_colon' => __( 'Parent Media Tag:', 'attachment_taxonomies' ),
-        'edit_item'         => __( 'Edit Media Tag', 'attachment_taxonomies' ), 
-        'update_item'       => __( 'Update Media Tag', 'attachment_taxonomies' ),
-        'add_new_item'      => __( 'Add New Media Tag', 'attachment_taxonomies' ),
-        'new_item_name'     => __( 'New Media Tag Name', 'attachment_taxonomies' ),
-        'menu_name'         => __( 'Media Tags', 'attachment_taxonomies' ),
+        'name'              => _x( $tax_display_name_pl, 'taxonomy general name'),
+        'singular_name'     => _x( $tax_display_name, 'taxonomy singular name'),
+        'search_items'      => __( 'Search' . $tax_display_name_pl),
+        'all_items'         => __( 'All' . $tax_display_name_pl),
+        'parent_item'       => __( 'Parent' .  $tax_display_name),
+        'parent_item_colon' => __( 'Parent' . $tax_display_name  . ':'),
+        'edit_item'         => __( 'Edit ' . $tax_display_name .''), 
+        'update_item'       => __( 'Update ' . $tax_display_name .''),
+        'add_new_item'      => __( 'Add New ' . $tax_display_name .''),
+        'new_item_name'     => __( 'New ' . $tax_display_name .' Name'),
+        'menu_name'         => __( $tax_display_name_pl),
     );
 
-    $args = array(
-        'hierarchical' => FALSE,
+    $args =  array(
+        'hierarchical' => False,
         'labels'       => $labels,
         'show_ui'      => TRUE,
         'show_admin_column' => TRUE,
         'query_var'    => TRUE,
         'rewrite'      => TRUE,
+        'show_in_rest' => TRUE, // for meta box side
     );
 
-    $attachment_taxonomies[] = array(
-        'taxonomy'  => 'attachment_tag',
-        'post_type' => 'attachment',
-        'args'      => $args
-    );
-
-    // Categories
-    $labels = array(
-        'name'              => _x( 'Media Categories', 'taxonomy general name', 'attachment_taxonomies' ),
-        'singular_name'     => _x( 'Media Category', 'taxonomy singular name', 'attachment_taxonomies' ),
-        'search_items'      => __( 'Search Media Categories', 'attachment_taxonomies' ),
-        'all_items'         => __( 'All Media Categories', 'attachment_taxonomies' ),
-        'parent_item'       => __( 'Parent Media Category', 'attachment_taxonomies' ),
-        'parent_item_colon' => __( 'Parent Media Category:', 'attachment_taxonomies' ),
-        'edit_item'         => __( 'Edit Media Category', 'attachment_taxonomies' ), 
-        'update_item'       => __( 'Update Media Category', 'attachment_taxonomies' ),
-        'add_new_item'      => __( 'Add New Media Category', 'attachment_taxonomies' ),
-        'new_item_name'     => __( 'New Media Category Name', 'attachment_taxonomies' ),
-        'menu_name'         => __( 'Media Categories', 'attachment_taxonomies' ),
-    );
-
-    $args = array(
-        'hierarchical' => TRUE,
-        'labels'       => $labels,
-        'show_ui'      => TRUE,
-        'query_var'    => TRUE,
-        'rewrite'      => TRUE,
-    );
-
-    $attachment_taxonomies[] = array(
-        'taxonomy'  => 'attachment_category',
-        'post_type' => 'attachment',
-        'args'      => $args
-    );
-
-    $attachment_taxonomies = apply_filters( 'fb_attachment_taxonomies', $attachment_taxonomies );
-
-    foreach ( $attachment_taxonomies as $attachment_taxonomy ) {
-        register_taxonomy(
-            $attachment_taxonomy['taxonomy'],
-            $attachment_taxonomy['post_type'],
-            $attachment_taxonomy['args']
-        );
-    }
-
+    register_taxonomy( $tax_id, $post_type, $args);
   }
 
+
+  function create_Fotograph_taxonomy(){
+    $this->setup_taxonomies('fotograph','attachment', 'Fotograph', 'Fotographen');
+  }
+
+  function save_Fotograph_taxonomy($post_id){
+    if ( isset( $_REQUEST['fotograph'] ) ) 
+      wp_set_object_terms($post_id, $_POST['fotograph'], 'fotograph');
+  }
 
   function create_ort_taxonomy(){
  
