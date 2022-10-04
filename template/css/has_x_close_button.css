@@ -1,4 +1,43 @@
- /* Close X Map Popup */
+
+/*
+.close_icon:hover,
+.close_icon:active {
+ opacity: 0.7;
+ background-color: #fff;
+}
+*/
+
+.kulturdatenbank button.close_icon:hover::after,
+.kulturdatenbank button.close_icon:active::after {
+  background-image: none;
+}
+
+.close_icon::before {
+  content: "";
+  background-image: url("/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/close-svgrepo-com.svg");
+  display: flex;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+  position: relative;
+  left: 5px;
+}
+
+/*Welcome Popup*/
+.popup.info .close_icon {
+  box-shadow: 0 0 5px 1px var(--l_grey);
+}
+
+.popup.info .close_icon:hover,
+.popup.info .close_icon:active {
+  background-color: #fff;
+}
+
+
+
+/* Close X Map Popup */
   
  .map_block.leaflet-container a.leaflet-popup-close-button {
     position: absolute;
@@ -59,14 +98,8 @@
 }
 
 .close .close_icon::before {
-  content: "";
-  background-image: url("/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/close-svgrepo-com.svg");
   width: 40px;
   height: 40px;
-  display: flex;
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
 }
 
 /* Media Querries */

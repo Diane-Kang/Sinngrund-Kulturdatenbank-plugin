@@ -2,6 +2,15 @@
     display: none;
 }
 
+.grid-item-wrap {
+    cursor: pointer;
+}
+
+.grid-item-wrap:hover, 
+    .grid-item-wrap:active {
+opacity: 0.7;
+}
+
 .grid-item-wrap.fullscreen {
     position: fixed;
     height: 100%;
@@ -10,6 +19,12 @@
     top: 0;
     z-index: 9;
     background-color: rgba(255,255,255,0.9);   
+    cursor: auto;
+}
+
+.grid-item-wrap.fullscreen:hover,
+.grid-item-wrap.fullscreen:active  {
+opacity: 1;
 }
 
 .fullscreen .image {
@@ -34,6 +49,7 @@
         z-index: 999;
         background-image: url("/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/close-svgrepo-com.svg");
         background-color: #fff;
+        cursor: pointer;
         }
 
 /*
