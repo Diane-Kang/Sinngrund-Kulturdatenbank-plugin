@@ -548,6 +548,7 @@ class SinngrundKultureBank {
       'query_var'    => TRUE,
       'rewrite'      => TRUE,
       'show_in_rest' => TRUE, // for meta box side
+      //'public' => FALSE, // not showing modal 
     );
 
     $taxonomies = array(
