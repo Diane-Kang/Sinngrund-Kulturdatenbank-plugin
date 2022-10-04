@@ -3,7 +3,7 @@
 /*
   Plugin Name: Sinngrund kulturebank plugin 
   Description: Es ist für Sinngrund kulturebank project: last updated at 27.Sep 20:00
-  Version: 2.8 
+  Version: 2.9 
   Author: Page-effect 
   Author-email: Diane.kang@page-effect.com
 
@@ -11,8 +11,6 @@
   npm i leaflet.markercluster
   npm i leaflet.markercluster.layersupport
   npm i leaflet-draw
-
-
 */
 
 if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -110,8 +108,8 @@ class SinngrundKultureBank {
     add_action( 'init', array($this, 'create_ort_taxonomy')); // for attachemnt and post 
     add_action('save_post', array($this,'save_orte_taxonomy')); // save Ort taxonomy
 
-    add_action( 'init', array($this, 'create_Fotograph_taxonomy')); // for attachemnt
-    add_action('save_post', array($this,'save_Fotograph_taxonomy')); // save Ort taxonomy
+    add_action( 'init', array($this, 'create_fotograf_taxonomy')); // for attachemnt
+    add_action('save_post', array($this,'save_fotografen_taxonomy')); // save Ort taxonomy
     //add_action('add_meta_boxes', array($this,'add_orte_meta_box')); // for post    
     //add_action( 'init' , array($this, 'add_orte_tax_to_attachemnt'));
     //add_action( 'init', array($this, 'change_tax_object_label' )); //post_tags->orte
@@ -162,13 +160,12 @@ class SinngrundKultureBank {
     add_action( 'rest_api_init', array($this, 'geojson_generate_api'));
     ////// Rest API /wp-json/Sinngrund-Kulturdatenbank-plugin/infojson
     add_action( 'rest_api_init', array($this, 'infojson_generate_api'));
-
+    ////// Rest API /wp-json/Sinngrund-Kulturdatenbank-plugin/mediajson
+    add_action( 'rest_api_init', array($this, 'galleryjson_generate_api'));
+    ////// Add meta data to default media json 
     add_action('rest_api_init', array($this, 'create_api_posts_meta_field'));
 
-
-    //shortcode for beitrag list 
-    //add_shortcode('show_list_shortcode', array($this, 'show_list_function'));
-    
+  
 
     //This is only for development purppose 
     // Rest API /wp-json/wp/v2/posts, add meta data 
@@ -513,13 +510,13 @@ class SinngrundKultureBank {
   }
 
 
-  function create_Fotograph_taxonomy(){
-    $this->setup_taxonomies('fotograph','attachment', 'Fotograph', 'Fotographen');
+  function create_fotograf_taxonomy(){
+    $this->setup_taxonomies('fotograf','attachment', 'Fotograf', 'Fotografen');
   }
 
-  function save_Fotograph_taxonomy($post_id){
-    if ( isset( $_REQUEST['fotograph'] ) ) 
-      wp_set_object_terms($post_id, $_POST['fotograph'], 'fotograph');
+  function save_fotografen_taxonomy($post_id){
+    if ( isset( $_REQUEST['fotograf'] ) ) 
+      wp_set_object_terms($post_id, $_POST['fotograf'], 'fotograf');
   }
 
   function create_ort_taxonomy(){
@@ -909,6 +906,49 @@ class SinngrundKultureBank {
   }
   //////end-------------------------------- Rest API /wp-json/Sinngrund-Kulturdatenbank-plugin/infojson
 
+  /////-------------------------------- Rest API /wp-json/Sinngrund-Kulturdatenbank-plugin/galleryjson
+  function galleryjson_generate_api() {
+    $plugin_folder_name = reset(explode('/', str_replace(WP_PLUGIN_DIR . '/', '', __DIR__)));
+    register_rest_route( $plugin_folder_name, '/galleryjson/', array(
+        'methods' => WP_REST_SERVER::READABLE,
+        'callback' => array($this,'galleryjson_generator')
+    ) );
+  }
+
+  function galleryjson_generator($data) {
+    $post_type_query = new WP_Query(array(
+        'post_status' => 'any', 
+        'post_type' => 'attachment',
+        's' => sanitize_text_field($data['search']) // Search only title 
+        //'s' => $query,
+    ));
+
+    $post_type_query_galleryjson = array();
+
+    while ($post_type_query->have_posts()) {
+      $post_type_query->the_post();
+
+        $post_id = get_the_ID();
+        array_push($post_type_query_galleryjson, array(
+          'id'    => get_the_ID(),
+          'date'  => get_the_date(),
+          'source_url' => wp_get_attachment_url(),
+          // caption : this is bildtitel
+          'caption' => wp_get_attachment_caption() ? wp_get_attachment_caption() : 'Bildtitel nicht eingegeben',
+          'title' =>  get_the_title(), // file titel, name 
+          'author' => get_the_author(),
+          //'orte' => get_the_terms( $post_id, 'orte'),
+          'orte_tags_text'  => join(', ', wp_list_pluck(get_the_terms( get_the_ID(), 'orte'), 'name')),
+          //'fotograf' => get_the_terms( $post_id, 'fotograf') ,
+          'fotograf_tags_text'  => join(', ', wp_list_pluck(get_the_terms( get_the_ID(), 'fotograf'), 'name')),
+
+
+          // 'reference'=> get_the_category()
+        ));
+    }//while end 
+
+    return $post_type_query_galleryjson;
+  }
 
 
   /////-------------------------------- Rest API /wp-json/Sinngrund-Kulturdatenbank-plugin/geojson

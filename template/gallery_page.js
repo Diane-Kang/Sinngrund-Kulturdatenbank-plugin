@@ -2,6 +2,7 @@ function createMediaList({
   source_url,
   caption_rendered,
   orte, //list of orte tags
+  fotograf,
   date,
   author_id,
 
@@ -17,8 +18,9 @@ function createMediaList({
       '</div>' +
       '<div class="media_beschriftung">' +
       '<h5>' + caption_rendered + '</h5>' + 
-      '</div>' +
-      '<div class="orte_tags">' + orte[0] + 
+      '</div>' +      
+      '<div class="fotograf">Fotograf: ' +fotograf+'</div>' +
+      '<div class="orte_tags">' + orte + 
       '</div>' +
       '<div class="media_upload_date">Hochgeladen am' + date + 
       '</div>'+
@@ -31,7 +33,7 @@ function createMediaList({
 
 jQuery.ajax({
   type: "GET",
-  url: '/wp-json/wp/v2/media' ,
+  url: '/wp-json/Sinngrund-Kulturdatenbank-plugin/galleryjson' ,
   data: '',
   datatype: "html",
   success: function(results) {
@@ -42,8 +44,9 @@ jQuery.ajax({
          "beforeend",
          createMediaList({
           source_url: feature.source_url,
-          caption_rendered : feature.caption.rendered,
-          orte : feature.orte, //list of orte tags
+          caption_rendered : feature.caption,
+          orte : feature.orte_tags_text, //list of orte tags
+          fotograf : feature.fotograf_tags_text,
           date : feature.date,
           author_id : feature.author,
          })
@@ -61,7 +64,8 @@ jQuery(document).ready(function($){
       jQuery.ajax({
         type: "GET",
         // url: 'wp-json/wp/v2/posts?search=' + GetSearch.value ,
-        url: '/wp-json/wp/v2/media?search='  + GetSearch.value ,
+        // Json search through only file title
+        url: '/wp-json/Sinngrund-Kulturdatenbank-plugin/galleryjson?search='  + GetSearch.value ,
         data: '',
         datatype: "html",
         success: function(results) {
@@ -72,8 +76,9 @@ jQuery(document).ready(function($){
               "beforeend",
               createMediaList({
                 source_url: feature.source_url,
-                caption_rendered : feature.caption.rendered,
-                orte : feature.orte, //list of orte tags
+                caption_rendered : feature.caption,
+                orte : feature.orte_tags_text, //list of orte tags
+                fotograf : feature.fotograf_tags_text,
                 date : feature.date,
                 author_id : feature.author,
               })
