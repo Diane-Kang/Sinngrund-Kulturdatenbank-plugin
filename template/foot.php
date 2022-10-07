@@ -1,5 +1,5 @@
 <?php if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly   ?>
-<?php wp_footer(  ); ?>
+
 <div class="popup info" id="geeting_info_popup">
   <div class="content_wrapper">
     <img class="welcome_image"
@@ -72,3 +72,4 @@
     </div>
   </div>
 </div>
+<?php wp_footer(  ); ?>

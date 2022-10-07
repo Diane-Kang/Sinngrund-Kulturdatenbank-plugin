@@ -12,7 +12,19 @@ function createMediaList({
       '<div class="grid-main-wrap-image">'+
         '<div class="grid-item-wrap">' +
           '<img class="image" src="' + source_url + '" alt=""/>' +
-          '<img class="lens" src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/Icon-search.svg" alt="Lupe" aria-label="vergrößern"/>' +
+          '<div class="lens" aria-label="vergrößern"/>' +
+          '<svg  viewBox="0 0 25 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
+          '<title>Search Icon</title>' +
+          '<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
+          '<g id="01-willkommen" transform="translate(-1356.000000, -445.000000)" stroke="#009CDE" stroke-width="2">' +
+          '<g id="Group" transform="translate(1357.000000, 446.000000)">' +
+              '<circle id="Oval" cx="9.5" cy="9.5" r="9.5"></circle>' +
+              '<line x1="17.5" y1="17.5" x2="22.4497475" y2="22.4497475" id="Line-2" stroke-linecap="square"></line>' +
+          '</g>' +
+          '</g>' +
+          '</g>' +
+          '</svg>' +
+          '</div>' +
           '<div class="close close_icon" aria-label="schließen"></div>'+
         '</div>'+
       '</div>' +
