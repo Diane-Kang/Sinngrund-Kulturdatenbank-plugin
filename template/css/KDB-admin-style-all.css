@@ -33,3 +33,41 @@
 .media-frame .view-list {
   display: none;
 } */
+
+/* wp-admin post.php action=edit? */
+
+.wp_attachment_holder {
+  max-width: 70%;
+}
+
+#minor-publishing,
+#pageparentdiv,
+#shortpixel_info_box,
+.attachment-alt-text,
+#alt-text-description,
+#wp-attachment_content-editor-container,
+#edit-slug-box,
+#delete-action,
+#publishing-action > span:nth-child(1),
+.media .view {
+  display: none;
+}
+#screen-meta-links,
+#post-body-content .attachment-content-description {
+  display: none;
+}
+.wp_attachment_details label {
+  position: absolute;
+  visibility: hidden;
+}
+.wp_attachment_details label ::before {
+  content: "Bildtitel";
+  visibility: visible;
+  display: block;
+}
+
+input#publish,
+#publishing-action {
+  width: 100%;
+  min-height: 50px;
+}

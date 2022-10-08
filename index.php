@@ -3,7 +3,7 @@
 /*
   Plugin Name: Sinngrund kulturebank plugin 
   Description: Es ist für Sinngrund kulturebank project: last updated at 27.Sep 20:00
-  Version: 2.9 
+  Version: 2.10 
   Author: Page-effect 
   Author-email: Diane.kang@page-effect.com
 
@@ -14,9 +14,6 @@
 */
 
 if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
-
-
 
 class SinngrundKultureBank {
 
@@ -50,14 +47,40 @@ class SinngrundKultureBank {
 
     
     ////--------------Admin dashbard page ----------------    
+
     //////------------Amdin page style ----------------//
     add_action( 'admin_enqueue_scripts', array($this, 'load_admin_styles' ));
+    
+    //////------------Admin gallery style --------------
+    add_action('admin_init', function() {
+      if ( isset( $_GET['mode'] ) && $_GET['mode'] !== 'list' ) {
+          wp_redirect(admin_url('upload.php?mode=list'));
+          exit;
+      } else {
+          $_GET['mode'] = 'list';
+      }
+    }, 100);
 
     //////------------Amdin Post list columns ----------------//
     /////////------- Add custom column, to see if the post has a right Geocode
     add_filter('manage_posts_columns', array($this, 'custom_posts_table_head'));
-    add_action( 'manage_posts_custom_column', array($this, 'plugin_custom_column'), 10, 2);
+    add_action('manage_posts_custom_column', array($this, 'plugin_custom_column'), 10, 2);
 
+    add_filter( 'manage_media_columns', function( $columns ){
+                                          $columns['for_gallery'] = 'For gallery?';
+                                          return $columns;
+                                        },10,2);
+                                        
+    add_action( 'manage_media_custom_column', function ($name, $post_id){
+                                                switch ( $name ){
+                                                  case 'for_gallery' :
+                                                    $ja_nein = get_post_meta($post_id)['media_for_gallery_box'][0];
+                                                    echo $ja_nein? $ja_nein:'ja';
+                                                    break;
+                                                }
+    }, 10, 2 );
+    
+    
     ////---------For Contributor, admin page
     add_action('admin_init', array($this, 'allow_contributor_uploads'));
     add_action('admin_menu', array($this, 'hide_the_dashboard' ));
@@ -67,6 +90,9 @@ class SinngrundKultureBank {
                                     }
                                   }
     );
+
+
+
 
     ////-----------For login page ---- 
     /////// url changed by Plugin: change-wp-admin-login /wp-login -> /zugang
@@ -92,9 +118,6 @@ class SinngrundKultureBank {
     add_action( 'init', array($this, 'cc_gutenberg_register_files') );
 
 
-
-
- 
     //////////------------Meta data for new Post page----------------// 
     add_action('add_meta_boxes', array($this, 'basic_info_boxes'));
     add_action( 'save_post', array($this, 'save_basic_info_box' ));
@@ -102,6 +125,10 @@ class SinngrundKultureBank {
     add_action('add_meta_boxes', array($this, 'route_input_box'));
     add_action( 'save_post', array($this, 'save_route_input_box' ));
 
+
+    //////////------------Meta data for Media----------------//// Ob es frontend(galley-page) auftauchen  soll. 
+    add_action('add_meta_boxes', array($this, 'media_for_gallery_box'));
+    add_filter("attachment_fields_to_save", array($this, 'save_media_for_gallery_box' ), null , 2); //https://www.kevinleary.net/add-custom-meta-fields-media-attachments-wordpress/
 
 
     //////////------------orte taxonomy : nonhierarchical   ----------------//
@@ -479,6 +506,94 @@ class SinngrundKultureBank {
   }
 
   //////////end------------Meta data for new Post page----------------// 
+
+
+
+      //////////------------route input box new Post page----------------// 
+  /**
+  * Meta box display callback.
+  *
+  * @param WP_Post $post Current post object.
+  */
+  
+  function media_for_gallery_box_display_callback( $post ) {
+        // Add an nonce field so we can check for it later.
+        //wp_nonce_field( 'wdm_meta_box', 'wdm_meta_box_nonce' );
+
+        /*
+         * Use get_post_meta() to retrieve an existing value
+         * from the database and use the value for the form.
+         */
+        $attachment_meta = get_post_meta( $post->ID, '_wp_attachment_meta', true );
+        $value_ja_nein = $attachment_meta->media_for_gallery_box;
+        //echo var_dump(get_post_meta( $post->ID));
+        //echo get_post_meta($post->ID)['media_for_gallery_box'][0];
+        
+        $saved_value = get_post_meta($post->ID)['media_for_gallery_box'][0]; //my_key is a meta_key. Change it to whatever you want
+        if(!$saved_value=='ja' && !$saved_value=='nein'){
+          $value = 'ja';
+        }
+        else $value = $saved_value;
+        
+        //echo $saved_value;
+
+                  ?>
+<label class="selectit"><input type="radio" name="media_for_gallery_box_buttons" value="ja"
+    <?php echo $value=='ja'? 'checked' : '' ; ?>>
+  Ja</label>
+</br>
+<label class="selectit"><input type="radio" name="media_for_gallery_box_buttons" value="nein"
+    <?php echo $value=='nein'? 'checked' : '' ; ?>>
+  Nein</label>
+<?php
+          }
+  
+  function media_for_gallery_box(){
+    $user = wp_get_current_user();
+    $allowed_roles = array('editor', 'administrator');
+   // if( array_intersect($allowed_roles, $user->roles )){ 
+      add_meta_box(   'media_for_gallery_box', // name
+                      __('For Gallery?'), //display text 
+                      array($this, 'media_for_gallery_box_display_callback'), // call back function  
+                      'attachment',
+                      'side',         // Context
+                      'low',         // Priority
+                   );
+   // }
+  }
+  
+  function save_media_for_gallery_box( $post, $attachment ) {
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+    // if ( $parent_id = wp_is_post_revision( $post_id ) ) {
+    //     $post_id = $parent_id;
+    // }
+    $fields = [
+      'media_for_gallery_box_buttons'
+    ];
+    //foreach ( $fields as $field ) {
+       // if ( array_key_exists( $field, $_POST ) ) {
+
+            // update_post_meta( $post_id, $field, sanitize_text_field( $_POST[$field] ) );
+
+            update_post_meta( $post['ID'], 'media_for_gallery_box', $_POST['media_for_gallery_box_buttons'] );
+
+        //}
+     //}
+     return $post;
+  }
+
+  //////////end------------Meta data for new Post page----------------// 
+
+
+
+
+
+
+
+
+
+
+
 
   function setup_taxonomies($tax_id, $post_type, $tax_display_name, $tax_display_name_pl) {
 
@@ -930,8 +1045,9 @@ class SinngrundKultureBank {
 
     while ($post_type_query->have_posts()) {
       $post_type_query->the_post();
-
-        $post_id = get_the_ID();
+      $post_id = get_the_ID();
+      $check_for_gallery = get_post_meta($post_id)['media_for_gallery_box'][0];
+      if($check_for_gallery != 'nein'){        
         array_push($post_type_query_galleryjson, array(
           'id'    => get_the_ID(),
           'date'  => get_the_date(),
@@ -948,6 +1064,7 @@ class SinngrundKultureBank {
 
           // 'reference'=> get_the_category()
         ));
+      }
     }//while end 
 
     return $post_type_query_galleryjson;
