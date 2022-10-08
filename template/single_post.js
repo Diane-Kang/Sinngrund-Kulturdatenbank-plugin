@@ -147,11 +147,16 @@ async function main() {
       //eval("input_json = " + string_json.slice(1, -1) + ";");
       //console.log("input_json = " + string_json.slice(1, -1) + ";");
       var drawnroute = L.geoJson(route_json).addTo(map);
+      console.log(route_json);
       map.fitBounds(drawnroute.getBounds(), { padding: [100, 100] });
     }
   });
 
+  let this_marker = find_marker_by_post_id(group_all, current_postid);
+  //this_marker.openPopup();
+
   function find_marker_by_post_id(markers, post_id) {
+    var this_post_marker;
     //console.log(markers);
     markers.eachLayer((marker) => {
       if (post_id == marker["options"]["post_id"]) {
@@ -161,9 +166,9 @@ async function main() {
         var marker = markers.getLayer(map_id);
         var markerBounds = L.latLngBounds([marker.getLatLng()]);
         //console.log(markerBounds);
-        map.fitBounds(markerBounds);
-        map.setZoom(16);
-        let popuptext = '<div class="popup_title">'+ marker["options"]["name"] + '</div>';
+        //map.fitBounds(markerBounds);
+        //map.setZoom(16);
+        let popuptext = '<div class="hier_bin_ich"><div class="popup_title">'+ marker["options"]["name"] + '</div></div>';
         //console.log(marker["options"]["icon"]["options"]["iconUrl"]);
         let bigIcon = L.icon({
           iconUrl : marker["options"]["icon"]["options"]["iconUrl"],
@@ -172,8 +177,10 @@ async function main() {
         marker.setIcon(bigIcon);
         marker.bindPopup(popuptext);
         marker.openPopup();
+        this_post_marker = marker;
       }
     });
+    return this_post_marker;
   }
 
 } // Main closing
