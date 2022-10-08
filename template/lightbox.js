@@ -11,5 +11,5 @@ jQuery(document).ready(function($){
             event.stopPropagation();
             $('.grid-item-wrap').removeClass('fullscreen');       
         });    
-    }, 20);
+    }, 200);
     });
