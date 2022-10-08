@@ -208,28 +208,6 @@ opacity: 0.75;
     height: auto !important;
   }
 
-  .kulturdatenbank .menu.top {
-    position: static;
-    width: 0;
-    height: 0;
-  }
-
-  .kulturdatenbank .menu.top li {
-    position: absolute;
-    top: 30px;
-    left: 30px;
-  }
-
-  .kulturdatenbank .menu.top li:nth-child(2),
-  .kulturdatenbank .menu.top li:nth-child(3) {
-    left: auto;
-    right: 30px;
-  }
-
-  .kulturdatenbank .menu.top li:nth-child(3) {
-   top: 60px;
-  }
-
   .side_wrapper {
     display: flex;
     flex-direction: column;
@@ -241,6 +219,10 @@ opacity: 0.75;
     max-height: 60vh;
     height: 60vh;
     order: 1;
+  }
+
+  .leaflet-popup {
+position: relative; 
   }
 
   .kulturdatenbank .sidebar {

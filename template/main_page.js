@@ -176,7 +176,6 @@ async function main() {
     //               '<button class="popup_button">Eintrag ansehen</button>' +
     //             '</a>';
 
-
     let popuptext2 =   popupimage +
                       '<div class="text_wrapper">' +
                         '<div class="popup_title">' + popuptext + '</div>' +

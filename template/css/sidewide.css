@@ -255,6 +255,70 @@ display: grid;
 /* Media Querries */
 @media screen and (max-width: 980px) {
 
+  
+  .kulturdatenbank .menu.top {
+    position: static;
+    width: 0;
+    height: 0;
+  }
+
+  .kulturdatenbank .menu.top li {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+  }
+
+  .kulturdatenbank .menu.top li:nth-child(2),
+  .kulturdatenbank .menu.top li:nth-child(3) {
+    left: auto;
+    right: 15px;
+  }
+
+  .kulturdatenbank .menu.top li:nth-child(2) {
+    top: 15px;
+  }
+
+  .info, .medien {
+    font-size: 18px;
+  }
+
+  .kulturdatenbank .menu.top li:nth-child(3) {
+   top: 45px;
+  }
+  
+  
+  .logo {
+    font-size: 25px;
+    
+  }
+  .popup.info {
+    height: auto;
+    width: 100%;
+    padding: 0;
+  }
+
+  .popup.info .content_wrapper {
+    margin: 20px 2.5%;
+    width: 95%;
+    height: auto;
+    overflow-y: scroll;
+    overflow: visible;
+  }
+
+  .slide.show {
+    display: block;
+    padding: 2.5%;
+  }
+
+  .popup.info .welcome_image {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .popup.info h2 span {
+    font-size: 30px;
+  }
+
 }
 
 /*Fonts*/
