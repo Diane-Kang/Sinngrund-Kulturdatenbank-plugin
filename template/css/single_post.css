@@ -24,6 +24,7 @@ left: 32%;
 
 /*Map Popup*/
 
+/*
 .single_post_main_block .leaflet-popup-content-wrapper {
 background-color: rgba(255,255,255,0);
 box-shadow: none;
@@ -46,6 +47,7 @@ color: var(--d_text);
   display: none;
 }
 
+*/
 /* content header*/
 .entry_category b {
   padding: 0 7.5px;

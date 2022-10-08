@@ -337,6 +337,8 @@ class SinngrundKultureBank {
     //if has map
     if (is_page(get_option('sad_mainpage_slug')) || is_single()){
       wp_enqueue_style( 'has_map_css',                    plugin_dir_url( __FILE__ ) . '/template/css/has_map.css' , array(), false, false);
+      wp_enqueue_script( 'header_map_pop_fix',            plugin_dir_url( __FILE__ ) . '/template/header_map_pop_fix.js',  array('jquery', 'leaflet-marker-cluster-group-js'), false, false);
+
     }
 
      // if has no map
@@ -364,6 +366,7 @@ class SinngrundKultureBank {
       wp_enqueue_script( 'main-page-js',                    plugin_dir_url( __FILE__ ) . '/template/main_page.js',  array(), false, false);
       wp_enqueue_style( 'main-page-css',                    plugin_dir_url( __FILE__ ) . '/template/css/main_page.css' , array(), false, false);
     }
+
     if (is_single()){
       wp_enqueue_script( 'single-post-js',                  plugin_dir_url( __FILE__ ) . '/template/single_post.js', array(), false, false);
       wp_enqueue_style( 'single-post-css',                    plugin_dir_url( __FILE__ ) . '/template/css/single_post.css' , array(), false, false);
