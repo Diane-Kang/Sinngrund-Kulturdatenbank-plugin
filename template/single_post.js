@@ -82,15 +82,30 @@ async function main() {
 
     let Icon_name = category_icon_array[category];
     let popuptext, popupimage, popupexcerpt;
-    popuptext =   '<div class="popup_title">'+ feature.properties.name + '</div>';
-    popupimage =  feature.properties.thumbnail_url ? '<img src="' + feature.properties.thumbnail_url + '" alt="'+ feature.properties.title +' thumbnail image" width="50px" height="50px"></img>' : ''; 
+  
+    popuptext =   '<div class="popup_title"><strong>'+ feature.properties.name + '</strong></div>';
+    popupimage =  feature.properties.thumbnail_url ? '<img src="' + feature.properties.thumbnail_url + '" alt="'+ feature.properties.title +' thumbnail image" width="50px" height="50px"></img>' : '';  
     popupexcerpt = feature.properties.excerpt ? '<p>' + feature.properties.excerpt + '</p>' : '' ;
-    popuptext = popuptext + popupimage + popupexcerpt;
-    popuptext = popuptext +
-                '<div class="popupcategory">'+category+'</div>' + 
-                '<a href="' +  feature.properties.url + '">' +
-                  '<button class="popup_button">Eintrag ansehen</button>' +
-                '</a>';
+  
+    //  popuptext =   '<div class="popup_title">'+ feature.properties.name + '</div>';
+  //  popupimage =  feature.properties.thumbnail_url ? '<img src="' + feature.properties.thumbnail_url + '" alt="'+ feature.properties.title +' thumbnail image" width="50px" height="50px"></img>' : ''; 
+  //  popupexcerpt = feature.properties.excerpt ? '<p>' + feature.properties.excerpt + '</p>' : '' ;
+  //  popuptext = popuptext + popupimage + popupexcerpt;
+  //  popuptext = popuptext +
+  //              '<div class="popupcategory">'+category+'</div>' + 
+  //              '<a href="' +  feature.properties.url + '">' +
+  //                '<button class="popup_button">Eintrag ansehen</button>' +
+  //              '</a>';
+
+                let popuptext2 =   popupimage +
+                '<div class="text_wrapper">' +
+                  '<div class="popup_title">' + popuptext + '</div>' +
+                  '<div class="popupcategory">'+category + '</div>' + 
+                  '<p>' + popupexcerpt + '</p>' +
+                  '<a class="popup_button button" href="' +  feature.properties.url + '">Eintrag ansehen' +
+                  //  '<button class="popup_button">Eintrag ansehen</button>' +
+                  '</a>' +
+                '</div>';
                 
     let marker_option = {
       icon: Icon_name,
@@ -101,7 +116,7 @@ async function main() {
     let marker = L.marker(
       [feature.geometry.coordinates[1], feature.geometry.coordinates[0]],
       marker_option
-    ).bindPopup(popuptext);
+    ).bindPopup(popuptext2);
 
     marker.addTo(category_layergroup_array[category]);
     marker.addTo(group_all);
