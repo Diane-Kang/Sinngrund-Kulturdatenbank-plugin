@@ -38,6 +38,7 @@ left: 67%;
 .sort_options_block,
 .search {
   flex: 0 1 auto;
+  box-sizing: border-box;
 }
 
 .datenbank_list {
@@ -181,11 +182,20 @@ padding-bottom: 7.5px;
 /* Media Querries */
 @media screen and (max-width: 980px) {
 
+  .kulturdatenbank .sidebar {
+    min-width: 250px;
+  }
+
+  .search {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
 }
 
 @media screen and (max-width: 440px) {
   .category_filter_section {
-    padding-left: 20px;
+    padding-left: 5px;
     padding-right: 5px;
   }
 
@@ -193,5 +203,16 @@ padding-bottom: 7.5px;
     padding-left: 10px;
     padding-right: 10px;
   }
+
+  .cat_label {
+    font-size: 16px;
+  }
+
+.sort_options_block {
+  padding: 15px;
+  width: 100%;
+  justify-content: center;
+}
+
 }
 

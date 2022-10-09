@@ -28,6 +28,7 @@
 /*Welcome Popup*/
 .popup.info .close_icon {
   box-shadow: 0 0 5px 1px var(--l_grey);
+  z-index: 9;
 }
 
 .popup.info .close_icon:hover,
@@ -35,7 +36,9 @@
   background-color: #fff;
 }
 
-
+.mobile.close.close_icon {
+display: none;
+}
 
 /* Close X Map Popup */
   
@@ -107,12 +110,18 @@
   .post_content .close {
     bottom: 30px;
     top: auto;
+    right: 15px;
     padding: 10px;
     width: 40px;
     height: 40px;
     display: inline-block;
-    background-color: rgba(128, 128, 128, 0);
+    background-color: #f2f2f2;
     border-radius: 50%;
+    position: fixed;
+  }
+
+  .post_content .close_icon::before  {
+   left:0;
   }
 
   .close .close_icon::before {
@@ -120,4 +129,16 @@
     border-radius: 50%;
 
   }
+
+/* Weclome Popup < 980px */
+.desktop.close.close_icon {
+  display: none;
+  }
+
+  .mobile.close.close_icon {
+    display: inline-block;
+    right: 0;
+    top: 0;
+    margin: 0;
+    }
 }

@@ -1,11 +1,13 @@
 <?php if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly   ?>
 
 <div class="popup info" id="geeting_info_popup">
+<button class="mobile close close_icon" aria-label="Close"></button>
   <div class="content_wrapper">
+  <button class="desktop close close_icon" aria-label="Close"></button>
+
     <img class="welcome_image"
       src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/assets/Banner Kulturdatenbank.png"
       alt="Bilder aus dem Sinngrund">
-    <button class="close close_icon" aria-label="Close"></button>
     <div class="slide one show">
       <div class="left">
         <h2><span class="d_blue">Willkommen in der</span><span class="l_blue">Kulturdatenbank Sinngrund</span>
