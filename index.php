@@ -90,7 +90,18 @@ class SinngrundKultureBank {
                                     }
                                   }
     );
-
+    add_filter('pre_get_posts', function ($query) {
+                                                        global $pagenow;
+                                                        if( 'edit.php' != $pagenow || !$query->is_admin )
+                                                            return $query;
+                                                        if( !current_user_can( 'edit_others_posts' ) ) {
+                                                            global $user_ID;
+                                                            $query->set('author', $user_ID );
+                                                        }
+                                                        return $query;
+                                                    });
+    
+  
 
 
 
@@ -479,12 +490,12 @@ class SinngrundKultureBank {
   function route_input_box(){
     $user = wp_get_current_user();
     $allowed_roles = array('editor', 'administrator');
-   // if( array_intersect($allowed_roles, $user->roles )){ 
+    if( array_intersect($allowed_roles, $user->roles )){ 
       add_meta_box(   'route', // name
                       __('Route'), //display text 
                       array($this, 'route_input_box_display_callback'), // call back function  
                       'post' );
-   // }
+    }
   }
   
   function save_route_input_box( $post_id ) {
@@ -852,6 +863,7 @@ class SinngrundKultureBank {
   function custom_posts_table_head( $columns ) {
     $columns['geocode'] = 'geocode';
     $columns['valid'] = 'valid';
+    $columns['route'] = 'Route?';
     return $columns;
   }
 
@@ -871,6 +883,11 @@ class SinngrundKultureBank {
               echo "O";
             }
             else echo "X: Error mit Geocode oder/and Kategory";
+            break;
+        case 'route' :
+            $array = get_post_meta( get_the_ID(), $key = "route");
+            if($array[0]) echo 'ja'; 
+            break;
     }
   }
   /////////end------- Add custom column, to see if the post has a right Geocode
