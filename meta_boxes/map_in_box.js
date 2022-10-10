@@ -15,28 +15,19 @@ function map_init(div_id){
 
 //----------------route_map------------------------
 var route_map = map_init('route_map');
-//var drawnItems = new L.FeatureGroup();
 
 var drawnItems =L.featureGroup();
-//var drawnItems = new L.FeatureGroup();
 route_map.addLayer(drawnItems);
 
+//get saved route geodata
+var node = document.getElementById('sad_route'); 
 
-var node = document.getElementById('display_route_encoded');
-
-console.log("??")
-console.log(node.innerHTML);
-
-if(node.innerHTML.length > 4){
-  //let string_json = decodeURIComponent(JSON.stringify(node.innerHTML));
-  //eval("route_json = "+string_json.slice(1,-1)+ ";");
-  let route_json = JSON.parse(decodeURIComponent(node.innerHTML));
-  //let route_json = string_json.slice(1,-1);
-  console.log(route_json);
+if(node.value){  //check if saved data is valid 
+  let route_json = JSON.parse(decodeURIComponent(node.value));
   drawnItems  = L.geoJson(route_json).addTo(route_map);
   route_map.addLayer(drawnItems);
+  show_geojson(route_json); // show current geojson 
 }
-
 
 var drawControl = new L.Control.Draw({
   position: 'topright',
@@ -49,12 +40,6 @@ var drawControl = new L.Control.Draw({
   },
   edit: {
    featureGroup: drawnItems
-  //   edit: {
-  //     selectedPathOptions: {
-  //       maintainColor: true,
-  //       moveMarkers: true
-  //     }
-  //   }
   }
 });
 
@@ -62,24 +47,16 @@ route_map.addControl(drawControl);
 
 route_map.on(L.Draw.Event.CREATED, function(e) {
   drawnItems.addLayer((e.layer));
+  save_and_show_json();
+
+});
+route_map.on(L.Draw.Event.EDITED, function(e) {
+  save_and_show_json();
 });
 
 
-
-
-
-document.getElementById('export').onclick = function(e) {
-  // Extract GeoJson from featureGroup
-  var data = drawnItems.toGeoJSON();
-  console.log(data.features.length);
-  if (data.features.length == 0){
-    console.log("here");
-    document.querySelector('#content_sinn').innerHTML = "No valid geodata";
-    return;
-  }
-  var geodata = data.features[0].geometry.coordinates;
-
-  // show points 
+function show_geojson(geojson_data){
+  var geodata = geojson_data.features[0].geometry.coordinates;
   let string = "";
   geodata.forEach(coordinate=>{
     string = string +'['+coordinate[1] + ' ' +coordinate[0] +']' +'<br>';
@@ -89,22 +66,21 @@ document.getElementById('export').onclick = function(e) {
     'afterbegin',
     '[Latitude, Longitude]<br>'+ string
   );
+}
 
+function save_and_show_json() {
+  // Extract GeoJson from featureGroup
+  var geojson_data = drawnItems.toGeoJSON();
+  console.log(geojson_data.features.length);
+  show_geojson(geojson_data);
   //save to meta value
-  document.getElementById('sad_route').value = encodeURIComponent(JSON.stringify(data));
+  document.getElementById('sad_route').value = encodeURIComponent(JSON.stringify(geojson_data));
   
-  //document.getElementById('export').setAttribute('href', 'data:' + convertedData);
-  //document.getElementById('export').setAttribute('download','data.geojson');
-
-  // This is better way?  How to save a json as metadata https://wordpress.stackexchange.com/a/40417801
 }
 
 
 setTimeout(function(){route_map.invalidateSize();
-},5000); 
-
-
-
+},1000); 
 
 
 
