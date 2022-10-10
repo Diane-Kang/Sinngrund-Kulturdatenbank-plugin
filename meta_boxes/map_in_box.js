@@ -78,9 +78,16 @@ function save_and_show_json() {
   
 }
 
+document.getElementById('export').onclick = function(e) {
+    // Extract GeoJson from featureGroup
+    var data = drawnItems.toGeoJSON();
+    var convertedData = 'text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
+    document.getElementById('export').setAttribute('href', 'data:' + convertedData);
+    document.getElementById('export').setAttribute('download','data.geojson');
+}
 
 setTimeout(function(){route_map.invalidateSize();
-},1000); 
+},1500); 
 
 
 

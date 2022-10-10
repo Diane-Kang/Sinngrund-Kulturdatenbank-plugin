@@ -8,8 +8,8 @@
     <!-- meta data save here, with id: sad_route -->
     <input id="sad_route" type="text" name="route" value="<?php echo get_post_meta( get_the_ID(), 'route', true ); ?>"
       style="display:none">
-    <div id="display_route_encoded" style="display:none"><?php echo get_post_meta( get_the_ID(), 'route', true ); ?>
-    </div>
+    <!-- <div id="display_route_encoded" style="display:none"><?php //echo get_post_meta( get_the_ID(), 'route', true ); ?>
+    </div> -->
     <div id="display_route">
 
       <?php 
@@ -21,7 +21,9 @@
         ?>
     </div>
     <div id="content_sinn"></div>
+    <a href='#' id='export'> Export route data as geojson </a>
   </div>
+
 </div>
 
 <!-- 
