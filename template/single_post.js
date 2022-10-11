@@ -74,12 +74,9 @@ async function main() {
   
   var group_all = L.layerGroup();
 
-
+  //make marker and add to map 
   json_w_geocode.features.forEach((feature) => {
     let category = feature.taxonomy.category.name;
-    let category_shortname = feature.taxonomy.category.shortname;
- 
-
     let Icon_name = category_icon_array[category];
     let popuptext, popupimage, popupexcerpt;
   
@@ -87,17 +84,7 @@ async function main() {
     popupimage =  feature.properties.thumbnail_url ? '<img src="' + feature.properties.thumbnail_url + '" alt="'+ feature.properties.title +' thumbnail image" width="50px" height="50px"></img>' : '';  
     popupexcerpt = feature.properties.excerpt ? '<p>' + feature.properties.excerpt + '</p>' : '' ;
   
-    //  popuptext =   '<div class="popup_title">'+ feature.properties.name + '</div>';
-  //  popupimage =  feature.properties.thumbnail_url ? '<img src="' + feature.properties.thumbnail_url + '" alt="'+ feature.properties.title +' thumbnail image" width="50px" height="50px"></img>' : ''; 
-  //  popupexcerpt = feature.properties.excerpt ? '<p>' + feature.properties.excerpt + '</p>' : '' ;
-  //  popuptext = popuptext + popupimage + popupexcerpt;
-  //  popuptext = popuptext +
-  //              '<div class="popupcategory">'+category+'</div>' + 
-  //              '<a href="' +  feature.properties.url + '">' +
-  //                '<button class="popup_button">Eintrag ansehen</button>' +
-  //              '</a>';
-
-                let popuptext2 =   popupimage +
+    let popuptext2 =   popupimage +
                 '<div class="text_wrapper">' +
                   '<div class="popup_title">' + popuptext + '</div>' +
                   '<div class="popupcategory">'+category + '</div>' + 
@@ -132,55 +119,56 @@ async function main() {
   var current_postid = document
     .getElementById("current_post_id")
     .getAttribute("value");
-  //console.log(current_postid);
+
+  // Check if current post is for route oder point 
+
+  function has_route_json(current_postid){
+
+    for (let feature of json_w_geocode.features){
+      if (feature.id == current_postid && !(feature.route[0].length == 0)) {
+        let route_json = JSON.parse(decodeURIComponent(feature.route[0]));
+        return route_json;
+        break;
+      }
+    };
+  }
   
-  //find the marker for this post 
-  find_marker_by_post_id(group_all, current_postid);
-
-  // draw route on map when there metadata[route] is not empty 
-  // and zoom in the there 
-  json_w_geocode.features.forEach((feature) => {
-    if (feature.id == current_postid && !(feature.route[0].length == 0)) {
-      let route_json = JSON.parse(decodeURIComponent(feature.route[0]));
-      let string_json = decodeURIComponent(JSON.stringify(feature.route[0]));
-      //console.log(decodeURIComponent(JSON.stringify(feature.route[0])));
-      //eval("input_json = " + string_json.slice(1, -1) + ";");
-      //console.log("input_json = " + string_json.slice(1, -1) + ";");
-      var drawnroute = L.geoJson(route_json).addTo(map);
-      console.log(route_json);
-      map.fitBounds(drawnroute.getBounds(), { padding: [100, 100] });
-    }
-  });
-
+  let route_json = has_route_json(current_postid);
   let this_marker = find_marker_by_post_id(group_all, current_postid);
-  //this_marker.openPopup();
+
+  if(route_json){
+    let drawnroute = L.geoJson(route_json).addTo(map);
+    map.fitBounds(drawnroute.getBounds(), { padding: [100, 100] });
+  }
+  else{ 
+    zoom_in_to_marker(this_marker);
+  }
+  this_marker.openPopup();
+
 
   function find_marker_by_post_id(markers, post_id) {
     var this_post_marker;
-    //console.log(markers);
     markers.eachLayer((marker) => {
       if (post_id == marker["options"]["post_id"]) {
         var map_id = markers.getLayerId(marker);
-        //console.log(map_id);
-        //console.log(markers.getLayer(map_id));
         var marker = markers.getLayer(map_id);
-        var markerBounds = L.latLngBounds([marker.getLatLng()]);
-        //console.log(markerBounds);
-        //map.fitBounds(markerBounds);
-        //map.setZoom(16);
         let popuptext = '<div class="hier_bin_ich"><div class="popup_title">'+ marker["options"]["name"] + '</div></div>';
-        //console.log(marker["options"]["icon"]["options"]["iconUrl"]);
         let bigIcon = L.icon({
           iconUrl : marker["options"]["icon"]["options"]["iconUrl"],
           iconSize: [60, 60],
         })
         marker.setIcon(bigIcon);
         marker.bindPopup(popuptext);
-        marker.openPopup();
         this_post_marker = marker;
       }
     });
     return this_post_marker;
+  }
+
+  function zoom_in_to_marker(marker){
+    var markerBounds = L.latLngBounds([marker.getLatLng()]);
+    map.fitBounds(markerBounds);
+    map.setZoom(16);
   }
 
 } // Main closing
