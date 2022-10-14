@@ -4,23 +4,27 @@
 }
 
 .sidebar {
-  padding: 60px 90px;
+  /* padding: 60px 90px; */
   grid-row: 1/4;
-  }
+}
+
+.post_content > * {
+  padding-left: 10%;
+  padding-right: 20%;
+}
 
 .post_content {
   overflow-y: scroll;
 }
 
-
 /*Header nav*/
-  .menu.top li:nth-child(2) {
-left: 25%;
-  }
+.menu.top li:nth-child(2) {
+  left: 25%;
+}
 
-  .menu.top li:nth-child(3) {
-left: 32%;
-  }
+.menu.top li:nth-child(3) {
+  left: 32%;
+}
 
 /*Map Popup*/
 
@@ -48,34 +52,37 @@ color: var(--d_text);
 }
 
 */
+p {
+  font-size: 22px;
+}
+
 /* content header*/
 .entry_category b {
   padding: 0 7.5px;
   font-weight: 700;
-  }
+}
 
-  .entry_category p {
-    display: flex;
-    align-items: center;
-    padding-bottom: 40px;
-    }
-  
-  .entry_category img {
-    width: 30px;
-    }
+.entry_category p {
+  display: flex;
+  align-items: center;
+  padding-bottom: 40px;
+}
+
+.entry_category img {
+  width: 30px;
+}
 
 /* Farben der Kategorien */
-  .brauchtum-und-veranstaltungen b {
-    color: var(--d_blue);
-  }
+.brauchtum-und-veranstaltungen b {
+  color: var(--d_blue);
+}
 
-  .gemeinden b {
-    color: var(--l_grey);
-  } 
-
+.gemeinden b {
+  color: var(--l_grey);
+}
 
 .kulturelle-sehenswurdigkeiten b {
-color: var(--red);
+  color: var(--red);
 }
 
 .point-of-interest b {
@@ -90,21 +97,53 @@ color: var(--red);
   color: var(--magenta);
 }
 
-.thementouren b{
+.thementouren b {
   color: var(--yellow);
 }
 
 /* Entry Content Text */
 .post_content h2 {
-color: var(--d_blue);
+  font-size: 32px;
+  color: var(--l_blue);
+  font-weight: 600;
 }
 
-  .post_content p {
-    margin: 20px 0;
-  }
+.post_content p {
+  margin: 20px 0;
+}
 
-.wp-block-image {
+.post_content .wp-block-image {
   margin: 0;
+  margin-bottom: 3em;
+}
+
+.post_content .wp-block-image figcaption {
+  color: var(--d_text);
+  font-size: 18px;
+  text-align: left;
+  margin-top: 1em;
+  margin-bottom: 2em;
+}
+.post_content .wp-block-quote {
+  background-color: rgba(0, 156, 222, 0.05);
+  padding-left: 15%;
+  padding-right: 20%;
+  border-left: 0;
+  padding-top: 60px;
+  padding-bottom: 90px;
+  margin-bottom: 60px;
+}
+.post_content .wp-block-quote p {
+  font-size: 38px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #009cde;
+}
+
+.post_content .wp-block-quote > cite {
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .content_footer {
@@ -115,26 +154,27 @@ color: var(--d_blue);
   justify-content: space-between;
   align-items: center;
   align-content: center;
+  padding-bottom: 150px;
 }
 
 .content_footer button {
-  background-color: rgba(255,255,255,0);
+  background-color: rgba(255, 255, 255, 0);
   padding: 15px 55px 15px 30px;
   display: block;
 }
 
 .content_footer button::after {
   right: 25px;
-  background-image: url(/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/share-svgrepo-com.svg); 
+  background-image: url(/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/share-svgrepo-com.svg);
 }
 
 .content_footer button:hover,
 .content_footer button:hover {
-color: var(--d_text);
+  color: var(--d_text);
 }
 
 .content_footer p {
-font-size: 17px;
+  font-size: 17px;
 }
 
 /* Media Querries */
@@ -145,6 +185,6 @@ font-size: 17px;
   }
 
   .kulturdatenbank .sidebar {
-padding: 20px 10px;
+    padding: 20px 10px;
   }
 }

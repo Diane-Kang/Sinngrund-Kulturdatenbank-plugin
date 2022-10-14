@@ -15,15 +15,13 @@
 
 /* Header Nav */
 
-  .menu.top li:nth-child(2) {
-left: 60%;
-  }
+.menu.top li:nth-child(2) {
+  left: 60%;
+}
 
-  .menu.top li:nth-child(3) {
-left: 67%;
-  }
-
- 
+.menu.top li:nth-child(3) {
+  left: 67%;
+}
 
 /*Sidebar Rahmen*/
 
@@ -34,7 +32,7 @@ left: 67%;
   height: 100%;
 }
 
-.category_filter_section, 
+.category_filter_section,
 .sort_options_block,
 .search {
   flex: 0 1 auto;
@@ -49,15 +47,16 @@ left: 67%;
 /*Sidebar */
 
 .category {
-margin: 0;
-font-size: 28px;
-font-weight: 700;
-color: var(--d_blue);
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--d_blue);
+  font-family: "Barlow";
 }
 
 .category_filter_section {
   padding: 30px 45px 15px 45px;
-margin: 0;
+  margin: 0;
 }
 
 .single_category_wrapper {
@@ -74,17 +73,17 @@ margin: 0;
 .cat_label {
   font-size: 18px;
   align-self: stretch;
-width: 100%;
-padding: 7.5px 0;
-position: relative;
-margin-left: 7.5px;
-display: flex;
-cursor: pointer;
+  width: 100%;
+  padding: 7.5px 0;
+  position: relative;
+  margin-left: 7.5px;
+  display: flex;
+  cursor: pointer;
 }
 
 .cat_label:hover,
 .cat_label:active {
-opacity: 0.75;
+  opacity: 0.75;
 }
 
 .cat_icon {
@@ -98,7 +97,7 @@ opacity: 0.75;
 }
 
 .sort_options_block {
-  padding: 15px 60px; 
+  padding: 15px 60px;
   color: var(--l_grey);
   font-size: 15px;
   display: flex;
@@ -126,13 +125,14 @@ opacity: 0.75;
   cursor: pointer;
 }
 
-.entry_author, .entry_date {
+.entry_author,
+.entry_date {
   display: none;
 }
 
 .datenbank_single_entry:nth-child(odd) {
-background-color: rgba(0, 156, 222, 0.1);
-padding-bottom: 0;
+  background-color: rgba(0, 156, 222, 0.1);
+  padding-bottom: 0;
 }
 
 .datenbank_single_entry .entry_category {
@@ -141,9 +141,9 @@ padding-bottom: 0;
 }
 
 .datenbank_list .entry_title {
-font-size: 17px;
-line-height: 25px;
-font-weight: 600;
+  font-size: 17px;
+  line-height: 25px;
+  font-weight: 600;
 }
 
 .entry_category img {
@@ -155,33 +155,31 @@ font-weight: 600;
 }
 
 .datenbank_single_entry.marked {
-background-color: var(--d_blue);
-color: #fff;
-padding-bottom: 30px;
-cursor: default;
+  background-color: var(--d_blue);
+  color: #fff;
+  padding-bottom: 30px;
+  cursor: default;
 }
 
 .datenbank_single_entry.marked .entry_category {
-border: none;
-padding-bottom: 7.5px;
+  border: none;
+  padding-bottom: 7.5px;
 }
 
 .datenbank_single_entry.marked button::after {
- background-image: url(/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/right-svgrepo-com-white.svg);
+  background-image: url(/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/right-svgrepo-com-white.svg);
 }
 
-
-.dn.button.main-page-button{
+.dn.button.main-page-button {
   display: none;
 }
 
-.dn.button.main-page-button.db{
+.dn.button.main-page-button.db {
   display: block;
 }
 
 /* Media Querries */
 @media screen and (max-width: 980px) {
-
   .kulturdatenbank .sidebar {
     min-width: 250px;
   }
@@ -190,7 +188,6 @@ padding-bottom: 7.5px;
     margin-left: auto;
     margin-right: auto;
   }
-
 }
 
 @media screen and (max-width: 440px) {
@@ -208,11 +205,9 @@ padding-bottom: 7.5px;
     font-size: 16px;
   }
 
-.sort_options_block {
-  padding: 15px;
-  width: 100%;
-  justify-content: center;
+  .sort_options_block {
+    padding: 15px;
+    width: 100%;
+    justify-content: center;
+  }
 }
-
-}
-
