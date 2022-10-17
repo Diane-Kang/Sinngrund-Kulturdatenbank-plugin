@@ -4,6 +4,7 @@
 #adminmenuwrap {
   background-color: #006691;
 }
+
 .attachment-info .description {
   display: none;
 }
@@ -45,29 +46,56 @@
 #shortpixel_info_box,
 .attachment-alt-text,
 #alt-text-description,
-#wp-attachment_content-editor-container,
 #edit-slug-box,
 #delete-action,
 #publishing-action > span:nth-child(1),
-.media .view {
+.media .view,
+#titlewrap {
   display: none;
 }
+/* #wp-attachment_content-editor-container, */
+
 #screen-meta-links,
 #post-body-content .attachment-content-description {
   display: none;
 }
 .wp_attachment_details label {
-  position: absolute;
-  visibility: hidden;
+  /* position: absolute; */
+  /* visibility: hidden; */
+  display: none;
 }
-.wp_attachment_details label ::before {
+.wp_attachment_details > p:nth-child(3)::before {
+  /* .wp_attachment_details label:after { */
+  /* #attachment_caption::before { */
   content: "Bildtitel";
   visibility: visible;
   display: block;
+  font-size: 36px;
+}
+
+.wp_attachment_details #attachment_caption {
+  height: 2em;
+  font-size: 30px;
+}
+
+#qt_attachment_content_toolbar {
+  display: none;
+}
+#wp-attachment_content-wrap::before {
+  content: "Dieses Feld kann nicht bearbeitet werden. Es ist für Suchenfunktion  (Bildtitle) ;; (Orte) ;; (Fotograf)";
+  visibility: visible;
+  display: block;
+}
+#attachment_content {
+  height: 42px;
 }
 
 input#publish,
 #publishing-action {
   width: 100%;
   min-height: 50px;
+}
+/* All user can use only fotos, that has been uploaded in media already */
+.block-editor-media-placeholder__upload-button {
+  display: none;
 }

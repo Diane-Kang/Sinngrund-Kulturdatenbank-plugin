@@ -2,10 +2,7 @@
   display: none;
 }
 
-/* contributor can use only fotos, that has been uploaded in media */
-.block-editor-media-placeholder__upload-button {
-  display: none;
-}
+
 
 /*  */
 .media-sidebar {

@@ -33,6 +33,9 @@ class SinngrundKultureBank {
                                               "Thementouren"                  => "route"
                                             );
 
+  
+  
+
   function get_category_shortname_array(){
     return $this->category_shortname_array;
   }
@@ -45,7 +48,9 @@ class SinngrundKultureBank {
 
   function __construct() {
 
-    
+
+
+
     ////--------------Admin dashbard page ----------------    
 
     //////------------Amdin page style ----------------//
@@ -140,8 +145,10 @@ class SinngrundKultureBank {
     //////////------------Meta data for Media----------------//// Ob es frontend(galley-page) auftauchen  soll. 
     add_action('add_meta_boxes', array($this, 'media_for_gallery_box'));
     add_filter("attachment_fields_to_save", array($this, 'save_media_for_gallery_box' ), null , 2); //https://www.kevinleary.net/add-custom-meta-fields-media-attachments-wordpress/
-
-
+    //add_action('edit_attachment', array($this, 'update_attachemnt_content'));
+    add_action('admin_init', array($this,'update_media_content')); // Every reload admin page/backend/ this function would be activated
+    //add_action('admin_init', array($this,'update_media_all_contents'));
+    
     //////////------------orte taxonomy : nonhierarchical   ----------------//
     add_action( 'init', array($this, 'create_ort_taxonomy')); // for attachemnt and post 
     add_action('save_post', array($this,'save_orte_taxonomy')); // save Ort taxonomy
@@ -213,13 +220,70 @@ class SinngrundKultureBank {
 
     add_shortcode('debugging_help', array($this,'show_this'));
 
-    //add_action( 'init', array( $this, 'setup_taxonomies' ) );
-    //add_filter( 'add_attachment', array( $this, 'wpse_55801_attachment_author') );
-
   
   }////////////////////////////////////////-----------------------------end of contructor 
 
+  function update_media_content(){
+      $myid = $_GET['post'];
+      if(get_post_type( $_GET['post'] ) == 'attachment'){
+        $post_id = $_GET['post'];
+        $ort_string = join(', ', wp_list_pluck(get_the_terms( $post_id , 'orte'), 'name'));
+        $fotograf_string = join(', ', wp_list_pluck(get_the_terms( $post_id , 'fotograf'), 'name'));
+        $bildtitel = wp_get_attachment_caption($post_id ) ? wp_get_attachment_caption($post_id ) : 'Bildtitel nicht eingegeben';
+        $data_content = $bildtitel . ' ;; ' .  $ort_string . ';;' . $fotograf_string . ';;' ; 
+        $my_post = array();
+        $my_post['ID'] = $post_id ;
+        $my_post['post_content'] = $data_content;
+        wp_update_post( $my_post ); 
+      }
+  }
 
+  function update_media_all_contents(){
+      
+    $post_type_query = new WP_Query(array(
+      'posts_per_page' => -1,
+      'post_status' => 'any', 
+      'post_type' => 'attachment',));
+      
+    while ($post_type_query->have_posts()) {
+      $post_type_query->the_post();
+      $post_id = get_the_ID();
+      $ort_string = join(', ', wp_list_pluck(get_the_terms( $post_id , 'orte'), 'name'));
+      $fotograf_string = join(', ', wp_list_pluck(get_the_terms( $post_id , 'fotograf'), 'name'));
+      $bildtitel = wp_get_attachment_caption($post_id ) ? wp_get_attachment_caption($post_id ) : 'Bildtitel nicht eingegeben';
+      $data_content = $bildtitel . ' ;; ' .  $ort_string . ';;' . $fotograf_string . ';;' ; 
+      $my_post = array();
+      $my_post['ID'] = $post_id ;
+      $my_post['post_content'] = $data_content;
+      wp_update_post( $my_post ); 
+      }
+  }
+
+  // function update_attachemnt_content($post_id){
+
+  //   if ( wp_is_post_revision( $post_id ) ) {
+  //     return;
+  // }
+
+  // if ( ! wp_is_post_revision( $post_id ) ) {
+
+  //   remove_action('edit_attachment',array( $this, 'update_attachemnt_content'));
+    
+  //   global $post;
+  //   //$data_content = $_POST['description'];
+    
+  //   $ort_string = join(', ', wp_list_pluck(get_the_terms( get_the_ID(), 'orte'), 'name'));
+  //   $fotograf_string = join(', ', wp_list_pluck(get_the_terms( get_the_ID(), 'fotograf'), 'name'));
+  //   $bildtitel = wp_get_attachment_caption() ? wp_get_attachment_caption() : 'Bildtitel nicht eingegeben';
+  //   $data_content = $bildtitel . ' ;; ' .  $ort_string . ';;' . $fotograf_string . ';;' ; 
+  //   $my_post = array();
+  //   $my_post['ID'] = $post->ID;
+  //   $my_post['post_content'] = $data_content;
+  //   wp_update_post( $my_post );
+  //   add_action('edit_attachment', array( $this,'update_attachemnt_content'));
+  // }
+  // }
+  
   function cc_gutenberg_register_files() {
    
     // script file
@@ -257,23 +321,7 @@ class SinngrundKultureBank {
     $contributor->add_cap("upload_files");
     }
 
-    
-
-  function wpse_55801_attachment_author( $attachment_ID ) 
-{
-    $attach = get_post( $attachment_ID );
-    $parent = get_post( $attach->post_parent );
-
-    $the_post = array();
-    $the_post['ID'] = $attachment_ID;
-    $the_post['post_author'] = $parent->post_author;
-    show_this(get_post_meta( $attachment_ID , 'category' , true ));
-    
-
-    wp_update_post( $the_post );
-}
-
-  
+ 
 
 
   function add_entry_to_orte_taxonomy(){
@@ -572,29 +620,20 @@ class SinngrundKultureBank {
                    );
    // }
   }
+
   
   function save_media_for_gallery_box( $post, $attachment ) {
     if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
-    // if ( $parent_id = wp_is_post_revision( $post_id ) ) {
-    //     $post_id = $parent_id;
-    // }
+
     $fields = [
       'media_for_gallery_box_buttons'
     ];
-    //foreach ( $fields as $field ) {
-       // if ( array_key_exists( $field, $_POST ) ) {
+    update_post_meta( $post['ID'], 'media_for_gallery_box', $_POST['media_for_gallery_box_buttons'] );
+    return $post;
 
-            // update_post_meta( $post_id, $field, sanitize_text_field( $_POST[$field] ) );
-
-            update_post_meta( $post['ID'], 'media_for_gallery_box', $_POST['media_for_gallery_box_buttons'] );
-
-        //}
-     //}
-     return $post;
   }
 
   //////////end------------Meta data for new Post page----------------// 
-
 
 
 
@@ -1070,9 +1109,13 @@ class SinngrundKultureBank {
           'date'  => get_the_date(),
           'source_url' => wp_get_attachment_url(),
           // caption : this is bildtitel
-          'caption' => wp_get_attachment_caption() ? wp_get_attachment_caption() : 'Bildtitel nicht eingegeben',
-          'title' =>  get_the_title(), // file titel, name 
+          //'caption' => wp_get_attachment_caption() ? wp_get_attachment_caption() : 'Bildtitel nicht eingegeben',
+          //'title' =>  get_the_title(), // file titel, name 
+          'title' => wp_get_attachment_caption() ? wp_get_attachment_caption() : 'Bildtitel nicht eingegeben',
+          'content' => get_the_content(),
+          'post_title' => get_the_title(),
           'author' => get_the_author(),
+          'description' => get_the_content(),
           //'orte' => get_the_terms( $post_id, 'orte'),
           'orte_tags_text'  => join(', ', wp_list_pluck(get_the_terms( get_the_ID(), 'orte'), 'name')),
           //'fotograf' => get_the_terms( $post_id, 'fotograf') ,
