@@ -56,7 +56,7 @@ jQuery.ajax({
          "beforeend",
          createMediaList({
           source_url: feature.source_url,
-          caption_rendered : feature.caption,
+          caption_rendered : feature.title,
           orte : feature.orte_tags_text, //list of orte tags
           fotograf : feature.fotograf_tags_text,
           date : feature.date,
@@ -88,7 +88,7 @@ jQuery(document).ready(function($){
               "beforeend",
               createMediaList({
                 source_url: feature.source_url,
-                caption_rendered : feature.caption,
+                caption_rendered : feature.title,
                 orte : feature.orte_tags_text, //list of orte tags
                 fotograf : feature.fotograf_tags_text,
                 date : feature.date,
