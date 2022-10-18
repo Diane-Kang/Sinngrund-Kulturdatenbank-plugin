@@ -2,9 +2,13 @@
   display: none;
 }
 
-
-
 /*  */
 .media-sidebar {
+  display: none;
+}
+
+#wp-attachment_content-wrap,
+.compat-attachment-fields,
+.media-types .media-types-required-info {
   display: none;
 }

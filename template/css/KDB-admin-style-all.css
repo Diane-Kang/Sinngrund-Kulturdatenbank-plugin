@@ -89,13 +89,23 @@
 #attachment_content {
   height: 42px;
 }
+/* Erforderliche Felder sind mit * markiert */
+.media-types-required-info {
+  display: none;
+}
 
 input#publish,
 #publishing-action {
   width: 100%;
   min-height: 50px;
 }
+
 /* All user can use only fotos, that has been uploaded in media already */
-.block-editor-media-placeholder__upload-button {
+.block-editor-media-placeholder__upload-button,
+#menu-item-upload {
   display: none;
+}
+
+.editor-post-taxonomies__hierarchical-terms-list {
+  max-height: 20em;
 }
