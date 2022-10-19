@@ -180,6 +180,7 @@ class SinngrundKultureBank {
     add_action( 'wp_enqueue_scripts', array($this,'jquery_dependency'), 20, 1 );
     //////-------------- Leaflet map dependecies---------------------//
     add_action( 'wp_enqueue_scripts', array($this,'leaflet_dependency'), 20, 1 );
+    // add_action( 'wp_enqueue_scripts', array($this,'mapbox_dependency'), 20, 1 );
     //////-------------- Cookie setting---------------------// 
     add_action('init',  function(){
                            $date = new DateTime("now", new DateTimeZone('Europe/Berlin') );
@@ -452,18 +453,22 @@ class SinngrundKultureBank {
 
   function leaflet_dependency(){
     
+    
     wp_enqueue_script( 'leaflet-js',                        plugin_dir_url( __FILE__ ) . '/node_modules/leaflet/dist/leaflet.js', array(), false, false );
     wp_enqueue_script( 'leaflet-marker-cluster-js',         plugin_dir_url( __FILE__ ) . '/node_modules/leaflet.markercluster/dist/leaflet.markercluster.js', array('leaflet-js'), false, false);
     wp_enqueue_script( 'leaflet-marker-cluster-group-js',   plugin_dir_url( __FILE__ ) . '/node_modules/leaflet.markercluster.layersupport/dist/leaflet.markercluster.layersupport.js', array('leaflet-marker-cluster-js'), false, false);
     wp_enqueue_script( 'leaflet-draw-js',                   plugin_dir_url( __FILE__ ) . '/node_modules/leaflet-draw/dist/leaflet.draw.js',array(), false, false);
+    //wp_enqueue_script( 'mapbox-js',                        'https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js', array(), false, false );
 
     
     wp_enqueue_style( 'leaflet-main-css',                   plugin_dir_url( __FILE__ ) . '/node_modules/leaflet/dist/leaflet.css' , array(), false, false);
     wp_enqueue_style( 'leaflet-marker-cluster-css',         plugin_dir_url( __FILE__ ) . '/node_modules/leaflet.markercluster/dist/MarkerCluster.css', array(), false, false);
     wp_enqueue_style( 'leaflet-marker-cluster-default-css', plugin_dir_url( __FILE__ ) . '/node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css', array(), false, false);
     wp_enqueue_style( 'leaflet-draw-css',                   plugin_dir_url( __FILE__ ) . '/node_modules/leaflet-draw/dist/leaflet.draw.css', array(), false, false);
+    //wp_enqueue_style( 'mapbox-main-css',                   'https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css' , array(), false, false);
 
   }
+
 
   function metabox_javascript($hook_suffix){
     global $post_type;
