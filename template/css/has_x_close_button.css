@@ -121,7 +121,7 @@ display: none;
   }
 
   .post_content .close_icon::before  {
-   left:0;
+   left:0
   }
 
   .close .close_icon::before {
