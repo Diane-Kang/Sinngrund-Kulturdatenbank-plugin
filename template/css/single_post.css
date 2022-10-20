@@ -8,13 +8,20 @@
   grid-row: 1/4;
 }
 
-.post_content > * {
-  padding-left: 10%;
-  padding-right: 20%;
+.post_content {
+  margin-top: 60px;
+  overflow-y: scroll;
 }
 
-.post_content {
-  overflow-y: scroll;
+.post_content > *,
+.post_content .wp-block-image {
+  margin-left: 10%;
+  margin-right: 20%;
+}
+
+/* disable: Eintrag erstellt von ... am ...  next to title and category*/
+.post_content > p:nth-child(4) {
+  display: none;
 }
 
 /*Header nav*/
@@ -108,13 +115,12 @@ p {
   font-weight: 600;
 }
 
-.post_content p {
-  margin: 20px 0;
+.post_content .wp-block-image.aligncenter {
+  display: flex;
+  flex-direction: column;
 }
-
-.post_content .wp-block-image {
-  margin: 0;
-  margin-bottom: 3em;
+.post_content .wp-block-image > * {
+  align-self: center;
 }
 
 .post_content .wp-block-image figcaption {
@@ -124,6 +130,7 @@ p {
   margin-top: 1em;
   margin-bottom: 2em;
 }
+
 .post_content .wp-block-quote {
   background-color: rgba(0, 156, 222, 0.05);
   padding-left: 15%;
@@ -133,6 +140,15 @@ p {
   padding-bottom: 90px;
   margin-bottom: 60px;
 }
+.post_content .wp-block-quote p::before {
+  content: "„";
+  visibility: visible;
+}
+.post_content .wp-block-quote p::after {
+  content: "“";
+  visibility: visible;
+}
+
 .post_content .wp-block-quote p {
   font-size: 38px;
   font-style: italic;
@@ -142,8 +158,23 @@ p {
 }
 
 .post_content .wp-block-quote > cite {
+  margin-top: 38px;
+  display: block;
   font-size: 16px;
   font-weight: 500;
+}
+
+/* List */
+.post_content > ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  font-size: 22px;
+  font-weight: 300;
+}
+
+.post_content > ul strong {
+  font-weight: 600;
 }
 
 .content_footer {
