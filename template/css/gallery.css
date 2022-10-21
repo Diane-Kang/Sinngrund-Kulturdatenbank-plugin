@@ -1,69 +1,67 @@
 .gallery_wrapper {
-padding: 0 60px;
+  padding: 0 60px;
 }
 
 .head_wrapper {
-    max-width: 1680px;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 45px;
+  max-width: 1680px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 45px;
 }
 
 h1 {
-    font-size: 38px;
-    display: inline-block;
-    color: var(--d_blue);
+  font-size: 38px;
+  display: inline-block;
+  color: var(--d_blue);
 }
 
 .search {
-    display: inline-block;
-    max-width: 400px;
-    margin: 0;
+  display: inline-block;
+  max-width: 400px;
+  margin: 0;
 }
 
 .orte {
-    display: none;
+  display: none;
 }
 
 .grid-content {
-    display: flex;
-    grid-template-columns: repeat(4, 250px);
-    grid-template-rows: repeat(auto-fill, 250px);
-    max-width: 1680px;
-    margin: 0 auto;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: stretch;
+  display: flex;
+  grid-template-columns: repeat(4, 250px);
+  grid-template-rows: repeat(auto-fill, 250px);
+  max-width: 1680px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
 }
 
 .grid-item {
-    width:  360px;
-    padding: 30px 20px;
-    border-bottom: 1px solid var(--l_grey);
+  width: 360px;
+  padding: 30px 20px;
+  border-bottom: 1px solid #d9d5d5;
 }
 
 .grid-item-wrap {
-    width: 360px;
-    height: 240px;
-    border-radius: 3px;
-    border: 1px solid var(--l_grey);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    background-color: #fff;
-    position: relative;
+  width: 360px;
+  height: 240px;
+  border-radius: 3px;
+  border: 1px solid #d9d5d5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  background-color: #fff;
+  position: relative;
 }
 
 .grid-content img {
-object-fit: contain;
-width: 100%;
-overflow: hidden;
-height: 100%;
+  object-fit: contain;
+  width: 100%;
+  overflow: hidden;
+  height: 100%;
 }
-
 
 /* Media Querries */
 @media screen and (max-width: 980px) {
-
 }

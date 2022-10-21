@@ -1,73 +1,73 @@
 .grid-content .lens {
-    position: absolute;
-    right: 5px;
-    top: 5px;
-    width: 22px;
-    height: 22px;
-    padding: 5px;
-    margin: 3px;
-    border-radius: 50%;
-    background-color: rgba(255,255,255,0.5);
-    cursor: pointer;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  width: 22px;
+  height: 22px;
+  padding: 5px;
+  margin: 3px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
 }
 
 .grid-content .close_icon {
-    display: none;
+  display: none;
 }
 
 .grid-item-wrap {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-.grid-item-wrap:hover, 
-    .grid-item-wrap:active {
-opacity: 0.7;
+.grid-item-wrap:hover,
+.grid-item-wrap:active {
+  opacity: 0.7;
 }
 
 .grid-item-wrap.fullscreen {
-    position: fixed;
-    height: 100%;
-    width: 100vw;
-    left: 0;
-    top: 0;
-    z-index: 9;
-    background-color: rgba(255,255,255,0.9);   
-    cursor: auto;
+  position: fixed;
+  height: 100%;
+  width: 100vw;
+  left: 0;
+  top: 0;
+  z-index: 9;
+  background-color: rgba(255, 255, 255, 0.9);
+  cursor: auto;
 }
 
 .grid-item-wrap.fullscreen:hover,
-.grid-item-wrap.fullscreen:active  {
-opacity: 1;
+.grid-item-wrap.fullscreen:active {
+  opacity: 1;
 }
 
 .fullscreen .image {
-    padding: 5vw;
-    width: auto;
-    height: auto;
-    position: fixed;
-    z-index: 99;
-    }
+  padding: 5vw;
+  width: auto;
+  height: auto;
+  position: fixed;
+  z-index: 99;
+}
 
-    .fullscreen .lens {
-        display: none;
-        }
-        
-        .fullscreen .close {
-        display: inline-block;
-        position: fixed;
-        top: 60px;
-        right: 30px;
-        width: 60px;
-        height: 60px;
-        z-index: 999;
-        background-image: url("/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/close-svgrepo-com.svg");
-        background-color: #fff;
-        cursor: pointer;
-        }
+.fullscreen .lens {
+  display: none;
+}
 
-        .fullscreen .close::before {
-            background-image: none;
-            }
+.fullscreen .close {
+  display: inline-block;
+  position: fixed;
+  top: 60px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  z-index: 999;
+  background-image: url("/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/close-svgrepo-com.svg");
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.fullscreen .close::before {
+  background-image: none;
+}
 
 /*
 .lightbox .image.fullscreen::before {
