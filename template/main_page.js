@@ -178,7 +178,7 @@ async function main() {
     // Marker setting
     let Icon_name = category_icon_array[category];
     let popuptext, popupimage, popupexcerpt;
-    popuptext =   '<div class="popup_title"><strong>'+ feature.properties.name + '</strong></div>';
+    popuptext =   feature.properties.name;
     popupimage =  feature.properties.thumbnail_url ? '<img src="' + feature.properties.thumbnail_url + '" alt="'+ feature.properties.title +' thumbnail image" width="50px" height="50px"></img>' : '';  
     popupexcerpt = feature.properties.excerpt ? '<p>' + feature.properties.excerpt + '</p>' : '' ;
     // popuptext = popuptext + popupimage + popupexcerpt;
