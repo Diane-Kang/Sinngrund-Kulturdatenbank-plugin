@@ -32,7 +32,8 @@
           </div>
           <?php
         //echo get_the_content();
-        the_content()?>
+        the_content()
+        ?>
           <div class="content_footer">
             <button>Eintrag teilen</button>
             <p><?php 

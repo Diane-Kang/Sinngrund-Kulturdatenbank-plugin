@@ -79,7 +79,25 @@ display: none;
   border-radius: 50px;
   box-shadow: 0 0 2px 1px var(--l_grey);
   color: var(--d_text);
+  line-height: 24px;
+  font-family: "Barlow";
+  font-size: 24px;
 }
+
+.map_block.leaflet-container a.leaflet-popup-close-button span {
+ position: relative;
+ bottom: 1px;
+}
+
+.map_block.leaflet-container a.leaflet-popup-close-button:hover,
+.map_block.leaflet-container a.leaflet-popup-close-button:active {
+background-color: var(--d_text);
+color: #fff;
+opacity: 1;
+}
+
+
+
 
   /* Big Close */
 .close.close_icon {
