@@ -106,6 +106,14 @@ input#publish,
   display: none;
 }
 
-.editor-post-taxonomies__hierarchical-terms-list {
+button.editor-post-taxonomies__hierarchical-terms-add {
+  display: none;
+}
+
+.components-panel__body .editor-post-taxonomies__hierarchical-terms-list {
   max-height: 20em;
+}
+div.components-panel__body:nth-child(1) > label:nth-child(2),
+#editor-post-taxonomies__hierarchical-terms-filter-0 {
+  display: none;
 }
