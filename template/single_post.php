@@ -28,11 +28,12 @@
 			  $category_icon_src = '/wp-content/plug	ins/Sinngrund-Kulturdatenbank-plugin/icons/'. $category_icon;
         ?>
             <p><img src="<?php echo $category_icon_src ?>" /><b><?php echo get_the_category()[0]->name; ?></b>
-              <?php echo get_the_date(); ?> </p>
+              <span><?php echo get_the_date(); ?></span> </p>
           </div>
           <?php
         //echo get_the_content();
-        the_content()?>
+        the_content()
+        ?>
           <div class="content_footer">
             <button>Eintrag teilen</button>
             <p><?php 

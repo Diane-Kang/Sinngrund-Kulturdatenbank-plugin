@@ -40,7 +40,7 @@
 }
 
 .datenbank_list {
-  overflow-y: scroll;
+  overflow-y: auto;
   flex: 1 1 auto;
 }
 

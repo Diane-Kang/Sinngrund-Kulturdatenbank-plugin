@@ -946,9 +946,15 @@ class SinngrundKultureBank {
     if (is_page('gallery')) {
       return plugin_dir_path(__FILE__) . '/template/gallery_page.php';
     }
+
+    if (is_page('impressum') or is_page('datenschutz') ) {
+      return plugin_dir_path(__FILE__) . '/template/impressum_datenschutz.php';
+    }
+
     return $template;
   }
 
+  
   function load_post_Template($template) {
     if (is_single()) {
       return plugin_dir_path(__FILE__) . '/template/single_post.php';
