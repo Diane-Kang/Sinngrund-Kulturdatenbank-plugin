@@ -65,6 +65,10 @@ opacity: 1;
         cursor: pointer;
         }
 
+        .fullscreen .close::before {
+            background-image: none;
+            }
+
 /*
 .lightbox .image.fullscreen::before {
 position: fixed;
