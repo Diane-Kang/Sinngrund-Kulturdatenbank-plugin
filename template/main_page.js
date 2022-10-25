@@ -32,7 +32,6 @@ async function main() {
     minZoom: 5,
     attribution:
     '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>',
-    //id: 'mapbox/streets-v11',
     id:'pondelek/cl9fbuboj000e14o2xcxw3oom',
     accessToken: 'pk.eyJ1IjoicG9uZGVsZWsiLCJhIjoiY2w5Zm1tc3h4MGphODNvbzBkM29jdWRlaCJ9.j64kLJQP_RmwAccN1jGKrw'
   }).addTo(map);
@@ -41,12 +40,7 @@ async function main() {
         var originalSize = 16
          map.setLayoutProperty('csettelment-major-label', 'text-size', 30);
     });
-//   L.mapbox.accessToken = 'pk.eyJ1IjoicG9uZGVsZWsiLCJhIjoiY2w5Zm1tc3h4MGphODNvbzBkM29jdWRlaCJ9.j64kLJQP_RmwAccN1jGKrw';
-//   L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=' + L.mapbox.accessToken, {
-//     attribution: '© <a href="https://www.mapbox.com/feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-//     tileSize: 512,
-//     zoomOffset: -1
-// }).addTo(map);
+
 
 
 //-------------Change Attribution Position Depending on Screen Size ---------------//
@@ -54,14 +48,10 @@ async function main() {
 function myFunction(screen_width) {
   if (screen_width.matches) { 
     console.log('zigzack');
-    L.control.attribution({
-      setPosition: 'bottomleft',
-    }).addTo(map);} 
+    map.attributionControl.setPosition('bottomleft');} 
   else {
     console.log('zack');
-    L.control.attribution({
-    setPosition: 'bottomright',
-    }).addTo(map);}
+    map.attributionControl.setPosition('bottomright');}
 }
 
 var screen_width = window.matchMedia("(max-width: 980px)");

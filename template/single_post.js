@@ -29,7 +29,7 @@ async function main() {
 
   const map = L.map("single_post_map", options);
   //L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/256/{z}/{x}/{y}?access_token={accessToken}', {
       maxZoom: 18,
       minZoom: 5,
       attribution:
