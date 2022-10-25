@@ -97,7 +97,7 @@ myFunction(screen_width);
     let Icon_name = category_icon_array[category];
     let popuptext, popupimage, popupexcerpt;
   
-    popuptext =   '<div class="popup_title"><strong>'+ feature.properties.name + '</strong></div>';
+    popuptext =   feature.properties.name;
     popupimage =  feature.properties.thumbnail_url ? '<img src="' + feature.properties.thumbnail_url + '" alt="'+ feature.properties.title +' thumbnail image" width="50px" height="50px"></img>' : '';  
     popupexcerpt = feature.properties.excerpt ? '<p>' + feature.properties.excerpt + '</p>' : '' ;
   
@@ -171,11 +171,22 @@ myFunction(screen_width);
         var map_id = markers.getLayerId(marker);
         var marker = markers.getLayer(map_id);
         let popuptext = '<div class="hier_bin_ich"><div class="popup_title">'+ marker["options"]["name"] + '</div></div>';
+
+        let customicon = L.divIcon({
+          className: 'here-bin-ich',
+          iconSize: [60, 60],
+          //iconUrl : marker["options"]["icon"]["options"]["iconUrl"],
+          html:'<img src="'+marker["options"]["icon"]["options"]["iconUrl"]+'" style ="filter: drop-shadow(#124054 0px 0px 15px);">'
+          // style="margin-left: -30px; margin-top: -30px; width: 60px; height: 60px; transform: translate3d(325px, 469px, 0px); z-index: 568; opacity: 1; outline: currentcolor none medium;" alt="Marker" tabindex="0"
+        });
+
         let bigIcon = L.icon({
           iconUrl : marker["options"]["icon"]["options"]["iconUrl"],
           iconSize: [60, 60],
         })
-        marker.setIcon(bigIcon);
+
+        marker.setIcon(customicon);
+        //marker.setIcon(bigIcon);
         marker.bindPopup(popuptext);
         this_post_marker = marker;
       }

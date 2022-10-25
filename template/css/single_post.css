@@ -20,7 +20,8 @@
 }
 
 /* disable: Eintrag erstellt von ... am ...  next to title and category*/
-.post_content > p:nth-child(4) {
+
+.just_checkin > p:nth-child(1) {
   display: none;
 }
 

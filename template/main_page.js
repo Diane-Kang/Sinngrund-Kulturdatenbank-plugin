@@ -154,52 +154,13 @@ myFunction(screen_width);
       })
     );
 
-    // Entry Format for List
-    // function createListItem({
-    //   post_id,
-    //   title,
-    //   category_name,
-    //   category_shortname,
-    //   url,
-    //   date,
-    //   author,
-    //   thumbnail_url,
-    //   excerpt,
-
-    // }) {
-    //   let htmltext =
-    //     '<div class="datenbank_single_entry map_link_point category_'+category_shortname + 
-    //           '" id="map_id_'+ post_id + 
-    //           '" category="' + category_shortname +
-    //           '" date="' + date +
-    //           '" author="' + author +
-    //     '">' +
-    //       '<div class="entry_title">' + title + "</div>" +
-    //       '<div class="entry_date" style="">' + date + "</div>" +
-    //       '<div class="entry_author" style="">' + author + "</div>" +
-    //       '<div class="entry_category">'+
-    //         '<img style="height: 20px; width: 20px; margin-right: 2px;" src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/' + category_shortname + '.svg"/>' +
-    //         category_name +
-    //       "</div>" +
-    //       '<a href="' + url + '">' +
-    //         '<button class="dn">Eintrag ansehen</button>' +
-    //       "</a>" +
-    //       "</div>";
-    //   return htmltext;
-    // }
-    
     // Marker setting
     let Icon_name = category_icon_array[category];
     let popuptext, popupimage, popupexcerpt;
     popuptext =   feature.properties.name;
     popupimage =  feature.properties.thumbnail_url ? '<img src="' + feature.properties.thumbnail_url + '" alt="'+ feature.properties.title +' thumbnail image" width="50px" height="50px"></img>' : '';  
     popupexcerpt = feature.properties.excerpt ? '<p>' + feature.properties.excerpt + '</p>' : '' ;
-    // popuptext = popuptext + popupimage + popupexcerpt;
-    // popuptext = popuptext +
-    //             '<div class="popupcategory">'+category+'</div>' + 
-    //             '<a href="' +  feature.properties.url + '">' +
-    //               '<button class="popup_button">Eintrag ansehen</button>' +
-    //             '</a>';
+
 
     let popuptext2 =   popupimage +
                       '<div class="text_wrapper">' +
@@ -207,7 +168,6 @@ myFunction(screen_width);
                         '<div class="popupcategory">'+category + '</div>' + 
                         '<p>' + popupexcerpt + '</p>' +
                         '<a class="popup_button button" href="' +  feature.properties.url + '">Eintrag ansehen' +
-                        //  '<button class="popup_button">Eintrag ansehen</button>' +
                         '</a>' +
                       '</div>';
 
