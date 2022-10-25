@@ -114,6 +114,10 @@ p {
   color: var(--d_text);
 }
 
+p strong {
+  font-weight: 600;
+}
+
 h1 {
   font-weight: 400;
   font-size: 34px;
@@ -187,7 +191,7 @@ body.hide_info .popup.info {
 .slide.one::before {
   content: "";
   height: 150px;
-  
+
   max-width: 1200px;
   background-image: url("/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/assets/Banner Kulturdatenbank.png");
   grid-row: 1/2;

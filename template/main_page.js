@@ -27,7 +27,7 @@ async function main() {
 
   const map = L.map("main_page_map", main_map_options);
   //L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+  L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/256/{z}/{x}/{y}?access_token={accessToken}', {
     maxZoom: 18,
     minZoom: 5,
     attribution:
@@ -37,6 +37,10 @@ async function main() {
     accessToken: 'pk.eyJ1IjoicG9uZGVsZWsiLCJhIjoiY2w5Zm1tc3h4MGphODNvbzBkM29jdWRlaCJ9.j64kLJQP_RmwAccN1jGKrw'
   }).addTo(map);
 
+    map.on('load', function() {
+        var originalSize = 16
+         map.setLayoutProperty('csettelment-major-label', 'text-size', 30);
+    });
 //   L.mapbox.accessToken = 'pk.eyJ1IjoicG9uZGVsZWsiLCJhIjoiY2w5Zm1tc3h4MGphODNvbzBkM29jdWRlaCJ9.j64kLJQP_RmwAccN1jGKrw';
 //   L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=' + L.mapbox.accessToken, {
 //     attribution: '© <a href="https://www.mapbox.com/feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -198,7 +202,7 @@ myFunction(screen_width)
     // Marker setting
     let Icon_name = category_icon_array[category];
     let popuptext, popupimage, popupexcerpt;
-    popuptext =   '<div class="popup_title"><strong>'+ feature.properties.name + '</strong></div>';
+    popuptext =   feature.properties.name;
     popupimage =  feature.properties.thumbnail_url ? '<img src="' + feature.properties.thumbnail_url + '" alt="'+ feature.properties.title +' thumbnail image" width="50px" height="50px"></img>' : '';  
     popupexcerpt = feature.properties.excerpt ? '<p>' + feature.properties.excerpt + '</p>' : '' ;
     // popuptext = popuptext + popupimage + popupexcerpt;

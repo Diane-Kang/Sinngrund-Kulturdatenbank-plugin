@@ -154,6 +154,7 @@ async function main() {
     var this_post_marker;
     markers.eachLayer((marker) => {
       if (post_id == marker["options"]["post_id"]) {
+        marker["options"]["zIndexOffset"] = 99;
         var map_id = markers.getLayerId(marker);
         var marker = markers.getLayer(map_id);
         let popuptext = '<div class="hier_bin_ich"><div class="popup_title">'+ marker["options"]["name"] + '</div></div>';
@@ -175,5 +176,9 @@ async function main() {
     map.setZoom(16);
   }
 
+  map.on('zoomend',function(e) {
+    console.log(e.target.getZoom());
+ })
+  
 } // Main closing
 main();
