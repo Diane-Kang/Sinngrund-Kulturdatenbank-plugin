@@ -180,8 +180,17 @@
 
 /* Media Querries */
 @media screen and (max-width: 980px) {
+
   .kulturdatenbank .sidebar {
     min-width: 250px;
+  }
+
+  .category_filter_section {
+padding-top: 15px;
+  }
+
+  .single_category_wrapper {
+    width: max-content;
   }
 
   .search {

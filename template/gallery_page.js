@@ -29,15 +29,13 @@ function createMediaList({
         '</div>'+
       '</div>' +
       '<div class="media_beschriftung">' +
-      '<h5>' + caption_rendered + '</h5>' + 
+      '<h2>' + caption_rendered + '</h2>' + 
       '</div>' +      
-      '<div class="fotograf">Fotograf: ' +fotograf+'</div>' +
       '<div class="orte_tags">' + orte + 
+      '<div class="fotograf">Fotograf: ' +fotograf+'</div>' +
       '</div>' +
-      '<div class="media_upload_date">Hochgeladen am' + date + 
-      '</div>'+
-      '<div class="media_author">von' + author_id + 
-      '</div>' +
+      '<div class="media_upload_date">Hochgeladen am ' + date +  '</div>'+
+      '<div class="media_author"> von ' + author_id + '</div>' +
     '</div>'
   return htmltext;
 }

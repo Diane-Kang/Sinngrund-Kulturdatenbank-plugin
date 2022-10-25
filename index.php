@@ -398,7 +398,7 @@ class SinngrundKultureBank {
     if (is_page(get_option('sad_mainpage_slug')) || is_single()){
       wp_enqueue_style( 'has_map_css',                    plugin_dir_url( __FILE__ ) . '/template/css/has_map.css' , array(), false, false);
       wp_enqueue_script( 'header_map_pop_fix',            plugin_dir_url( __FILE__ ) . '/template/header_map_pop_fix.js',  array('jquery', 'leaflet-marker-cluster-group-js'), false, false);
-
+      wp_enqueue_script( 'scrolldown_hide',            plugin_dir_url( __FILE__ ) . '/template/scrolldown.js',  array('jquery'), false, false);
     }
 
      // if has no map

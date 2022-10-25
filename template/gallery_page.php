@@ -72,7 +72,7 @@ if ($images) {
             <h5><?php echo wp_get_attachment_caption($image); ?></h5>
           </div>
           <div class="orte_tags"> <?php echo get_the_term_list( $image, 'orte', '', ', ' ); ?></div>
-          <div class="media_upload_date">Hochgeladen am <?php echo get_the_date('d.m.Y', $image); ?></div>
+          <div class="media_upload_date">Hochgeladen am <span><?php echo get_the_date('d.m.Y', $image); ?></span></div>
           <div class="media_author">von
             <?php echo get_the_author_meta(  'display_name',get_post_field( 'post_author', $image )); ?></div>
         </div> -->
