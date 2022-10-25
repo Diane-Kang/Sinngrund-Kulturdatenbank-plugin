@@ -1,15 +1,28 @@
-jQuery(document).ready(function($){
+/* Query( window ).on( "load", function() {
 
  //Not working without setTimeout Function, check later
    setTimeout(function() {    
 
-        $('.grid-item-wrap').click(function() {
-            $(this).addClass('fullscreen');
+    jQuery('.grid-item-wrap').click(function() {
+        jQuery(this).addClass('fullscreen');
         });
         
-        $('.close_icon').click(function() {
+        jQuery('.close_icon').click(function() {
             event.stopPropagation();
-            $('.grid-item-wrap').removeClass('fullscreen');       
+            jQuery('.grid-item-wrap').removeClass('fullscreen');       
         });    
-    }, 200);
-    });
+    }, 2000);
+    }); */
+
+
+    jQuery( window ).on( "load", function() {
+           jQuery('.grid-item-wrap').click(function() {
+               jQuery(this).addClass('fullscreen');
+               });
+               
+               jQuery('.close_icon').click(function() {
+                   event.stopPropagation();
+                   jQuery('.grid-item-wrap').removeClass('fullscreen');       
+               });    
+           });
+    

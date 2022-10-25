@@ -161,6 +161,7 @@ myFunction(screen_width);
     zoom_in_to_marker(this_marker);
   }
   this_marker.openPopup();
+ jQuery('.hier_bin_ich').parentsUntil('.leaflet-popup-pane').addClass('current');
 
 
   function find_marker_by_post_id(markers, post_id) {
@@ -193,6 +194,7 @@ myFunction(screen_width);
     });
     return this_post_marker;
   }
+
 
   function zoom_in_to_marker(marker){
     var markerBounds = L.latLngBounds([marker.getLatLng()]);
