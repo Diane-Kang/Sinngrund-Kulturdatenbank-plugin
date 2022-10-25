@@ -159,12 +159,12 @@ async function main() {
         var marker = markers.getLayer(map_id);
         let popuptext = '<div class="hier_bin_ich"><div class="popup_title">'+ marker["options"]["name"] + '</div></div>';
 
-        let tempicon = L.divIcon({
+        let customicon = L.divIcon({
           className: 'here-bin-ich',
           iconSize: [60, 60],
-          iconUrl : marker["options"]["icon"]["options"]["iconUrl"],
+          //iconUrl : marker["options"]["icon"]["options"]["iconUrl"],
           html:'<img src="'+marker["options"]["icon"]["options"]["iconUrl"]+'" style ="filter: drop-shadow(#124054 0px 0px 15px);">'
-// style="margin-left: -30px; margin-top: -30px; width: 60px; height: 60px; transform: translate3d(325px, 469px, 0px); z-index: 568; opacity: 1; outline: currentcolor none medium;" alt="Marker" tabindex="0"
+          // style="margin-left: -30px; margin-top: -30px; width: 60px; height: 60px; transform: translate3d(325px, 469px, 0px); z-index: 568; opacity: 1; outline: currentcolor none medium;" alt="Marker" tabindex="0"
         });
 
         let bigIcon = L.icon({
@@ -172,7 +172,7 @@ async function main() {
           iconSize: [60, 60],
         })
 
-        marker.setIcon(tempicon);
+        marker.setIcon(customicon);
         //marker.setIcon(bigIcon);
         marker.bindPopup(popuptext);
         this_post_marker = marker;
