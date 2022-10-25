@@ -40,7 +40,7 @@ function createMediaList({
   return htmltext;
 }
 
-
+console.time("this");
 jQuery.ajax({
   type: "GET",
   url: '/wp-json/Sinngrund-Kulturdatenbank-plugin/galleryjson' ,
@@ -62,12 +62,22 @@ jQuery.ajax({
          })
        );
      });
+     lightbox_galley();
   }
 });
+console.timeEnd("this");
 
+function lightbox_galley(){
+  jQuery('.grid-item-wrap').click(function() {
+    jQuery(this).addClass('fullscreen');
+  });
+  jQuery('.close_icon').click(function() {
+    event.stopPropagation();
+    jQuery('.grid-item-wrap').removeClass('fullscreen');       
+  });   
+}
 
 jQuery(document).ready(function($){
-
   var GetSearch = document.getElementById('search');
   GetSearch.addEventListener("keyup", function(){
       //InfoData = {slug:GetSearch.value}
@@ -94,6 +104,7 @@ jQuery(document).ready(function($){
               })
             );
           });
+          lightbox_galley();
         }
     });
   });
