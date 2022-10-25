@@ -413,7 +413,7 @@ class SinngrundKultureBank {
 
     // if has close X Button
     if (is_page(get_option('sad_mainpage_slug')) || is_page('gallery') || is_single()) {
-      wp_enqueue_style( 'x_close_css',                    plugin_dir_url( __FILE__ ) . 'template/css/has_x_close_button.css' , array('jquery'), false, false);
+      wp_enqueue_style( 'x_close_css',                    plugin_dir_url( __FILE__ ) . 'template/css/has_x_close_button.css', false, false);
     }
 
      //if is main

@@ -15,6 +15,12 @@ h1 {
   color: var(--d_blue);
 }
 
+h2 {
+  font-size: 19px;
+  font-weight: 600;
+  margin: 20px 0 10px 0;
+}
+
 .search {
   display: inline-block;
   max-width: 400px;
