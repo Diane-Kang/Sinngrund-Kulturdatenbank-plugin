@@ -176,9 +176,7 @@ myFunction(screen_width);
         let customicon = L.divIcon({
           className: 'here-bin-ich',
           iconSize: [60, 60],
-          //iconUrl : marker["options"]["icon"]["options"]["iconUrl"],
           html:'<img src="'+marker["options"]["icon"]["options"]["iconUrl"]+'" style ="filter: drop-shadow(#124054 0px 0px 15px);">'
-          // style="margin-left: -30px; margin-top: -30px; width: 60px; height: 60px; transform: translate3d(325px, 469px, 0px); z-index: 568; opacity: 1; outline: currentcolor none medium;" alt="Marker" tabindex="0"
         });
 
         let bigIcon = L.icon({
