@@ -36,9 +36,14 @@
 
 /*Map Popup*/
 
-.single_post_main_block .leaflet-popup-content-wrapper {
+.single_post_main_block .leaflet-popup-content-wrapper.current {
 background-color: rgba(255,255,255,0);
 box-shadow: none;
+}
+
+.single_post_main_block .current .leaflet-popup-close-button,
+.single_post_main_block .current .leaflet-popup-tip-container {
+  display: none;
 }
 
 .single_post_main_block .leaflet-popup-content {
