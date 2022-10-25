@@ -39,6 +39,19 @@ async function main() {
       accessToken: 'pk.eyJ1IjoicG9uZGVsZWsiLCJhIjoiY2w5Zm1tc3h4MGphODNvbzBkM29jdWRlaCJ9.j64kLJQP_RmwAccN1jGKrw'
     }).addTo(map);
 
+//-------------Change Attribution Position Depending on Screen Size ---------------//
+
+function myFunction(screen_width) {
+  if (screen_width.matches) { 
+    map.attributionControl.setPosition('topright');} 
+  else {
+    map.attributionControl.setPosition('bottomright');}
+}
+
+var screen_width = window.matchMedia("(max-width: 980px)");
+myFunction(screen_width);
+
+
   L.control
     .zoom({
       position: "bottomright",
