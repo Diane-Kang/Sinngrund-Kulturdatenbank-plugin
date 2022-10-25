@@ -31,7 +31,7 @@ async function main() {
     maxZoom: 18,
     minZoom: 5,
     attribution:
-    '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>',
+    '© <a target="_blank" href="https://www.mapbox.com/about/maps/">Mapbox</a> | © <a target="_blank" href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> | <a target="_blank" href="https://www.mapbox.com/map-feedback/">Improve this map</a>',
     id:'pondelek/cl9fbuboj000e14o2xcxw3oom',
     accessToken: 'pk.eyJ1IjoicG9uZGVsZWsiLCJhIjoiY2w5Zm1tc3h4MGphODNvbzBkM29jdWRlaCJ9.j64kLJQP_RmwAccN1jGKrw'
   }).addTo(map);
@@ -47,10 +47,8 @@ async function main() {
 
 function myFunction(screen_width) {
   if (screen_width.matches) { 
-    console.log('zigzack');
-    map.attributionControl.setPosition('bottomleft');} 
+    map.attributionControl.setPosition('topright');} 
   else {
-    console.log('zack');
     map.attributionControl.setPosition('bottomright');}
 }
 

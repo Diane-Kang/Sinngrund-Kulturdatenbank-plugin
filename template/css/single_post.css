@@ -36,10 +36,13 @@
 
 /*Map Popup*/
 
-/*
 .single_post_main_block .leaflet-popup-content-wrapper {
 background-color: rgba(255,255,255,0);
 box-shadow: none;
+}
+
+.single_post_main_block .leaflet-popup-content {
+justify-content: center;
 }
 
 .single_post_main_block .popup_title {
@@ -50,16 +53,6 @@ text-shadow: 0px 0px 2px #fff;
 color: var(--d_text);
 }
 
-.single_post_main_block.leaflet-container a.leaflet-popup-close-button, 
-.single_post_main_block.leaflet-container .leaflet-popup-tip-container,
-.single_post_main_block.leaflet-container .leaflet-popup-content img,
-.single_post_main_block.leaflet-container .leaflet-popup-content  a,
-.single_post_main_block.leaflet-container .leaflet-popup-content  p,
-.single_post_main_block.leaflet-container .leaflet-popup-content .popupcategory {
-  display: none;
-}
-
-*/
 p {
   font-size: 22px;
 }
@@ -240,7 +233,7 @@ p {
        -ms-hyphenate-limit-chars: 6 4 4;
        -moz-hyphenate-limit-chars: 6 4 4;
    }
-  }
+  
 
   .post_content h1 {
     font-size: 28px;

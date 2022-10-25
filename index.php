@@ -177,7 +177,7 @@ class SinngrundKultureBank {
 
     
     //---------------Frontend---------------- 
-    add_action( 'wp_enqueue_scripts', array($this,'jquery_dependency'), 20, 1 );
+   // add_action( 'wp_enqueue_scripts', array($this,'jquery_dependency'), 20, 1 );
     //////-------------- Leaflet map dependecies---------------------//
     add_action( 'wp_enqueue_scripts', array($this,'leaflet_dependency'), 20, 1 );
     // add_action( 'wp_enqueue_scripts', array($this,'mapbox_dependency'), 20, 1 );
@@ -384,66 +384,65 @@ class SinngrundKultureBank {
 
   
 
-  function jquery_dependency(){
-    wp_enqueue_script('jquery');
-  }
+ // function jquery_dependency(){
+ //   wp_enqueue_script('jquery');
+ // }
 
   function template_javascript(){
     // COOKIE 
 
-    wp_enqueue_style( 'sidewide_css',                    plugin_dir_url( __FILE__ ) . '/template/css/sidewide.css' , false);
-    wp_enqueue_script( 'welcome_popup',                    plugin_dir_url( __FILE__ ) . '/template/welcome_popup.js',  array('jquery'), false, false);
+    wp_enqueue_style( 'sidewide_css',                    plugin_dir_url( __FILE__ ) . 'template/css/sidewide.css' , false);
+    wp_enqueue_script( 'welcome_popup',                    plugin_dir_url( __FILE__ ) . 'template/welcome_popup.js',  array('jquery'), false, false);
 
     //if has map
     if (is_page(get_option('sad_mainpage_slug')) || is_single()){
-      wp_enqueue_style( 'has_map_css',                    plugin_dir_url( __FILE__ ) . '/template/css/has_map.css' , array(), false, false);
-      wp_enqueue_script( 'header_map_pop_fix',            plugin_dir_url( __FILE__ ) . '/template/header_map_pop_fix.js',  array('jquery', 'leaflet-marker-cluster-group-js'), false, false);
-      wp_enqueue_script( 'scrolldown_hide',            plugin_dir_url( __FILE__ ) . '/template/scrolldown.js',  array('jquery'), false, false);
+      wp_enqueue_style( 'has_map_css',                    plugin_dir_url( __FILE__ ) . 'template/css/has_map.css' , array(), false, false);
+      wp_enqueue_script( 'header_map_pop_fix',            plugin_dir_url( __FILE__ ) . 'template/header_map_pop_fix.js',  array('jquery', 'leaflet-marker-cluster-group-js'), false, false);
+      wp_enqueue_script( 'scrolldown_hide',            plugin_dir_url( __FILE__ ) . 'template/scrolldown.js',  array('jquery','leaflet-draw-js'), false, false);
     }
 
      // if has no map
      if (! is_page(get_option('sad_mainpage_slug')) && ! is_single()){
-      wp_enqueue_style( 'no_map_css',                    plugin_dir_url( __FILE__ ) . '/template/css/no_map_side.css' , array(), false, false);
+      wp_enqueue_style( 'no_map_css',                    plugin_dir_url( __FILE__ ) . 'template/css/no_map_side.css' , array(), false, false);
     }
 
     // if has search
     if (is_page(get_option('sad_mainpage_slug')) || is_page('gallery')){
-      wp_enqueue_style( 'search_css',                    plugin_dir_url( __FILE__ ) . '/template/css/search.css' , array(), false, false);
+      wp_enqueue_style( 'search_css',                    plugin_dir_url( __FILE__ ) . 'template/css/search.css' , array(), false, false);
     }
 
     // if has close X Button
     if (is_page(get_option('sad_mainpage_slug')) || is_page('gallery') || is_single()) {
-      wp_enqueue_style( 'x_close_css',                    plugin_dir_url( __FILE__ ) . '/template/css/has_x_close_button.css' , array(), false, false);
+      wp_enqueue_style( 'x_close_css',                    plugin_dir_url( __FILE__ ) . 'template/css/has_x_close_button.css' , array('jquery'), false, false);
     }
 
-    //if has lightbox
-    if (is_page('gallery')) {
-      wp_enqueue_style( 'lightbox_css',                    plugin_dir_url( __FILE__ ) . '/template/css/has_lightbox.css', false, false);
-      //wp_enqueue_script( 'kdb-lightbox-js',                  plugin_dir_url( __FILE__ ) . '/template/lightbox.js', array('jquery', 'gallery-js'), false, false);
-    }
-
+     //if is main
     if (is_page(get_option('sad_mainpage_slug'))){
-      wp_enqueue_script( 'main-page-js',                    plugin_dir_url( __FILE__ ) . '/template/main_page.js',  array(), false, false);
-      wp_enqueue_style( 'main-page-css',                    plugin_dir_url( __FILE__ ) . '/template/css/main_page.css' , array(), false, false);
+      wp_enqueue_script( 'main-page-js',                    plugin_dir_url( __FILE__ ) . 'template/main_page.js',  array('jquery', 'leaflet-draw-js'), false, false);
+      wp_enqueue_style( 'main-page-css',                    plugin_dir_url( __FILE__ ) . 'template/css/main_page.css' , array(), false, false);
     }
 
+    //if is single
     if (is_single()){
-      wp_enqueue_script( 'single-post-js',                  plugin_dir_url( __FILE__ ) . '/template/single_post.js', array(), false, false);
-      wp_enqueue_style( 'single-post-css',                    plugin_dir_url( __FILE__ ) . '/template/css/single_post.css' , array(), false, false);
+      wp_enqueue_script( 'single-post-js',                  plugin_dir_url( __FILE__ ) . 'template/single_post.js', array('jquery', 'leaflet-draw-js'), false, false);
+      wp_enqueue_style( 'single-post-css',                    plugin_dir_url( __FILE__ ) . 'template/css/single_post.css' , array(), false, false);
     }
 
+      //if is gallery
     if (is_page('gallery')){
-      wp_enqueue_script( 'gallery-js',                  plugin_dir_url( __FILE__ ) . '/template/gallery_page.js', array(), false, true);
-      wp_enqueue_style( 'gallery-css',                    plugin_dir_url( __FILE__ ) . '/template/css/gallery.css' , array(), false, false);
+      wp_enqueue_script( 'gallery-js',                  plugin_dir_url( __FILE__ ) . 'template/gallery_page.js', array('jquery'), false, true);
+      //wp_enqueue_script( 'kdb-lightbox-js',                  plugin_dir_url( __FILE__ ) . 'template/lightbox.js', array('gallery-js', 'leaflet-draw-js'), false, false);
+      wp_enqueue_style( 'gallery-css',                    plugin_dir_url( __FILE__ ) . 'template/css/gallery.css' , array(), false, false);
+      wp_enqueue_style( 'lightbox_css',                    plugin_dir_url( __FILE__ ) . 'template/css/has_lightbox.css', false, false);
     }
 
   }
 
   function load_admin_styles() {
-    wp_enqueue_style( 'kulturedatenbank_admin_css', plugin_dir_url( __FILE__ ) . '/template/css/KDB-admin-style-all.css', false, '1.0.0' );
+    wp_enqueue_style( 'kulturedatenbank_admin_css', plugin_dir_url( __FILE__ ) . 'template/css/KDB-admin-style-all.css', false, '1.0.0' );
     $user = wp_get_current_user();
     if ( in_array( 'contributor', (array) $user->roles ) ) {
-      wp_enqueue_style( 'kulturedatenbank_admin_css_contributor', plugin_dir_url( __FILE__ ) . '/template/css/KDB-admin-style-contributor.css', false, '1.0.0' );
+      wp_enqueue_style( 'kulturedatenbank_admin_css_contributor', plugin_dir_url( __FILE__ ) . 'template/css/KDB-admin-style-contributor.css', false, '1.0.0' );
     }
 
     
@@ -454,19 +453,16 @@ class SinngrundKultureBank {
   function leaflet_dependency(){
     
     
-    wp_enqueue_script( 'leaflet-js',                        plugin_dir_url( __FILE__ ) . '/node_modules/leaflet/dist/leaflet.js', array(), false, false );
-    wp_enqueue_script( 'leaflet-marker-cluster-js',         plugin_dir_url( __FILE__ ) . '/node_modules/leaflet.markercluster/dist/leaflet.markercluster.js', array('leaflet-js'), false, false);
-    wp_enqueue_script( 'leaflet-marker-cluster-group-js',   plugin_dir_url( __FILE__ ) . '/node_modules/leaflet.markercluster.layersupport/dist/leaflet.markercluster.layersupport.js', array('leaflet-marker-cluster-js'), false, false);
-    wp_enqueue_script( 'leaflet-draw-js',                   plugin_dir_url( __FILE__ ) . '/node_modules/leaflet-draw/dist/leaflet.draw.js',array(), false, false);
-    //wp_enqueue_script( 'mapbox-js',                        'https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js', array(), false, false );
+    wp_enqueue_script( 'leaflet-js',                        plugin_dir_url( __FILE__ ) . 'node_modules/leaflet/dist/leaflet.js', array(), false, false );
+    wp_enqueue_script( 'leaflet-marker-cluster-js',         plugin_dir_url( __FILE__ ) . 'node_modules/leaflet.markercluster/dist/leaflet.markercluster.js', array('leaflet-js'), false, false);
+    wp_enqueue_script( 'leaflet-marker-cluster-group-js',   plugin_dir_url( __FILE__ ) . 'node_modules/leaflet.markercluster.layersupport/dist/leaflet.markercluster.layersupport.js', array('leaflet-marker-cluster-js'), false, false);
+    wp_enqueue_script( 'leaflet-draw-js',                   plugin_dir_url( __FILE__ ) . '/node_modules/leaflet-draw/dist/leaflet.draw.js',array('leaflet-marker-cluster-group-js'), false, false);
 
     
-    wp_enqueue_style( 'leaflet-main-css',                   plugin_dir_url( __FILE__ ) . '/node_modules/leaflet/dist/leaflet.css' , array(), false, false);
-    wp_enqueue_style( 'leaflet-marker-cluster-css',         plugin_dir_url( __FILE__ ) . '/node_modules/leaflet.markercluster/dist/MarkerCluster.css', array(), false, false);
-    wp_enqueue_style( 'leaflet-marker-cluster-default-css', plugin_dir_url( __FILE__ ) . '/node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css', array(), false, false);
-    wp_enqueue_style( 'leaflet-draw-css',                   plugin_dir_url( __FILE__ ) . '/node_modules/leaflet-draw/dist/leaflet.draw.css', array(), false, false);
-    //wp_enqueue_style( 'mapbox-main-css',                   'https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css' , array(), false, false);
-
+    wp_enqueue_style( 'leaflet-main-css',                   plugin_dir_url( __FILE__ ) . 'node_modules/leaflet/dist/leaflet.css' , array(), false, false);
+    wp_enqueue_style( 'leaflet-marker-cluster-css',         plugin_dir_url( __FILE__ ) . 'node_modules/leaflet.markercluster/dist/MarkerCluster.css', array(), false, false);
+    wp_enqueue_style( 'leaflet-marker-cluster-default-css', plugin_dir_url( __FILE__ ) . 'node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css', array(), false, false);
+    wp_enqueue_style( 'leaflet-draw-css',                   plugin_dir_url( __FILE__ ) . 'node_modules/leaflet-draw/dist/leaflet.draw.css', array(), false, false);
   }
 
 
@@ -475,21 +471,10 @@ class SinngrundKultureBank {
     // only call the function at admin post-type:post edit page 
     if( 'post.php' == $hook_suffix || 'post-new.php' == $hook_suffix ) {
       if($post_type == 'post'){
-      wp_enqueue_script( 'map-in-box-js',                        plugin_dir_url( __FILE__ ) . '/meta_boxes/map_in_box.js', array(), false, true );
+      wp_enqueue_script( 'map-in-box-js',                        plugin_dir_url( __FILE__ ) . 'meta_boxes/map_in_box.js', array(), false, true );
     }}
   }
 
-  // function map_page_dependency(){
-  //   if (is_page($target_page_name)){
-  //     //wp_enqueue_script( 'map_modify-js',                     plugin_dir_url( __FILE__ ) . '/map_modify.js', array('leaflet-js'), '1.3', true);
-  //     //wp_enqueue_style( 'map-app-style-css', plugin_dir_url( __FILE__ ) . '/map-app-style.css', array(), '3.2', false);
-  //   }
-  // }
-  
-
-
-
- 
   //////////------------Meta data for new Post page----------------// 
   /**
   * Meta box display callback.
@@ -498,7 +483,7 @@ class SinngrundKultureBank {
   */
   
   function basic_info_boxes_display_callback( $post ) {
-    include plugin_dir_path( __FILE__ ) . '/basic_info_box.php';
+    include plugin_dir_path( __FILE__ ) . 'basic_info_box.php';
   }
   
   function basic_info_boxes(){
@@ -537,7 +522,7 @@ class SinngrundKultureBank {
   */
   
   function route_input_box_display_callback( $post ) {
-    include plugin_dir_path( __FILE__ ) . '/meta_boxes/route_box.php';
+    include plugin_dir_path( __FILE__ ) . 'meta_boxes/route_box.php';
   }
   
   function route_input_box(){
@@ -941,14 +926,14 @@ class SinngrundKultureBank {
   //////-------------- new template for the main map page and post page---------------------//
   function loadTemplate($template) {
     if (is_page(get_option('sad_mainpage_slug'))) {
-      return plugin_dir_path(__FILE__) . '/template/main_page.php';
+      return plugin_dir_path(__FILE__) . 'template/main_page.php';
     }
     if (is_page('gallery')) {
-      return plugin_dir_path(__FILE__) . '/template/gallery_page.php';
+      return plugin_dir_path(__FILE__) . 'template/gallery_page.php';
     }
 
     if (is_page('impressum') or is_page('datenschutz') ) {
-      return plugin_dir_path(__FILE__) . '/template/impressum_datenschutz.php';
+      return plugin_dir_path(__FILE__) . 'template/impressum_datenschutz.php';
     }
 
     return $template;
@@ -957,7 +942,7 @@ class SinngrundKultureBank {
   
   function load_post_Template($template) {
     if (is_single()) {
-      return plugin_dir_path(__FILE__) . '/template/single_post.php';
+      return plugin_dir_path(__FILE__) . 'template/single_post.php';
     }
     return $template;
   }
