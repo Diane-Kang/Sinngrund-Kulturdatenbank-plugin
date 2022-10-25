@@ -64,4 +64,40 @@ h1 {
 
 /* Media Querries */
 @media screen and (max-width: 980px) {
+
+    .kulturdatenbank .menu.top {
+padding: 0 60px;
+    }
+
+    .kulturdatenbank .menu.top .logo {
+font-size: 38px;
+    }
+
+    .kulturdatenbank .menu.top ul {
+        padding: 15px 0;
+    }
+
+    .head_wrapper {
+        flex-direction: column;
+        padding: 0;
+    }
+
+    body.kulturdatenbank .gallery_wrapper h1 {
+color: var(--d_blue);
+font-weight: 300;
+    }
+
+    .search {
+        max-width: 600px;
+        margin: 30px 0;
+    }
+
+    .grid-item {
+        border-bottom: none;
+    }
+
+    .grid-item h2 {
+        font-size: 28px;
+        font-weight: 500;
+    }
 }

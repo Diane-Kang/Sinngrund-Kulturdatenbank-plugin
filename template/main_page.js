@@ -48,6 +48,27 @@ async function main() {
 //     zoomOffset: -1
 // }).addTo(map);
 
+
+//-------------Change Attribution Position Depending on Screen Size ---------------//
+
+function myFunction(screen_width) {
+  if (screen_width.matches) { 
+    console.log('zigzack');
+    L.control.attribution({
+      setPosition: 'bottomleft',
+    }).addTo(map);} 
+  else {
+    console.log('zack');
+    L.control.attribution({
+    setPosition: 'bottomright',
+    }).addTo(map);}
+}
+
+var screen_width = window.matchMedia("(max-width: 980px)");
+myFunction(screen_width);
+
+
+//--- Zoom Control ---//
   L.control
     .zoom({
       position: "bottomright",

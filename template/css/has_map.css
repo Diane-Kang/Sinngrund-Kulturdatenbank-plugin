@@ -213,22 +213,58 @@ body,
     height: auto !important;
   }
 
+  .kulturdatenbank .menu.top {
+    background-color: rgba(128, 128, 128, 0.1);
+  }
+
   .side_wrapper {
     display: flex;
     flex-direction: column;
     position: static;
   }
 
+  .leaflet-popup {
+    position: relative; 
+      }
+
   .map_block {
     position: static;
-    max-height: 60vh;
-    height: 60vh;
+    max-height: 75vh;
+    height: 75vh;
     order: 1;
   }
 
-  .leaflet-popup {
-    position: relative;
+  .scrolldown.icon {
+    background-color: rgba(0,0,0, 0.7);
+    width: 80px;
+    height: 80px;
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    bottom: 5vh;
+    right: 65px;
+    z-index: 999999;
+    border-radius: 50px;
+    border: 1px #fff solid;
+    box-shadow: 0 5px 15px rgba(0,0,0, 0.7);
   }
+
+  .scrolldown.icon::before {
+  content: "";
+background-image: url("/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/scrolldown-svgrepo-com.svg");
+background-position: center;
+background-size: contain;
+background-repeat: no-repeat;
+width: 40px;
+height: 40px;
+}
+
+/*Hide Scrolldown Button after beiing clicked once*/
+.hide_scrolldown .scrolldown_wrapper {
+  display: none;
+}
 
   .kulturdatenbank .sidebar {
     display: block;

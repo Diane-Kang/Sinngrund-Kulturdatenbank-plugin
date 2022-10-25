@@ -11,6 +11,7 @@
     <div class="main_map_block map_block" id="main_page_map"></div>
 
     <div class="main_block main_page_right sidebar" id="side_bar">
+      <div class="scrolldown_wrapper"><a href="#checkboxes" aria-label="scrolldown"><span class="scrolldown icon"></span></a></div>
 
       <div id="checkboxes" class="category_filter_section">
         <!--div id checkboxes  -->
@@ -76,6 +77,7 @@
   </div>
 
   <?php include 'foot.php'; ?>
+  
 </body>
 
 

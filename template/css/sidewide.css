@@ -246,7 +246,7 @@ body.hide_info .popup.info {
 .logo {
   margin: 0;
   font-size: 36px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .logo span {
@@ -258,7 +258,7 @@ body.hide_info .popup.info {
 .medien {
   color: #fff;
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 600;
   padding: 0 15px;
   text-shadow: 0 0 8px var(--d_text);
   position: relative;
@@ -288,24 +288,39 @@ body.hide_info .popup.info {
 @media screen and (max-width: 980px) {
   .kulturdatenbank .menu.top {
     position: static;
-    width: 0;
-    height: 0;
+    width: 100%;
+  }
+
+  .kulturdatenbank .menu.top ul {
+    margin: 0;
+    padding: 15px;
+    display: grid;
+    grid-template-columns: auto 110px;
   }
 
   .kulturdatenbank .menu.top li {
-    position: absolute;
-    top: 15px;
-    left: 15px;
+    position: static;
+  }
+
+  .kulturdatenbank .menu.top li:nth-child(1) {
+grid-row: 1/3;
+grid-column: 1/2;
   }
 
   .kulturdatenbank .menu.top li:nth-child(2),
   .kulturdatenbank .menu.top li:nth-child(3) {
-    left: auto;
-    right: 15px;
+
+    grid-column: 2/3;
   }
 
-  .kulturdatenbank .menu.top li:nth-child(2) {
-    top: 15px;
+  .kulturdatenbank .menu.top li:nth-child(2) a,
+  .kulturdatenbank .menu.top li:nth-child(3) a {
+    color: var(--l_blue);
+    text-shadow: none;
+  }
+
+  .kulturdatenbank .menu.top li:nth-child(3) {
+  grid-row: 2/3;
   }
 
   /*Welcome Popup*/
@@ -379,6 +394,12 @@ body.hide_info .popup.info {
   .popup.info .right .wappen:last-child {
     grid-column: 2/3;
   }
+}
+
+@media screen and (max-width: 400px) {
+.kulturdatenbank .menu.top ul {
+  padding: 5px;
+}
 }
 
 /*Fonts*/
