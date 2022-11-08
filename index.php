@@ -5,7 +5,7 @@
   Description: Es ist für Sinngrund kulturebank project: last updated at 27.Sep 20:00
   Version: 2.10 
   Author: Page-effect 
-  Author-email: Diane.kang@page-effect.com
+  Author-email: info@page-effect.com
 
   npm install leaflet
   npm i leaflet.markercluster
@@ -15,14 +15,18 @@
 
 if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
+
+
 class SinngrundKultureBank {
 
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // Map javascript is working  only with this Category list 
+  // Icon names need to be shortname + .svg
   private $orte_array = array("Burgsinn", "Obersinn", "Aura", "Fellen", "Mittelsinn", "Rieneck");
   function get_orte_array(){
     return $this->orte_array;
   }
-// Our map page only working with listed Category
-// Icon names need to be shortname + png 
+
   private $category_shortname_array = array(
                                               "Brauchtum und Veranstaltungen" => "brauchtum",
                                               "Gemeinden"                     => "gemeinden", 
@@ -33,23 +37,23 @@ class SinngrundKultureBank {
                                               "Thementouren"                  => "route"
                                             );
 
-  
-  
-
   function get_category_shortname_array(){
     return $this->category_shortname_array;
   }
+
+  
+  // Avoid a post with unknown category 
   function post_valid_check($category_name, $lati, $longi){
-    $valid_category = (array_key_exists($category_name,$this->category_shortname_array) )? 1 : 0 ;
+    $valid_category = (array_key_exists($category_name, $this->category_shortname_array) )? 1 : 0 ;
     $valid_geocode = ( (50.00 < $lati &&  $lati < 52.00) && (9.5 < $longi && $longi < 9.8))? 1 :0 ;
     return $valid_category * $valid_geocode;
   }
 
 
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
   function __construct() {
-
-
-
 
     ////--------------Admin dashbard page ----------------    
 
