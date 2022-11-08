@@ -41,6 +41,17 @@ background-color: rgba(255,255,255,0);
 box-shadow: none;
 }
 
+.single_post_main_block .leaflet-popup-content-wrapper.current .hier_bin_ich {
+  width: 100%;
+  }
+
+  .single_post_main_block .leaflet-popup-content-wrapper.current .hier_bin_ich .popup_title {
+    margin: 0 auto;
+    width: max-content;
+    position: relative;
+    left: 10px;
+    }
+
 .single_post_main_block .current .leaflet-popup-close-button,
 .single_post_main_block .current .leaflet-popup-tip-container {
   display: none;
@@ -52,7 +63,7 @@ justify-content: center;
 
 .single_post_main_block .popup_title {
 font-size: 20px;
-font-weight: 700;
+font-weight: 600;
 line-height: 1.5em;
 text-shadow: 0px 0px 2px #fff;
 color: var(--d_text);
@@ -65,7 +76,7 @@ p {
 /* content header*/
 .entry_category b {
   padding: 0 7.5px;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .entry_category p {
@@ -108,11 +119,40 @@ p {
 }
 
 /* Entry Content Text */
-.post_content h2 {
-  font-size: 32px;
-  color: var(--l_blue);
-  font-weight: 600;
+
+.entry_category + p {
+  display: none;
 }
+
+.post_content h2,
+.post_content h3,
+.post_content h4,
+.post_content h5,
+.post_content h6 {
+margin-top: 1.5em;
+margin-bottom: 1em ;
+color: var(--l_blue);
+font-weight: 600;
+font-size: 32px;
+} 
+
+.single_post_side_bar .post_content h3 {
+  font-size: 28px;
+}
+
+.single_post_side_bar .post_content h4 {
+  font-size: 24px;
+}
+
+.single_post_side_bar .post_content h5 {
+  font-size: 24px;
+}
+
+.single_post_side_bar .post_content h6 {
+  font-size: 24px;
+}
+
+
 
 .post_content .wp-block-image.aligncenter {
   display: flex;
@@ -124,10 +164,11 @@ p {
 
 .post_content .wp-block-image figcaption {
   color: var(--d_text);
-  font-size: 18px;
+  font-size: 17px;
   text-align: left;
   margin-top: 1em;
   margin-bottom: 2em;
+  font-weight: 400;
 }
 
 .post_content .wp-block-quote {
@@ -154,20 +195,21 @@ p {
   font-weight: 400;
   line-height: 1.2;
   color: #009cde;
+  margin: 0;
 }
 
 .post_content .wp-block-quote > cite {
-  margin-top: 38px;
+  margin-top: 25px;
   display: block;
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 18px;
+  font-weight: 400;
 }
 
 /* List */
 .post_content > ul {
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 0.6em;
   font-size: 22px;
   font-weight: 300;
 }
@@ -176,10 +218,15 @@ p {
   font-weight: 600;
 }
 
+.post_content li::marker {
+  color: var(--l_blue);
+  font-size: 16px;
+}
+
 .content_footer {
   padding-top: 60px;
   margin-top: 60px;
-  border-top: 2px dotted var(--d_text);
+  border-top: 2px dashed var(--l_grey);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -209,13 +256,15 @@ p {
 
 /* Media Querries */
 @media screen and (max-width: 980px) {
-  .content_footer {
-    flex-direction: column;
-    align-items: flex-start;
+
+  .single_post_main_block.map_block,
+  .kulturdatenbank .menu.top,
+  .scrolldown.icon {
+display: none;
   }
 
   .kulturdatenbank .sidebar {
-    padding: 20px 10px;
+    padding: 20px 0;
   }
 
   .post_content > * {
@@ -225,7 +274,10 @@ p {
 
   .post_content h1,
   .post_content h2,
-  .post_content h3 {
+  .post_content h3,
+  .post_content h4,
+  .post_content h5,
+  .post_content h6 {
       overflow-wrap: break-word;
        word-wrap: break-word;
      -webkit-hyphens: auto;
@@ -239,6 +291,17 @@ p {
        -moz-hyphenate-limit-chars: 6 4 4;
    }
   
+
+   .post_content h1 {
+    font-size: 38px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+
+  .post_content {
+margin-top: 20px;
+  }
 
   .post_content h1 {
     font-size: 28px;
@@ -273,4 +336,48 @@ p {
   .kulturdatenbank .sidebar p {
     font-size: 18px;
   }
+
+  .kulturdatenbank .post_content > *, .post_content .wp-block-image {
+    margin-left: 5%;
+    margin-right: 10%;
+  }
+
+  .post_content .wp-block-image figcaption {
+    font-size: 15px;
+  }
+
+  .kulturdatenbank .post_content h2, .kulturdatenbank .post_content h3, .kulturdatenbank .post_content h4, .kulturdatenbank .post_content h5, .kulturdatenbank .post_content h6 {
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.2em;
+  }
+
+  .kulturdatenbank .post_content .wp-block-quote {
+    margin: 0;
+    padding: 40px 5% 40px 10%;
+  }
+
+  .kulturdatenbank .post_content .wp-block-quote p {
+   font-size: 24px;
+   line-height: 1.5em;
+  }
+
+  .kulturdatenbank .post_content .wp-block-quote cite {
+    font-size: 18px;
+    line-height: 1.2em;
+   }
+
+  .post_content > ul {
+    padding-left: 5%;
+  }
+
+  .post_content li {
+    font-size: 18px;
+  }
+
+  .content_footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
 }

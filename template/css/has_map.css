@@ -6,14 +6,28 @@
   color: var(--d_blue);
 }
 
+.leaflet-bottom.leaflet-right {
+width: 100%;
+}
+
+.kulturdatenbank .leaflet-control-zoom {
+  margin-bottom: 40px;
+}
+
 .kulturdatenbank .leaflet-container .leaflet-control-attribution {
-margin-right: 105px;
+margin: 0 auto 0 310px;
+background-color: rgba(255, 255, 255, 0);
+right: auto;
+left: 0;
+position: absolute;
+bottom: 2px;
 }
 
 .kulturdatenbank .leaflet-container .leaflet-control-attribution a {
   text-decoration: none;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
+  color: var(--d_text);
 }
 
 .leaflet-container .leaflet-bottom.leaflet-right::after {
@@ -21,7 +35,7 @@ margin-right: 105px;
   width: 90px;
   background-size: contain;
   content: "";
-  background-image: url("/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/mapbox-logo-white.svg");
+  background-image: url("/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/mapbox-logo-black.svg");
   display: inline-block;
   background-color: none;
   background-repeat: no-repeat;
@@ -148,27 +162,33 @@ body,
   padding: 7.5px;
   border: 3px;
   width: 450px;
+  max-width: 90vw;
 }
 
 .leaflet-popup-content {
   display: flex;
   flex-direction: row;
   width: 400px !important;
+  max-width: 90vw;
   position: relative;
+  padding: 10px;
+  margin: 0;
 }
 
 .leaflet-popup-content img {
-  width: 100%;
+  width: 100px;
   height: auto;
   padding-right: 10px;
-  align-self: start;
+  align-self: center;
   display: block;
-  max-width: 10vw;
 }
 
 .text_wrapper {
   flex-direction: column;
-  min-width: 250px;
+  max-width: 390px;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 10px;
 }
 
 .popup_title {
@@ -261,6 +281,11 @@ body,
 
   .kulturdatenbank .leaflet-container .leaflet-control-attribution {
     margin: 0;
+    display: block;
+    width: max-content;
+    position: relative;
+    right: 0;
+    left: auto;
   }
 
     .kulturdatenbank .leaflet-container .leaflet-control-attribution a {

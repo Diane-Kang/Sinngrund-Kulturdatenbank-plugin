@@ -22,7 +22,7 @@
   width: 32px;
   height: 32px;
   position: relative;
-  left: 5px;
+  left: 6px;
 }
 
 /*Welcome Popup*/
@@ -75,18 +75,30 @@ display: none;
   top: -3px;
   right: -2px;
   margin: 0;
-  background-color: #fff;
+  
+}
+
+.map_block.leaflet-container a.leaflet-popup-close-button::before {
+  content: "";
+  background-image: url("/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/close-svgrepo-com.svg");
+  display: flex;
+  background-position: center center;
+  background-size: 60%;
+  background-repeat: no-repeat;
+  position: relative;
+  left: 0px;
+   background-color: #fff;
   border-radius: 50px;
   box-shadow: 0 0 2px 1px var(--l_grey);
-  color: var(--d_text);
-  line-height: 24px;
-  font-family: "Barlow";
-  font-size: 24px;
+  width: 24px;
+  height: 24px;
 }
 
 .map_block.leaflet-container a.leaflet-popup-close-button span {
  position: relative;
- bottom: 1px;
+ display: block;
+ height: 24px;
+ visibility: hidden;
 }
 
 .map_block.leaflet-container a.leaflet-popup-close-button:hover,
@@ -100,7 +112,8 @@ opacity: 1;
 
 
   /* Big Close */
-.close.close_icon {
+.close.close_icon,
+.post_content .close {
   width: 60px;
   height: 60px;
   display: block;
@@ -109,6 +122,7 @@ opacity: 1;
   position: fixed;
   right: 30px;
   top: 60px;
+  margin: 0;
 }
 
 .close .close_icon {
@@ -126,27 +140,9 @@ opacity: 1;
 
 /* Media Querries */
 @media screen and (max-width: 980px) {
-  .post_content .close {
-    bottom: 30px;
-    top: auto;
-    right: 15px;
-    padding: 10px;
-    width: 40px;
-    height: 40px;
-    display: inline-block;
-    background-color: #f2f2f2;
-    border-radius: 50%;
-    position: fixed;
-  }
 
   .post_content .close_icon::before  {
    left:0
-  }
-
-  .close .close_icon::before {
-    
-    border-radius: 50%;
-
   }
 
 /* Weclome Popup < 980px */
@@ -160,4 +156,14 @@ opacity: 1;
     top: 0;
     margin: 0;
     }
+}
+
+@media screen and (max-width: 600px) {
+  .post_content .close,
+  .close .close_icon::before {
+    width: 25px;
+    height: 25px;
+    top: 5px;
+    right: 8px;
+  }
 }

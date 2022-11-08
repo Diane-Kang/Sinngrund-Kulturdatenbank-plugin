@@ -186,15 +186,31 @@
   }
 
   .category_filter_section {
-padding-top: 15px;
-  }
+    padding-top: 15px;
+      }
 
-  .single_category_wrapper {
-    width: max-content;
-  }
+  .category_filter_section .category {
+    font-weight: 500;
+      }
+
+      .single_category_wrapper {
+        width: max-content;
+      }
+    
+      .kulturdatenbank .sidebar .sort_options_block {
+    justify-content: flex-start;
+    padding-left: 45px;
+      }
+
+      #main_page_list_sort_options {
+background-color: #fff;
+      }
+
+
+  
 
   .search {
-    margin-left: auto;
+    margin-left: 45px;
     margin-right: auto;
   }
 }

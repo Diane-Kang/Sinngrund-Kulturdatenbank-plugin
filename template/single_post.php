@@ -31,12 +31,12 @@
             <p><img src="<?php echo $category_icon_src ?>" /><b><?php echo get_the_category()[0]->name; ?></b>
               <span><?php echo get_the_date(); ?></span> </p>
           </div>
-          <div class="just_checkin">
+      <!-- //    <div class="just_checkin">  -->
           <?php
         //echo get_the_content();
         the_content()
         ?>
-        </div>
+     <!-- //   </div>  -->
           <div class="content_footer">
             <button>Eintrag teilen</button>
             <p><?php 
