@@ -164,13 +164,6 @@ body.hide_info .popup.info {
   position: absolute;
 }
 
-.popup.info .welcome_image {
-  width: 100%;
-  max-width: 100%;
-  height: 150px;
-  display: block;
-}
-
 .slide {
   align-content: center;
   align-items: center;
@@ -183,6 +176,39 @@ body.hide_info .popup.info {
   display: grid;
 }
 
+.popup.info span {
+  display: block;
+  font-weight: 600;
+  font-size: 40px;
+}
+
+.popup.info button,
+.popup.info .button {
+  margin-top: 40px;
+}
+
+.popup.info .close.text_button.button {
+  margin: 0;
+}
+
+.popup.info .prev  {
+padding: 15px 15px 15px 30px;
+}
+
+.popup.info .prev::after  {
+  background-image: url(/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/left-svgrepo-com-dark.svg);
+  right: auto;
+  left: 5px;
+}
+
+.popup.info .prev:hover::after,
+.popup.info .prev:active::after    {
+  background-image: url(/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/left-svgrepo-com-white.svg);
+}
+
+
+/* Welcome Slide one*/
+
 .slide.one {
   grid-template-columns: 70% 30%;
   grid-template-rows: 150px auto;
@@ -191,7 +217,6 @@ body.hide_info .popup.info {
 .slide.one::before {
   content: "";
   height: 150px;
-
   max-width: 1200px;
   background-image: url("/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/assets/Banner Kulturdatenbank.png");
   grid-row: 1/2;
@@ -199,38 +224,92 @@ body.hide_info .popup.info {
   margin: 0 -90px;
 }
 
+/*
+.popup.info .welcome_image {
+  width: 100%;
+  max-width: 100%;
+  height: 150px;
+  display: block;
+}
+*/
+
 .popup.info .left {
   justify-self: stretch;
   align-self: stretch;
+  display: grid;
+  justify-content: space-between;
+  align-content: space-between;
+  grid-template-columns: 32% 68%;
 }
 
-.popup.info span {
-  display: block;
-  font-weight: 700;
+.popup.info .slide.one h2,
+.popup.info .slide.one .left p {
+  margin-bottom: 0;
+  padding-right: 50px;
+  border-right: 2px solid rgba(128, 128, 128, 0.6);
+  grid-column: 1/3;
 }
+
+.popup.info .slide.one h2 {
+
+padding-bottom: 25px;
+}
+
+.popup.info .slide.one .left p {
+  padding-bottom: 1em;
+  margin-top: 0;
+  }
+
+  .popup.info .slide.one .left p:nth-child(3) {
+    padding-bottom: 0;
+    }
+
+    .popup.info .einfuehrung.next {
+      grid-column: 1/2;
+      align-self: end;
+    }
+
+    .popup.info .mitmachen {
+      grid-column: 2/3;
+      align-self: end;
+    }
+
 
 .popup.info .right {
   text-align: center;
   align-self: end;
   justify-self: stretch;
+  padding-top: 40px;
 }
 
 .content_wrapper .wappen {
-  margin: 20px auto;
+  margin: 30px auto;
+}
+
+.content_wrapper .wappen:nth-child(2) {
+  margin-bottom: 60px;
 }
 
 .content_wrapper .wappen img {
-  max-width: 100px;
+  max-width: 140px;
   margin: auto;
+}
+
+.content_wrapper .wappen:nth-child(1) img {
+  max-width: 100px;
 }
 
 .content_wrapper .wappen p {
   margin: 0;
 }
 
-.popup.info .close.text_button.button {
-  margin: 0;
-}
+/* Welcome Slide two/three */
+.popup.info .slide.two .botton_row,
+.popup.info .slide.three .botton_row  {
+ display: flex;
+ justify-content: space-between;
+  }
+
 
 /* Navi*/
 
