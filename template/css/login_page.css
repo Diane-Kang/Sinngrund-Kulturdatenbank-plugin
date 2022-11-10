@@ -1,5 +1,123 @@
+body.login .menu.top {
+  margin-bottom: 50px;
+}
+
+body.login #geeting_info_popup {
+  display: none;
+}
+
+body.login {
+  background-color: var(--l_grey);
+}
+
+body.login .slide.one {
+  grid-template-columns: 65% 45%;
+}
+
+body.login .popup.info h2 {
+  margin-top: 50px;
+}
+
+body.login .popup.info span {
+  display: inline;
+}
+
+body.login .popup.info .right {
+  padding-top: 0;
+  align-self: start;
+  margin-top: 50px;
+}
+
+body.login .popup.info .right a {
+  text-decoration: none;
+  color: var(--d_text);
+}
+
+body.login .popup.info .right .wappen {
+padding-top: 10px;
+margin-top: 0;
+}
+
+body.login .popup.info .right p {
+text-align: left;
+padding-left: 40px;
+padding-bottom: 5px;
+}
+
+body.login .popup.info, .legal {
+  position: static;
+  width: 1200px;
+  margin: 0 auto;
+  height: auto;
+}
+
+body.login .popup.info .slide .left button {
+  margin-top: 40px;
+  display: block;
+  padding: 0;
+}
+
+body.login button a {
+  color: var(--d_text);
+  text-decoration: none;
+  display: block;
+  padding: 15px 30px 15px 15px;
+}
+
+body.login button:hover a,
+body.login button:active a{
+  color: #fff;
+  opacity: 1;
+}
+
+
+.legal {
+  background-color: #fff;
+  border-bottom: 2px solid var(--l_grey);
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.legal ul {
+  justify-content: center;
+}
+
+#login {
+  width: 1200px;
+  background-color: #fff;
+}
+
+#login::before {
+  content: "Anmedlung für Redakteure";
+  display: block;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+}
+
+#loginform, body.login #nav, #backtoblog {
+  width: 320px;
+  margin: 24px auto;
+  box-sizing: border-box;
+}
+
+body.login #nav, body.login #backtoblog {
+  padding: 0;
+}
+
+#nav {
+  color: #fff;
+  padding: 0;
+}
+
+#nav a {
+  color: #000;
+}
+
 /* register button */
-#nav > a:nth-child(1) {
+#nav > a:nth-child(1), 
+.language-switcher {
   display: none;
 }
 
@@ -7,17 +125,14 @@
   font-size: 17px;
 }
 
-#login h1 a,
-.login h1 a {
-  background-image: url(../assets/Kulturedatenbank_sinngrund.png);
-  /* height: 65px; */
+a.privacy-policy-link {
+  padding-bottom: 20px;
+  color: #50575e;
+  text-decoration: none;
+  display: block;
   width: 320px;
-  /* background-size: 320px 65px; */
-  background-size: 320px 77px;
-  background-repeat: no-repeat;
-  /* padding-bottom: 30px; */
+  margin: 0 auto;
+  text-align: left;
 }
 
-#login h1::after {
-  content: "text from login_page.css";
-}
+

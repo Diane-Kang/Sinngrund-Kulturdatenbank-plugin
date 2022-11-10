@@ -246,7 +246,6 @@ padding: 15px 15px 15px 30px;
 .popup.info .slide.one .left p {
   margin-bottom: 0;
   padding-right: 50px;
-  border-right: 2px solid rgba(128, 128, 128, 0.6);
   grid-column: 1/3;
 }
 
@@ -282,6 +281,10 @@ padding-bottom: 25px;
   padding-top: 40px;
 }
 
+.wappen_wrapper {
+  border-left: 2px solid rgba(128, 128, 128, 0.6);
+}
+
 .content_wrapper .wappen {
   margin: 30px auto;
 }
@@ -304,8 +307,18 @@ padding-bottom: 25px;
 }
 
 /* Welcome Slide two/three */
+
+.popup.info .slide.two span,
+.popup.info .slide.three span, 
+.popup.info .slide.four span{
+display: inline-block;
+padding-top: 60px;
+padding-right: 0.3em;
+}
+
 .popup.info .slide.two .botton_row,
-.popup.info .slide.three .botton_row  {
+.popup.info .slide.three .botton_row,
+.popup.info .slide.four .botton_row  {
  display: flex;
  justify-content: space-between;
   }

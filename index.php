@@ -1230,6 +1230,21 @@ class SinngrundKultureBank {
 $sinngrundKultureBank = new SinngrundKultureBank();
 
 
+// Hook into Login Page to echo some HTML
+function custom_html() {
+  include plugin_dir_path( __FILE__ ) . '/template/login_page_hooking.php';
+}
+add_action('login_head', 'custom_html');
+
+
+function login_style() {
+	wp_enqueue_style( 'login_css', plugin_dir_url(__FILE__) . 'template/css/login_page.css', false );
+  wp_enqueue_style( 'login_css_sidewide', plugin_dir_url(__FILE__) . 'template/css/sidewide.css', false );
+  wp_enqueue_style( 'login_no_map_side', plugin_dir_url(__FILE__) . 'template/css/no_map_side.css', false );    
+}
+
+add_action( 'login_enqueue_scripts', 'login_style', 10 );
+
 // // This for post template (new post page) with  Blocks
 // function slug_post_type_template() {
 // 	$page_type_object = get_post_type_object( 'post' );
