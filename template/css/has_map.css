@@ -12,6 +12,29 @@ width: 100%;
 
 .kulturdatenbank .leaflet-control-zoom {
   margin-bottom: 40px;
+  margin-right: 40px;
+  border-radius: 8px;
+}
+
+.leaflet-control-zoom.leaflet-bar a {
+  width: 45px;
+  height: 45px;
+}
+
+
+.kulturdatenbank .leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out {
+font-size: 40px;
+line-height: 40px;
+}
+
+.leaflet-touch .leaflet-bar a:first-child {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.leaflet-touch .leaflet-bar a:last-child {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 .kulturdatenbank .leaflet-container .leaflet-control-attribution {
@@ -45,7 +68,7 @@ bottom: 2px;
   margin: 5px 5px 2px 5px;
 }
 
-/* Basic Side Grid */
+/* Basic Side Grid Default Media */
 
 html,
 body,
@@ -106,7 +129,7 @@ body,
   z-index: 999;
 }
 
-/* Header Nav */
+/* Header Nav Default Media */
 
 .menu.top {
   position: absolute;
@@ -116,18 +139,18 @@ body,
 
 .menu.top li {
   position: fixed;
-  top: 60px;
+  top: 40px;
   left: 60px;
 }
 
 .menu.top li:nth-child(2) {
   right: 100px;
-  top: 60px;
+  top: 40px;
 }
 
 .menu.top li:nth-child(3) {
   right: 0;
-  top: 60px;
+  top: 40px;
 }
 
 /*Map */
@@ -156,13 +179,14 @@ body,
   font-weight: 700;
 }
 
-/*Map Popup */
+/*Map Popup Default Media*/
 
 .leaflet-popup {
   padding: 7.5px;
   border: 3px;
   width: 450px;
   max-width: 90vw;
+  margin: 20px 0;
 }
 
 .leaflet-popup-content {
@@ -193,7 +217,7 @@ body,
 
 .popup_title {
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--d_text);
 }
 
@@ -203,42 +227,48 @@ body,
 
 .leaflet-popup p {
   margin: 0;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.1em;
   padding-top: 5px;
+  font-weight: 400;
 }
 
-.leaflet-popup a {
+.leaflet-popup .popup_button {
   padding: 0;
   font-size: 18px;
   display: block;
   border: none;
-  margin-top: 0;
   grid-column: 2/3;
   grid-row: 3/4;
   border: none;
   position: relative;
-  margin-top: 15px;
+  margin: 15px 0 15px 15px;
+  font-weight: 600;
 }
 
-.leaflet-popup a button {
-  border: none;
-}
 
-.leaflet-popup a button:hover,
-.leaflet-popup a button:active {
+.leaflet-popup .popup_button:hover,
+.leaflet-popup .popup_button:active {
   background-color: #fff;
   color: var(--d_text);
   opacity: 0.75;
 }
 
-.leaflet-popup a button::after {
-  left: -10px;
+.leaflet-popup .popup_button::after {
+  left: -25px;
   right: auto;
   background-size: 60%;
+  bottom: -5px;
+  padding: 0;
+  top: auto;
 }
 
-/*Sidebar*/
+.leaflet-popup .popup_button:hover::after,
+.leaflet-popup .popup_button:hover::after  {
+ background-image: url(/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/right-svgrepo-com.svg);
+}
+
+/*Sidebar Default Media*/
 
 .sidebar {
   background-color: rgba(128, 128, 128, 0.1);
@@ -268,15 +298,16 @@ body,
     position: static;
   }
 
-  .leaflet-popup {
-    position: relative; 
-      }
-
   .map_block {
     position: static;
     max-height: 75vh;
     height: 75vh;
     order: 1;
+  }
+
+  .kulturdatenbank .leaflet-control-zoom {
+    margin-bottom: 10px;
+margin-right: 10px;
   }
 
   .kulturdatenbank .leaflet-container .leaflet-control-attribution {
@@ -311,6 +342,16 @@ body,
       bottom: 0;
       margin: 2px 5px 2px 5px;
     }
+
+    /*
+    .leaflet-popup {
+      position: relative; 
+        }
+    */
+
+    .leaflet-popup .popup_button {
+      margin-right: 0; 
+        }
     
 
   .scrolldown.icon {

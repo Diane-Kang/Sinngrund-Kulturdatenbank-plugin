@@ -211,6 +211,25 @@ myFunction(screen_width);
     });
   }
 
+  //PONDOPONDO New Change 10.11.2022: Center Popup
+
+// map.on('popupopen', function(e) {
+//     console.log("some");
+//     // var marker = e.popup._source;
+//     // map.flyTo(marker);
+//   });
+
+//   function poppin_up(e) {
+//     alert("You clicked the map at " + e.latlng);
+//    var marker_pos = e.popup._source;
+//    map.flyTo(marker_pos);
+// }
+
+// map.on('popupopen', poppin_up); 
+
+//Pondo new ends here
+
+
   function build_link(map, markers) {
     const divs = document.querySelectorAll(".map_link_point");
 

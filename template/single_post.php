@@ -38,7 +38,8 @@
         ?>
      <!-- //   </div>  -->
           <div class="content_footer">
-            <button>Eintrag teilen</button>
+            <a href="whatsapp://send?text=Ein Beitrag aus der Kulturdatenbank Sinngrund, den ich teilen möchte: <?php echo get_permalink() ?>" class="button share mobile">Eintrag teilen per WhatsApp</a>
+            <a href="mailto:?subject=Eintrag der Kulturdatenbank Sinngrund&amp;body=Ein Beitrag aus der Kulturdatenbank Sinngrund, den ich teilen möchte: <?php echo get_permalink() ?>" class="button share desktop">Eintrag teilen per Email</a>
             <p><?php 
           Global $post;
           $author = get_the_author_meta('display_name', $post->post_author); 

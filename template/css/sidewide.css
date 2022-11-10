@@ -29,7 +29,7 @@ body,
   color: var(--l_blue);
 }
 
-/* Link Style */
+/* Link Style Default Media */
 a {
   text-decoration: underline;
   color: var(--l_blue);
@@ -40,7 +40,7 @@ a:active {
   opacity: 0.75;
 }
 
-/* Button Styles */
+/* Button Styles Default Media */
 
 button,
 .kulturdatenbank .button {
@@ -96,7 +96,7 @@ button:active::after,
   background-image: url(/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/right-svgrepo-com-white.svg);
 }
 
-/*Basic Elements */
+/*Basic Elements Default Media */
 
 body.kulturdatenbank,
 body.kulturdatenbank h1,
@@ -125,7 +125,7 @@ h1 {
   margin: 0;
 }
 
-/* Welcome Popup */
+/* Welcome Popup Default Media */
 body.hide_info .popup.info {
   display: none;
 }
@@ -207,7 +207,7 @@ padding: 15px 15px 15px 30px;
 }
 
 
-/* Welcome Slide one*/
+/* Welcome Slide one Default Media */
 
 .slide.one {
   grid-template-columns: 70% 30%;
@@ -306,7 +306,7 @@ padding-bottom: 25px;
   margin: 0;
 }
 
-/* Welcome Slide two/three */
+/* Welcome Slide two/three Default Media */
 
 .popup.info .slide.two span,
 .popup.info .slide.three span, 
@@ -330,6 +330,10 @@ padding-right: 0.3em;
   list-style-type: none;
 }
 
+.menu.top ul {
+  margin: 0;
+}
+
 .menu a {
   text-decoration: none;
   display: inline-block;
@@ -337,8 +341,8 @@ padding-right: 0.3em;
 
 .logo {
   margin: 0;
-  font-size: 36px;
-  font-weight: 600;
+  font-size: 40px;
+  font-weight: 500;
 }
 
 .logo span {
@@ -346,21 +350,31 @@ padding-right: 0.3em;
   text-shadow: 0 0 1px var(--d_text);
 }
 
-.info,
-.medien {
+.menu.top .info,
+.menu.top .medien {
   color: #fff;
   font-size: 20px;
   font-weight: 600;
   padding: 0 15px;
   text-shadow: 0 0 8px var(--d_text);
   position: relative;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  display: inline-flex;
 }
+
+.menu.top svg {
+  padding-right: 10px;
+}
+
 
 /* Footer Nav */
 .legal ul {
   display: flex;
   margin: 0;
   padding: 0;
+  background-color: rgba(128, 128, 128, 0.2);
 }
 
 .legal li {
@@ -369,11 +383,12 @@ padding-right: 0.3em;
   /* background-color: rgba(255, 255, 255, 0.8); */
   line-height: 1em;
   font-size: 14px;
+  color: #000;
 }
 
 .legal a {
   text-decoration: none;
-  color: var(--d_text);
+  color: #000;
 }
 
 /* Media Querries */
@@ -434,6 +449,10 @@ grid-column: 1/2;
     padding: 0;
   }
 
+  .close_wrapper {
+ height: 0;
+  }
+
   .popup.info .content_wrapper {
     margin: 5%;
     width: 90%;
@@ -442,13 +461,26 @@ grid-column: 1/2;
 
   .slide.show {
     display: block;
-    padding: 2.5%;
+    padding: 0 2.5% 2.5% 2.5%;
     overflow-y: auto;
+    overflow-x: hidden;
   }
 
   .popup.info .welcome_image {
     object-fit: cover;
     object-position: center;
+  }
+
+  .slide.one::before {
+  display: block;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 120px;
+  }
+
+  .popup.info .slide.one h2, .popup.info .slide.one .left p {
+    padding-right: 0;
   }
 
   .popup.info h2 span {
@@ -469,14 +501,29 @@ grid-column: 1/2;
   .popup.info .right .text_button {
     grid-column: 1/3;
     grid-row: 1/2;
+    width: 300px;
+    font-size: 17px;
+  }
+
+  .kulturdatenbank .right .text_button.button::after {
+    right: 60px;
+  }
+
+  .wappen_wrapper {
+    border: none;
+    grid-column: 1/3;
+    display: flex;
+    justify-content: center;
+    max-width: 500px;
+    margin: 40px auto 0 auto;
+    width: 100%;
   }
 
   .popup.info .right .wappen {
     grid-row: 2/3;
     width: 100%;
     border-top: 2px solid var(--l_grey);
-    margin-top: 20px;
-    padding-top: 20px;
+    padding-top: 40px;
   }
 
   .popup.info .right .wappen:first-child {
@@ -486,9 +533,62 @@ grid-column: 1/2;
   .popup.info .right .wappen:last-child {
     grid-column: 2/3;
   }
+
+  .popup.info .slide.two span, .popup.info .slide.three span, .popup.info .slide.four span {
+    padding-top: 0;
+  }
+
+  .popup.info .slide.two img, .popup.info .slide.three img, .popup.info .slide.four img {
+    max-width: 100%;
+  }
+
 }
 
 @media screen and (max-width: 400px) {
+
+  .popup.info h2 span {
+    font-size: 26px;
+  }
+
+  .popup.info .mobile.close.close_icon {
+    top: 5px;
+    right: 5px;
+  }
+
+  .slide.show {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .popup.info .einfuehrung.next {
+    margin-top: 30px;
+  }
+
+  .popup.info .einfuehrung.next,
+  .popup.info .mitmachen {
+    grid-column: 1/3;
+  }
+
+  .popup.info .right .text_button {
+    width: 260px;
+  }
+
+  .content_wrapper .wappen:nth-child(1) img {
+    max-width: 80px;
+  }
+
+  .content_wrapper .wappen img {
+    max-width: 100px;
+  }
+
+  .content_wrapper .wappen p {
+    font-size: 15px;
+  }
+
+  .kulturdatenbank .right .text_button.button::after { 
+  right: 48px;
+  }
+
 .kulturdatenbank .menu.top ul {
   padding: 5px;
 }
