@@ -16,11 +16,6 @@
                    <p>Sinngrundallianz</p>
                     <p><a href="mailto:info@kultur-datenbank-sinngrund.de">info@kultur-datenbank-sinngrund.de</a></p>
                     <p>Tel.: </p>
-                    
-                </div>
-                <div class="kontakt">
-                <p>Geschäftszeiten</p>
-                    <p>Mo-So: 6.00 - 22.00 Uhr</p>
                 </div>
                 <button class="close text_button button" aria-label="Close"><a href="/">Zur Datenbank</a></button>
                 <?php include 'nav_footer.php'; ?>

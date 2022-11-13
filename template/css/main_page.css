@@ -26,7 +26,7 @@
 /*Sidebar Rahmen Default Media */
 
 .sidebar {
-  max-width: 590px;
+ /* max-width: 650px; */
   display: flex;
   flex-flow: column;
   height: 100%;
@@ -113,6 +113,10 @@ background-color:var(--d_blue);
   justify-content: space-between;
   align-items: center;
   margin-top: 20px;
+}
+
+.kulturdatenbank .sidebar .sort_options_block span {
+  min-width: 105px;
 }
 
 #main_page_list_sort_options {
@@ -202,6 +206,37 @@ opacity: 0.7;
 }
 
 /* Media Querries */
+
+@media screen and (max-width: 1650px) {
+.side_wrapper {
+  grid-template-columns: 60% 40%;
+}
+
+.logo {
+  font-size: 34px;
+}
+
+.menu.top li:nth-child(3) {
+  left: 50%;
+}
+
+.menu.top li:nth-child(2) {
+    left: 43%;
+  }
+}
+
+
+@media screen and (max-width: 1350px) {
+  
+  .menu.top li:nth-child(3) {
+    left: 45%;
+  }
+  
+  .menu.top li:nth-child(2) {
+      left: 37%;
+    }
+  }
+
 @media screen and (max-width: 980px) {
 
   .kulturdatenbank .sidebar {

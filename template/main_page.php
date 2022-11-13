@@ -32,7 +32,7 @@
       </div> <!-- closing div id checkboxes  -->
 
       <div class="sort_options_block">
-        Sortieren nach
+        <span>Sortieren nach</span>
         <select name="sort_options" id="main_page_list_sort_options">
           <option value="0" selected>Aktuellste zuerst</option>
           <option value="1">Alpabetisch nach Title</option>
