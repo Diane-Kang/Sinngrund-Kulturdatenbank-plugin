@@ -133,6 +133,15 @@ opacity: 1;
 
 
   /* Big Close  Default Media */
+.post_content a.close {
+  margin: 0;
+}
+
+  .post_content .close_icon::before,
+  .gallery .close_icon::before {
+    background-image: url("/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/close-blue.svg");
+  }
+
 .close.close_icon,
 .post_content .close {
   width: 60px;
@@ -162,6 +171,17 @@ opacity: 1;
 /* Media Querries */
 @media screen and (max-width: 980px) {
 
+  .kulturdatenbank .post_content {
+position: relative;
+  }
+
+  .kulturdatenbank .post_content .close,
+  .kulturdatenbank .post_content .close_icon {
+position: absolute;
+top: 0;
+bottom: auto;
+  }
+
   .post_content .close_icon::before  {
    left:0
   }
@@ -179,6 +199,10 @@ opacity: 1;
     position: fixed;
     z-index: 99999;
     }
+
+    .gallery .close .close_icon {
+      top: 15px;
+        }
 }
 
 @media screen and (max-width: 600px) {
@@ -189,4 +213,16 @@ opacity: 1;
     top: 5px;
     right: 8px;
   }
+
+ .gallery .close .close_icon {
+right: 15px;
+width: 25px;
+height: 25px
+  }
+
+  .gallery .close .close_icon::before {
+    width: 25px;
+    height: 25px;
+  }
+
 }

@@ -289,16 +289,49 @@ body,
   z-index: 999;
 }
 
-@media screen and (max-width: 1350px) {
+/* Media Queries */
+@media screen and (max-width: 1650px) {
+  .kulturdatenbank .side_wrapper {
+    grid-template-columns: 60% 40%;
+  }
+  
+  .kulturdatenbank .logo {
+    font-size: 34px;
+  }
+  
+  .kulturdatenbank .menu.top li:nth-child(3) {
+    left: 50%;
+  }
+  
+  .kulturdatenbank .menu.top li:nth-child(2) {
+      left: 43%;
+    }
+  }
+  
+  
+  @media screen and (max-width: 1350px) {
+    
+    
+    body.kulturdatenbank .menu.top li:nth-child(3) {
+      left: 45%;
+    }
+    
+    body.kulturdatenbank .menu.top li:nth-child(2) {
+        left: 37%;
+      }
+
   .kulturdatenbank .leaflet-container .leaflet-control-attribution {
     margin: 0 auto 0 15px;
     padding-left: 0;
   }
 
-
   .kulturdatenbank .legal li {
-  padding: 5px 15px 30px 15px;
-}
+    padding: 5px 15px 30px 15px;
+  }
+  
+  .kulturdatenbank .legal li {
+    padding: 5px 15px 30px 15px;
+  }
 }
 
 /* Media Querries */

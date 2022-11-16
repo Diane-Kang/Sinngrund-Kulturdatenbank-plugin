@@ -37,6 +37,7 @@
                 <div class="wappen">
                     <img src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/assets/SA_logo_vollton_blau.svg"
                         alt="Sinngrundallianz Logo">
+                    <p>Gefördert durch das Regionalbudget 2022 der Sinngrundallianz mit Geldern des Amtes für ländliche Entwicklung Unterfranken.</p>
 
                 </div>
                 </div>
@@ -52,7 +53,7 @@
             <img src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/assets/screen111.png"
                 alt="Screenshot zur Bedienung der Datenbank: Übersichtsseite">
             <p>
-            Jedes Symbol auf der Karte steht für einen Eintrag in die Kulturdatenbank. Die unterschiedlichen Titel des Eintrags Symbole stehen für verschiedene Kategorien, z.B. Wanderwege oder Sehenswürdigkeiten. Klicken Kulturelle Sie Sehenswürdigkeiten auf ein Symbol, um zum entsprechenden Detailartikel zu kommen.
+            Jedes Symbol auf der Karte steht für einen Eintrag in der Kulturdatenbank. Die unterschiedlichen Symbole stehen für verschiedene Kategorien, z.B. Wanderwege oder Sehenswürdigkeiten. Klicken Sie auf ein Symbol, um zum entsprechenden Detailartikel zu kommen.
             </p>
             <div class="botton_row">
                 <button class="prev" aria-label="Vorige Folie">Zurück</button>
@@ -68,7 +69,7 @@
                 alt="Screenshot zur Bedienung der Datenbank: Übersichtsseite">
             <p>
                 Die Liste bildet alle Einträge analog zur Kartendarstellung ab. Mithilfe der Suchmaske können bestimmte
-                Kulturelle Sehenswürdigkeiten Einträge schnell gefunden werden.
+                Einträge schnell gefunden werden.
             </p>
             <div class="botton_row">
                 <button class="prev" aria-label="Vorige Folie">Zurück</button>
@@ -83,7 +84,7 @@
             <img src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/assets/screen_two.jpeg"
                 alt="Screenshot zur Bedienung der Datenbank: Übersichtsseite">
             <p>
-            Um nur bestimmte Kategorien anzuzeigen, können diese über das Filtermenü ein- oder Titel ausgeblendet des Eintragswerden. Ist kein Haken gesetzt, werden automatisch alle Symbole angezeigt. Kulturelle Sehenswürdigkeiten.
+            Um nur bestimmte Kategorien anzuzeigen, können diese über das Filtermenü ein- oder ausgeblendet werden. Ist kein Haken gesetzt, werden automatisch alle Symbole angezeigt.
             </p>
             <div class="botton_row">
                 <button class="prev" aria-label="Vorige Folie">Zurück</button>

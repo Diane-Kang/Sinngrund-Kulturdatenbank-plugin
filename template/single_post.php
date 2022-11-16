@@ -13,7 +13,7 @@
     <?php include 'nav_footer.php'; ?>
 
     <div class="single_post_main_block sidebar" id="single_post_side_bar">
-      <div class="scrolldown_wrapper"><a href="#content_start" aria-label="scrolldown"><span class="scrolldown icon"></span></a></div>
+   <!--    <div class="scrolldown_wrapper"><a href="#content_start" aria-label="scrolldown"><span class="scrolldown icon"></span></a></div>  -->
       <div id="content_start" class="post_content_block">
         <div class="post_content">
           <a aria-label="zurück" href="/" class="close"><span class="close close_icon"></span></a>

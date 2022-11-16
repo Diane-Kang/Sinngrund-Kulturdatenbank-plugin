@@ -206,37 +206,6 @@ opacity: 0.7;
 }
 
 /* Media Querries */
-
-@media screen and (max-width: 1650px) {
-.side_wrapper {
-  grid-template-columns: 60% 40%;
-}
-
-.logo {
-  font-size: 34px;
-}
-
-.menu.top li:nth-child(3) {
-  left: 50%;
-}
-
-.menu.top li:nth-child(2) {
-    left: 43%;
-  }
-}
-
-
-@media screen and (max-width: 1350px) {
-  
-  .menu.top li:nth-child(3) {
-    left: 45%;
-  }
-  
-  .menu.top li:nth-child(2) {
-      left: 37%;
-    }
-  }
-
 @media screen and (max-width: 980px) {
 
   .kulturdatenbank .sidebar {
