@@ -63,6 +63,10 @@
   background-image: url("/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/close-black.svg");
   background-color: #fff;
   cursor: pointer;
+  background-size: 60%;
+background-repeat: no-repeat;
+background-position: center;
+border-radius: 50%;
 }
 
 .fullscreen .close::before {

@@ -1,18 +1,30 @@
+ 
+
+.gallery .menu.top {
+  padding-top:  60px;
+}
+
+.gallery .menu.top ul,
 .gallery_wrapper {
   padding: 0 60px;
 }
 
+
+
 .head_wrapper {
-  max-width: 1680px;
+  max-width: 1600px;
   display: flex;
   justify-content: space-between;
-  padding: 0 45px;
+  padding: 0;
+  margin: 40px auto 20px auto;
 }
 
-h1 {
+.gallery .head_wrapper h1 {
   font-size: 38px;
   display: inline-block;
   color: var(--d_blue);
+    position: absolute;
+    left: 60px;
 }
 
 h2 {
@@ -23,8 +35,8 @@ h2 {
 
 .search {
   display: inline-block;
-  max-width: 400px;
-  margin: 0;
+  max-width: 520px;
+  margin: 0 20px 0 0;
 }
 
 .orte {
@@ -35,7 +47,7 @@ h2 {
   display: flex;
   grid-template-columns: repeat(4, 250px);
   grid-template-rows: repeat(auto-fill, 250px);
-  max-width: 1680px;
+  max-width: 1600px;
   margin: 0 auto;
   flex-wrap: wrap;
   justify-content: center;
@@ -68,11 +80,19 @@ h2 {
   height: 100%;
 }
 
+.orte_tags {
+  padding: 10px 0;
+}
+
+.fotograf {
+  padding-top: 10px;
+}
+
 /* Media Querries */
 @media screen and (max-width: 980px) {
 
     .kulturdatenbank .menu.top {
-padding: 0 30px;
+padding: 60px 30px 0 30px;
     }
 
     .kulturdatenbank .menu.top .logo {
@@ -80,12 +100,13 @@ font-size: 38px;
     }
 
     .kulturdatenbank .menu.top ul {
-        padding: 15px 0;
+        padding: 0 10px;
     }
 
-    .head_wrapper {
+    .kulturdatenbank  .head_wrapper {
         flex-direction: column;
-        padding: 0;
+        padding: 0 10px;
+        margin-top: 20px;
     }
 
     .kulturdatenbank .gallery_wrapper {
@@ -93,16 +114,24 @@ padding: 0 30px;
     }
 
     body.kulturdatenbank .gallery_wrapper h1 {
-color: var(--d_blue);
 font-weight: 300;
 font-size: 32px;
+position: static;
     }
 
-    .search {
-        max-width: 600px;
+    .gallery_wrapper .search {
+        max-width: 100%;
+        width: 100%;
         margin: 30px 0;
     }
 
+    .kulturdatenbank.gallery .close .close_icon {
+      top: 60px
+    }
+
+    .gallery_wrapper  .grid-content {
+      justify-content: space-between;
+    }
 
 
     .gallery_wrapper .grid-item,
@@ -129,23 +158,52 @@ font-size: 32px;
     }
 }
 
-@media screen and (max-width: 500px) {
-  body.kulturdatenbank .menu.top {
-padding: 15px;
-  }
+@media screen and (max-width: 720px) {
 
-  .kulturdatenbank .gallery_wrapper {
-    padding: 0 15px;
+  .gallery_wrapper .search {
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .gallery_wrapper .grid-item, .gallery_wrapper .grid-item-wrap {
-    width: 100%;
-    height: auto;
+    width: 400px;
+    min-width: 400px;
+    margin: 0 auto;
   }
 
-  .kulturdatenbank .gallery_wrapper .grid-item {
-    padding: 30px 10px;
-
+  .gallery_wrapper .grid-item-wrap {
+    height: 252px;
   }
 
+  .gallery_wrapper .grid-item {
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .kulturdatenbank.gallery .menu.top .logo {
+    font-size: 30px;
+  }
+
+  body.kulturdatenbank.gallery  .gallery_wrapper h1 {
+    font-size: 26px;
+  }
+
+  .gallery_wrapper .search {
+    max-width: 220px;
+  }
+
+  .gallery_wrapper .searchTerm {
+    font-size: 14px;
+  }
+
+  .gallery_wrapper .grid-item, .gallery_wrapper .grid-item-wrap {
+    width: 220px;
+    min-width: 220px;
+  }
+
+  .gallery_wrapper .grid-item-wrap {
+    height: 120px;
+  }
 }
