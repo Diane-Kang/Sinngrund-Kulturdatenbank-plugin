@@ -355,8 +355,8 @@ body,
 
   .map_block {
     position: static;
-    max-height: 75vh;
-    height: 75vh;
+    max-height: 70vh;
+    height: 70vh;
     order: 1;
   }
 
@@ -418,7 +418,7 @@ margin-right: 10px;
     justify-content: center;
     align-items: center;
     align-content: center;
-    bottom: 8vh;
+    bottom:12vh;
     right: 65px;
     z-index: 999999;
     border-radius: 50px;

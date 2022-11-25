@@ -15,7 +15,7 @@
                 <div class="kontakt">
                    <p>Sinngrundallianz</p>
                     <p><a href="mailto:info@kultur-datenbank-sinngrund.de">info@kultur-datenbank-sinngrund.de</a></p>
-                    <p>Tel.: </p>
+                    <p>Tel.: 09356 9839982</p>
                 </div>
                 <button class="close text_button button" aria-label="Close"><a href="/">Zur Datenbank</a></button>
                 <?php include 'nav_footer.php'; ?>

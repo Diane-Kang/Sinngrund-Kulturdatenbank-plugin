@@ -398,6 +398,43 @@ padding-right: 0.3em;
   color: #000;
 }
 
+/*Impressum & Datenschutz*/
+
+.impressum_datenschutz .menu.top ul {
+  margin: 50px;
+  padding: 0;
+}
+
+.impressum_datenschutz .content {
+  margin: 50px 5%;
+}
+
+.impressum_datenschutz .content h2 {
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.impressum_datenschutz .content h3 {
+  font-size: 25px;
+}
+
+.impressum_datenschutz .content h4 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.impressum_datenschutz .content h5 {
+  font-size: 20px;
+}
+
+.impressum_datenschutz .content p {
+  padding-bottom: 40px;
+}
+
+.impressum_datenschutz .content img {
+max-width: 300px;
+}
+
 /* Media Querries */
 @media screen and (max-width: 980px) {
   .kulturdatenbank .menu.top {
