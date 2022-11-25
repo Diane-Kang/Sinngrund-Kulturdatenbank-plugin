@@ -56,6 +56,7 @@ var screen_width = window.matchMedia("(max-width: 980px)");
 myFunction(screen_width);
 
 
+
 //--- Zoom Control ---//
   L.control
     .zoom({
@@ -390,5 +391,8 @@ myFunction(screen_width);
      });
   });
 
+  // Get rid of Chrome Bug: Tile Layer only partly loading for whatever reason, probably dynamic change of map size caused by...???
+  map.invalidateSize();
 }
+
 main();

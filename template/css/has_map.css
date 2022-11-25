@@ -1,3 +1,7 @@
+#current_post_id {
+  display: none;
+}
+
 .kulturdatenbank .leaflet-container {
   font-family: "Barlow";
 }
@@ -85,7 +89,6 @@ body,
 }
 
 .side_wrapper {
-  flex: 1 1 auto;
   display: grid;
   grid-template-rows: 100%;
   position: relative;
@@ -345,6 +348,7 @@ body,
 
   .kulturdatenbank .menu.top {
     background-color: rgba(128, 128, 128, 0.1);
+    order: 1;
   }
 
   .side_wrapper {
@@ -354,10 +358,9 @@ body,
   }
 
   .map_block {
-    position: static;
-    max-height: 70vh;
-    height: 70vh;
-    order: 1;
+    height: 550px;
+    max-height: 85vh;
+    order: 2;
   }
 
   .kulturdatenbank .leaflet-control-zoom {
@@ -408,19 +411,21 @@ margin-right: 10px;
       margin-right: 0; 
         }
     
+        .scrolldown_wrapper { 
+          position: absolute;
+          top:590px;
+          right: 65px;
+          z-index: 999999;
+        }
 
   .scrolldown.icon {
     background-color: rgba(0,0,0, 0.7);
     width: 80px;
     height: 80px;
     display: flex;
-    position: absolute;
     justify-content: center;
     align-items: center;
     align-content: center;
-    bottom:12vh;
-    right: 65px;
-    z-index: 999999;
     border-radius: 50px;
     border: 1px #fff solid;
     box-shadow: 0 5px 15px rgba(0,0,0, 0.7);
@@ -436,17 +441,12 @@ width: 40px;
 height: 40px;
 }
 
-/*Hide Scrolldown Button after beiing clicked once*/
-.hide_scrolldown .scrolldown_wrapper {
-  display: none;
-}
-
   .kulturdatenbank .sidebar {
     display: block;
     position: static;
     width: 100%;
     max-width: 100%;
-    order: 2;
+    order: 3;
     overflow-y: auto;
     min-width: 250px;
     box-shadow: none;
@@ -454,6 +454,6 @@ height: 40px;
 
   .legal {
     position: static;
-    order: 3;
+    order: 4;
   }
 }
