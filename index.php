@@ -1227,7 +1227,7 @@ class SinngrundKulturdatenbank {
   }
 } // end of class 
 
-$sinngrundKultureBank = new SinngrundKultureBank();
+$sinngrundKulturdatenbank = new SinngrundKulturdatenbank();
 
 
 // Hook into Login Page to echo some HTML
