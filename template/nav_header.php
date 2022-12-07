@@ -5,7 +5,7 @@
         <h1 class="logo"><span class="d_blue">Kulturdatenbank</span><span class="l_blue">Sinngrund</span></h1>
       </a></li>
     <li><a class="info" href="#">
-        <svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        <svg width="25px" height="25px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink">
           <title>Info-Icon</title>
           <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -28,7 +28,7 @@
       </a></li>
     <li>
       <a class="medien" href="/mediendatenbank">
-        <svg width="18px" height="16px" viewBox="0 0 18 16" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        <svg width="25px" height="25px" viewBox="0 0 18 16" version="1.1" xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink">
           <title>Group 3</title>
           <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">

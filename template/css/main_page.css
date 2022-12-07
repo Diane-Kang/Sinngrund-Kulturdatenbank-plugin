@@ -8,25 +8,25 @@
   width: fit-content;
 } */
 
-/* Basic Side Grid */
+/* Basic Side Grid Default Media */
 .side_wrapper {
-  grid-template-columns: 75% 25%;
+  grid-template-columns: 70% 30%;
 }
 
-/* Header Nav */
+/* Header Nav Default Media */
 
 .menu.top li:nth-child(2) {
-  left: 60%;
+  left: 57%;
 }
 
 .menu.top li:nth-child(3) {
-  left: 67%;
+  left: 62%;
 }
 
-/*Sidebar Rahmen*/
+/*Sidebar Rahmen Default Media */
 
 .sidebar {
-  max-width: 560px;
+ /* max-width: 650px; */
   display: flex;
   flex-flow: column;
   height: 100%;
@@ -44,14 +44,15 @@
   flex: 1 1 auto;
 }
 
-/*Sidebar */
+/*Sidebar Default Media */
 
 .category {
   margin: 0;
   font-size: 28px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--d_blue);
   font-family: "Barlow";
+  padding-bottom: 10px;
 }
 
 .category_filter_section {
@@ -67,8 +68,16 @@
 }
 
 .cat_checkbox {
-  width: 15px;
+  width: 25px;
+  height: 25px;
 }
+
+.cat_checkbox[checked="true"]::before {
+width: 25px;
+height: 25px;
+background-color:var(--d_blue);
+}
+
 
 .cat_label {
   font-size: 18px;
@@ -97,23 +106,29 @@
 }
 
 .sort_options_block {
-  padding: 15px 60px;
+  padding: 15px 10%;
   color: var(--l_grey);
   font-size: 15px;
   display: flex;
   justify-content: space-between;
-  width: 80%;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.kulturdatenbank .sidebar .sort_options_block span {
+  min-width: 105px;
 }
 
 #main_page_list_sort_options {
-  padding: 7.5px 15px;
-  color: var(--d_blue);
-  font-weight: 700;
+  padding: 15px;
+  color: var(--d_text);
+  font-weight: 500;
   box-shadow: 1px 1px 2px 0px var(--l_grey);
   margin-left: 15px;
   font-size: 15px;
-  background-color: rgba(128, 128, 128, 0.1);
+  background-color: #fff;
   border: none;
+  width: 345px;
 }
 
 .datenbank_list_block {
@@ -136,7 +151,7 @@
 }
 
 .datenbank_single_entry .entry_category {
-  border-bottom: 2px dotted var(--d_text);
+  border-bottom: 2px dashed var(--l_grey);
   padding-bottom: 22.5px;
 }
 
@@ -166,7 +181,19 @@
   padding-bottom: 7.5px;
 }
 
-.datenbank_single_entry.marked button::after {
+.datenbank_single_entry.marked .button {
+  border-color: #fff;
+  background-color: var(--d_blue);
+  color: #fff;
+}
+
+.datenbank_single_entry.marked .button:hover,
+.datenbank_single_entry.marked .button:active{
+opacity: 0.7;
+}
+
+
+.datenbank_single_entry.marked .button::after {
   background-image: url(/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/right-svgrepo-com-white.svg);
 }
 
@@ -186,16 +213,35 @@
   }
 
   .category_filter_section {
-padding-top: 15px;
-  }
+    padding-top: 15px;
+      }
 
-  .single_category_wrapper {
-    width: max-content;
-  }
+  .category_filter_section .category {
+    font-weight: 500;
+      }
+
+      .single_category_wrapper {
+        width: max-content;
+      }
+    
+      .kulturdatenbank .sidebar .sort_options_block {
+    justify-content: flex-start;
+    padding-left: 5px;
+      }
+
+      .kulturdatenbank  #main_page_list_sort_options {
+background-color: #fff;
+width: 185px;
+      }
+
+
+  
 
   .search {
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 96%;
+    box-sizing: border-box;
   }
 }
 

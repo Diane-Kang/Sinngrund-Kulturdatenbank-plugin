@@ -13,8 +13,7 @@
     <?php include 'nav_footer.php'; ?>
 
     <div class="single_post_main_block sidebar" id="single_post_side_bar">
-      <div class="scrolldown_wrapper"><a href="#content_start" aria-label="scrolldown"><span
-            class="scrolldown icon"></span></a></div>
+   <div class="scrolldown_wrapper"><a href="#content_start" aria-label="scrolldown"><span class="scrolldown icon"></span></a></div>
       <div id="content_start" class="post_content_block">
         <div class="post_content">
           <a aria-label="zurück" href="/" class="close"><span class="close close_icon"></span></a>
@@ -33,14 +32,15 @@
               <span><?php echo get_the_date(); ?></span>
             </p>
           </div>
-          <div class="just_checkin">
-            <?php
+      <!-- //    <div class="just_checkin">  -->
+          <?php
         //echo get_the_content();
         the_content()
         ?>
-          </div>
+     <!-- //   </div>  -->
           <div class="content_footer">
-            <button>Eintrag teilen</button>
+            <a href="whatsapp://send?text=Ein Beitrag aus der Kulturdatenbank Sinngrund, den ich teilen möchte: <?php echo get_permalink() ?>" class="button share mobile">Eintrag teilen per WhatsApp</a>
+            <a href="mailto:?subject=Eintrag der Kulturdatenbank Sinngrund&amp;body=Ein Beitrag aus der Kulturdatenbank Sinngrund, den ich teilen möchte: <?php echo get_permalink() ?>" class="button share desktop">Eintrag teilen per Email</a>
             <p><?php 
           Global $post;
           $author = get_the_author_meta('display_name', $post->post_author); 

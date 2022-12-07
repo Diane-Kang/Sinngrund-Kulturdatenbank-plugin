@@ -27,6 +27,7 @@
 
 
             <div class="right">
+                <div class="wappen_wrapper">
                 <div class="wappen">
                     <img src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/assets/Wappen_von_Fellen.svg"
                         alt="Gemeinde Fellen Wappen">
@@ -36,7 +37,9 @@
                 <div class="wappen">
                     <img src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/assets/SA_logo_vollton_blau.svg"
                         alt="Sinngrundallianz Logo">
+                    <p>Gefördert durch das Regionalbudget 2022 der Sinngrundallianz mit Geldern des Amtes für ländliche Entwicklung Unterfranken.</p>
 
+                </div>
                 </div>
 
                 <button class="close text_button button" aria-label="Close">Zur Datenbank</button>
@@ -44,14 +47,13 @@
         </div>
         <div class="slide two">
 
-            <h2><span class="d_blue">So funktioniert die</span><span class="l_blue">Kulturdatenbank Sinngrund
-                    (2/3)</span>
+            <h2><span class="d_blue">So funktioniert die </span><span class="l_blue">Kulturdatenbank Sinngrund
+                    (1/3)</span>
             </h2>
-            <img src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/assets/screen_one.jpeg"
+            <img src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/assets/screen111.png"
                 alt="Screenshot zur Bedienung der Datenbank: Übersichtsseite">
             <p>
-                Die Liste bildet alle Einträge analog zur Kartendarstellung ab. Mithilfe der Suchmaske können bestimmte
-                Kulturelle Sehenswürdigkeiten Einträge schnell gefunden werden.
+            Jedes Symbol auf der Karte steht für einen Eintrag in der Kulturdatenbank. Die unterschiedlichen Symbole stehen für verschiedene Kategorien, z.B. Wanderwege oder Sehenswürdigkeiten. Klicken Sie auf ein Symbol, um zum entsprechenden Detailartikel zu kommen.
             </p>
             <div class="botton_row">
                 <button class="prev" aria-label="Vorige Folie">Zurück</button>
@@ -60,18 +62,33 @@
         </div>
         <div class="slide three">
 
-            <h2><span class="d_blue">So funktioniert die</span><span class="l_blue">Kulturdatenbank Sinngrund
+            <h2><span class="d_blue">So funktioniert die </span><span class="l_blue">Kulturdatenbank Sinngrund
+                    (2/3)</span>
+            </h2>
+            <img src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/assets/screen222.jpeg"
+                alt="Screenshot zur Bedienung der Datenbank: Übersichtsseite">
+            <p>
+                Die Liste bildet alle Einträge analog zur Kartendarstellung ab. Mithilfe der Suchmaske können bestimmte
+                Einträge schnell gefunden werden.
+            </p>
+            <div class="botton_row">
+                <button class="prev" aria-label="Vorige Folie">Zurück</button>
+                <button class="next" aria-label="Schließen">Weiter</button>
+            </div>
+        </div>
+        <div class="slide four">
+
+            <h2><span class="d_blue">So funktioniert die </span><span class="l_blue">Kulturdatenbank Sinngrund
                     (3/3)</span>
             </h2>
             <img src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/assets/screen_two.jpeg"
                 alt="Screenshot zur Bedienung der Datenbank: Übersichtsseite">
             <p>
-                Die Liste bildet alle Einträge analog zur Kartendarstellung ab. Mithilfe der Suchmaske können bestimmte
-                Kulturelle Sehenswürdigkeiten Einträge schnell gefunden werden.
+            Um nur bestimmte Kategorien anzuzeigen, können diese über das Filtermenü ein- oder ausgeblendet werden. Ist kein Haken gesetzt, werden automatisch alle Symbole angezeigt.
             </p>
             <div class="botton_row">
                 <button class="prev" aria-label="Vorige Folie">Zurück</button>
-                <button class="close" aria-label="Schließen">Weiter</button>
+                <button class="close" aria-label="Schließen">Schließen</button>
             </div>
         </div>
         </div>
