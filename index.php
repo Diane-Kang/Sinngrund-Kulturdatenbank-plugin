@@ -17,15 +17,11 @@ if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 
 
-class SinngrundKultureBank {
+class SinngrundKulturdatenbank {
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////
   // Map javascript is working  only with this Category list 
   // Icon names need to be shortname + .svg
-  private $orte_array = array("Burgsinn", "Obersinn", "Aura", "Fellen", "Mittelsinn", "Rieneck");
-  function get_orte_array(){
-    return $this->orte_array;
-  }
 
   private $category_shortname_array = array(
                                               "Brauchtum und Veranstaltungen" => "brauchtum",
@@ -41,6 +37,8 @@ class SinngrundKultureBank {
     return $this->category_shortname_array;
   }
 
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   
   // Avoid a post with unknown category 
   function post_valid_check($category_name, $lati, $longi){
@@ -49,8 +47,10 @@ class SinngrundKultureBank {
     return $valid_category * $valid_geocode;
   }
 
-
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////
+  private $orte_array = array("Burgsinn", "Obersinn", "Aura", "Fellen", "Mittelsinn", "Rieneck");
+  function get_orte_array(){
+    return $this->orte_array;
+  }
 
 
   function __construct() {
@@ -60,7 +60,7 @@ class SinngrundKultureBank {
     //////------------Amdin page style ----------------//
     add_action( 'admin_enqueue_scripts', array($this, 'load_admin_styles' ));
     
-    //////------------Admin gallery style --------------
+    //////------------Admin gallery style --------------// To prevent the second media edit page 
     add_action('admin_init', function() {
       if ( isset( $_GET['mode'] ) && $_GET['mode'] !== 'list' ) {
           wp_redirect(admin_url('upload.php?mode=list'));
@@ -70,15 +70,14 @@ class SinngrundKultureBank {
       }
     }, 100);
 
+    add_filter( 'manage_media_columns',                     function( $columns ){$columns['for_gallery'] = 'For gallery?'; return $columns;},10,2);
+
+
     //////------------Amdin Post list columns ----------------//
     /////////------- Add custom column, to see if the post has a right Geocode
-    add_filter('manage_posts_columns', array($this, 'custom_posts_table_head'));
-    add_action('manage_posts_custom_column', array($this, 'plugin_custom_column'), 10, 2);
+    add_filter('manage_posts_columns',                      array($this, 'custom_posts_table_head'));
+    add_action('manage_posts_custom_column',                array($this, 'plugin_custom_column'), 10, 2);
 
-    add_filter( 'manage_media_columns', function( $columns ){
-                                          $columns['for_gallery'] = 'For gallery?';
-                                          return $columns;
-                                        },10,2);
                                         
     add_action( 'manage_media_custom_column', function ($name, $post_id){
                                                 switch ( $name ){
@@ -93,12 +92,14 @@ class SinngrundKultureBank {
     ////---------For Contributor, admin page
     add_action('admin_init', array($this, 'allow_contributor_uploads'));
     add_action('admin_menu', array($this, 'hide_the_dashboard' ));
+    ////// No dashboard for contributor 
     add_action('load-index.php',  function () {
                                     if( !array_intersect( array('administrator'), wp_get_current_user()->roles ) ) {
                                       wp_redirect( admin_url( 'edit.php?post_type=post' ) );
                                     }
                                   }
     );
+    /////// only show the posts of the loginned contributer 
     add_filter('pre_get_posts', function ($query) {
                                                         global $pagenow;
                                                         if( 'edit.php' != $pagenow || !$query->is_admin )
@@ -134,13 +135,13 @@ class SinngrundKultureBank {
     //////////------------ Sidebar width----------------//
     add_action('admin_enqueue_scripts', array($this,'toast_enqueue_jquery_ui'));
     add_action('admin_head', array($this, 'toast_resizable_sidebar'));
-
+    //////////------------ Sidebar content modify----------------//
     add_action( 'init', array($this, 'cc_gutenberg_register_files') );
 
 
     //////////------------Meta data for new Post page----------------// 
-    add_action('add_meta_boxes', array($this, 'basic_info_boxes'));
-    add_action( 'save_post', array($this, 'save_basic_info_box' ));
+    add_action('add_meta_boxes', array($this, 'standort_boxes'));
+    add_action( 'save_post', array($this, 'save_standort_box' ));
 
     add_action('add_meta_boxes', array($this, 'route_input_box'));
     add_action( 'save_post', array($this, 'save_route_input_box' ));
@@ -157,8 +158,8 @@ class SinngrundKultureBank {
     add_action( 'init', array($this, 'create_ort_taxonomy')); // for attachemnt and post 
     add_action('save_post', array($this,'save_orte_taxonomy')); // save Ort taxonomy
 
-    add_action( 'init', array($this, 'create_fotograf_taxonomy')); // for attachemnt
-    add_action('save_post', array($this,'save_fotografen_taxonomy')); // save Ort taxonomy
+    // add_action( 'init', array($this, 'create_fotograf_taxonomy')); // for attachemnt
+    // add_action('save_post', array($this,'save_fotografen_taxonomy')); // save Ort taxonomy
     //add_action('add_meta_boxes', array($this,'add_orte_meta_box')); // for post    
     //add_action( 'init' , array($this, 'add_orte_tax_to_attachemnt'));
     //add_action( 'init', array($this, 'change_tax_object_label' )); //post_tags->orte
@@ -353,10 +354,10 @@ class SinngrundKultureBank {
     
 
 
-    //Gutenberg, block javascript 
-    function adminAssets() {
-      wp_enqueue_script('sinngrund_kulture_bank_block_type', plugin_dir_url(__FILE__) . '/build/index.js', array('wp-blocks', 'wp-element', 'wp-block-editor'));
-    }
+    // //Gutenberg, block javascript 
+    // function adminAssets() {
+    //   wp_enqueue_script('sinngrund_kulture_bank_block_type', plugin_dir_url(__FILE__) . '/build/index.js', array('wp-blocks', 'wp-element', 'wp-block-editor'));
+    // }
 
     
   //////////------------ Sidebar width----------------//
@@ -485,18 +486,18 @@ class SinngrundKultureBank {
   * @param WP_Post $post Current post object.
   */
   
-  function basic_info_boxes_display_callback( $post ) {
-    include plugin_dir_path( __FILE__ ) . 'basic_info_box.php';
+  function standort_boxes_display_callback( $post ) {
+    include plugin_dir_path( __FILE__ ) . 'meta_boxes/standort_box.php';
   }
   
-  function basic_info_boxes(){
-    add_meta_box(   'basic_info', // name
-                    __('Basic required data'), //display text 
-                    array($this, 'basic_info_boxes_display_callback'), // call back function  
+  function standort_boxes(){
+    add_meta_box(   'standort', // name
+                    __('Standort: geographische Koordinaten'), //display text 
+                    array($this, 'standort_boxes_display_callback'), // call back function  
                     'post' );
   }
   
-  function save_basic_info_box( $post_id ) {
+  function save_standort_box( $post_id ) {
     if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
     if ( $parent_id = wp_is_post_revision( $post_id ) ) {
         $post_id = $parent_id;
