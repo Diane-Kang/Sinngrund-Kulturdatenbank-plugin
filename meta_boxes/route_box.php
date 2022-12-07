@@ -21,7 +21,7 @@
         ?>
     </div>
     <div id="content_sinn"></div>
-    <a href='#' id='export'> Export route data as geojson </a>
+    <a href='#' id='export'> Koordinaten der Route als GeoJson exportieren </a>
   </div>
 
 </div>

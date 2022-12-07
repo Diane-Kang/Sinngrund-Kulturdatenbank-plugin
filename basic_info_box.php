@@ -38,30 +38,42 @@
 
 <div class="container" style="clear:both;">
   <div id="map" style="width:50%; float:right;"></div>
-  <p>you can write geocordinate directly or get value from Search and as draging the Marker on the Map. To save geocode,
-    post need to be published</p>
-  <br>
+  <p>Es gibt drei Möglichkeiten die genauen geografischen Koordinaten zu ermitteln und zu speichern:</p>
+<ol>
+  <li>
+  Ziehen sie die blaue Markierung auf der Karte auf die gewünschte Position. Klicken sie mehrfach auf das Plus-Symbol, um einen detaillierteren Kartenabschnitt zu sehen. Dadurch können sie die Markierung genauer an die richtige Stelle ziehen.
+  </li>
+  <li>
+    Verwenden sie die Adresssuche.
+  </li>
+  <li>
+    Geben sie die Koordinaten direkt ein.  <br>
+  </li>
+</ol> 
   <div class="metadata_save_here">
-    <b>Breitengrad(latitude)</b><input id="latitude" type="text" name="latitude" size=12
+    <div><b>Breitengrad</b><input id="latitude" type="text" name="latitude" size=12
       value="<?php echo esc_attr( get_post_meta( get_the_ID(), 'latitude', true ) ); ?>">
-    <b>Längengrad(longitude)</b><input id="longitude" type="text" name="longitude" size=12
+    </div>
+    <div>
+    <b>Längengrad</b><input id="longitude" type="text" name="longitude" size=12
       value="<?php echo esc_attr( get_post_meta( get_the_ID(), 'longitude', true ) ); ?>">
+    </div>
   </div>
   <br>
 
-  <h3>Search</h3>
-  <b>Coordinates</b>
+  <h3>Suchen</h3>
+  <b>Koordinaten</b>
   <form>
     <input type="text" name="lat" id="lat" size=12 value="">
     <input type="text" name="lon" id="lon" size=12 value="">
-    <button type="button" onclick="save_geocode_metadata();">use it</button>
+    <button type="button" onclick="save_geocode_metadata();">verwenden</button>
   </form>
   <br>
 
-  <b>Address Lookup</b>
+  <b>Adresssuche</b>
   <div id="search">
     <input type="text" name="addr" value="" id="addr" size="58" />
-    <button type="button" onclick="addr_search();">Search</button>
+    <button type="button" onclick="addr_search();">Suchen</button>
     <div id="results"></div>
   </div>
   <br>
@@ -170,3 +182,6 @@ setTimeout(function() {
   map.invalidateSize();
 }, 1000);
 </script>
+
+
+  

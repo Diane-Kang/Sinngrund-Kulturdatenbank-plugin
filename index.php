@@ -3,7 +3,7 @@
 /*
   Plugin Name: Sinngrund kulturebank plugin 
   Description: Es ist für Sinngrund kulturebank project: last updated at 27.Sep 20:00
-  Version: 7.40 
+  Version: 7.50 
   Author: Page-effect 
   Author-email: info@page-effect.com
 
@@ -32,7 +32,7 @@ class SinngrundKultureBank {
                                               "Gemeinden"                     => "gemeinden", 
                                               "Kulturelle Sehenswürdigkeiten" => "kulturelle",
                                               "Point of Interest"             => "interest", 
-                                              "Sagen + Legenden"              => "sagen",
+                                              "Geschichten + Legenden"        => "sagen",
                                               "Sprache und Dialekt"           => "sprache",
                                               "Thementouren"                  => "route"
                                             );
@@ -491,7 +491,7 @@ class SinngrundKultureBank {
   
   function basic_info_boxes(){
     add_meta_box(   'basic_info', // name
-                    __('Basic required data'), //display text 
+                    __('Pflichtangaben zur genauen Position'), //display text 
                     array($this, 'basic_info_boxes_display_callback'), // call back function  
                     'post' );
   }
