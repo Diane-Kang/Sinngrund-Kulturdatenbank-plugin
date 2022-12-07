@@ -23,13 +23,14 @@
 
             <?php 
         $name = get_the_category()[0]->name;
-        $category_shortname_array = $sinngrundKultureBank->get_category_shortname_array();
+        $category_shortname_array = $sinngrundKulturdatenbank->get_category_shortname_array();
         $category_shortname = $category_shortname_array[$name];
 			  $category_icon = $category_shortname_array[$name].'.svg';
 			  $category_icon_src = '/wp-content/plug	ins/Sinngrund-Kulturdatenbank-plugin/icons/'. $category_icon;
         ?>
             <p><img src="<?php echo $category_icon_src ?>" /><b><?php echo get_the_category()[0]->name; ?></b>
-              <span><?php echo get_the_date(); ?></span> </p>
+              <span><?php echo get_the_date(); ?></span>
+            </p>
           </div>
       <!-- //    <div class="just_checkin">  -->
           <?php
@@ -47,7 +48,7 @@
           $string = 'Eintrag erstellt von ' .  $author . ' am ' . $date . '.';
           echo $string; 
         ?>
-          </p>
+            </p>
           </div>
           <?php
       // echo $sinngrundKultureBank->add_author_in_content(get_the_content()) . 'this';
@@ -59,6 +60,7 @@
     </div>
   </div>
 
-<?php include 'foot.php'; ?>
+  <?php include 'foot.php'; ?>
 </body>
+
 </html>

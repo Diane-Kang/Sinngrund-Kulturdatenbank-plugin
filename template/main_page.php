@@ -11,13 +11,14 @@
     <div class="main_map_block map_block" id="main_page_map"></div>
 
     <div class="main_block main_page_right sidebar" id="side_bar">
-      <div class="scrolldown_wrapper"><a href="#checkboxes" aria-label="scrolldown"><span class="scrolldown icon"></span></a></div>
+      <div class="scrolldown_wrapper"><a href="#checkboxes" aria-label="scrolldown"><span
+            class="scrolldown icon"></span></a></div>
 
       <div id="checkboxes" class="category_filter_section">
         <!--div id checkboxes  -->
         <h2 class="category">Kategorie</h2>
         <?php  
-			$category_shortname_array  = $sinngrundKultureBank->get_category_shortname_array();
+			$category_shortname_array  = $sinngrundKulturdatenbank->get_category_shortname_array();
 
 			foreach ($category_shortname_array as $name => $shortname)  {
 				$category_shortname = $category_shortname_array[$name];
@@ -77,7 +78,7 @@
   </div>
 
   <?php include 'foot.php'; ?>
-  
+
 </body>
 
 
