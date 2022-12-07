@@ -26,10 +26,9 @@ async function main() {
 
 
   const map = L.map("main_page_map", main_map_options);
-  //L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/256/{z}/{x}/{y}?access_token={accessToken}', {
     maxZoom: 18,
-    minZoom: 5,
+    minZoom: 11,
     attribution:
     '© <a target="_blank" href="https://www.mapbox.com/about/maps/">Mapbox</a> | © <a target="_blank" href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> | <a target="_blank" href="https://www.mapbox.com/map-feedback/">Improve this map</a>',
     id:'pondelek/cl9fbuboj000e14o2xcxw3oom',

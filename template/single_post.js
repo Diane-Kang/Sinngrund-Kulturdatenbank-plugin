@@ -31,7 +31,7 @@ async function main() {
   //L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/256/{z}/{x}/{y}?access_token={accessToken}', {
       maxZoom: 18,
-      minZoom: 5,
+      minZoom: 11,
       attribution:
       '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>',
       //id: 'mapbox/streets-v11',
