@@ -9,7 +9,6 @@ wp.data.dispatch( 'core/edit-post').removeEditorPanel( 'page-attributes' ); // p
 wp.data.dispatch( 'core/edit-post').removeEditorPanel( 'discussion-panel' ); // Discussion
 wp.data.dispatch( 'core/edit-post').removeEditorPanel( 'template' ); // Template
 
-
 // jQuery(document).ready(function($){
 //   $("aria-expanded").attr("false");
 // });

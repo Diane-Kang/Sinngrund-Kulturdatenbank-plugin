@@ -70,7 +70,7 @@ class SinngrundKulturdatenbank {
       }
     }, 100);
 
-    add_filter( 'manage_media_columns',                     function( $columns ){$columns['for_gallery'] = 'For gallery?'; return $columns;},10,2);
+    add_filter( 'manage_media_columns', function( $columns ){$columns['for_gallery'] = 'Medien-Gallerie'; return $columns;},10,2);
 
 
     //////------------Amdin Post list columns ----------------//
@@ -157,12 +157,6 @@ class SinngrundKulturdatenbank {
     //////////------------orte taxonomy : nonhierarchical   ----------------//
     add_action( 'init', array($this, 'create_ort_taxonomy')); // for attachemnt and post 
     add_action('save_post', array($this,'save_orte_taxonomy')); // save Ort taxonomy
-
-    // add_action( 'init', array($this, 'create_fotograf_taxonomy')); // for attachemnt
-    // add_action('save_post', array($this,'save_fotografen_taxonomy')); // save Ort taxonomy
-    //add_action('add_meta_boxes', array($this,'add_orte_meta_box')); // for post    
-    //add_action( 'init' , array($this, 'add_orte_tax_to_attachemnt'));
-    //add_action( 'init', array($this, 'change_tax_object_label' )); //post_tags->orte
   
     //////////------------Gutenberg – only allow specific blocks   ----------------//
     add_filter( 'allowed_block_types', array($this, 'gute_whitelist_blocks'));
@@ -226,8 +220,13 @@ class SinngrundKulturdatenbank {
 
     add_shortcode('debugging_help', array($this,'show_this'));
 
-  
-  }////////////////////////////////////////-----------------------------end of contructor 
+
+
+
+
+
+}////////////////////////////////////////-----------------------------end of contructor 
+
 
   function update_media_content(){
       $myid = $_GET['post'];
@@ -366,6 +365,7 @@ class SinngrundKulturdatenbank {
   }
   function toast_resizable_sidebar(){ ?>
 <style>
+
 .interface-interface-skeleton__sidebar .interface-complementary-area {
   width: 100%;
 }
@@ -606,7 +606,7 @@ class SinngrundKulturdatenbank {
     $allowed_roles = array('editor', 'administrator');
    // if( array_intersect($allowed_roles, $user->roles )){ 
       add_meta_box(   'media_for_gallery_box', // name
-                      __('For Gallery?'), //display text 
+                      __('Medien-Gallerie'), //display text 
                       array($this, 'media_for_gallery_box_display_callback'), // call back function  
                       'attachment',
                       'side',         // Context
@@ -688,15 +688,15 @@ class SinngrundKulturdatenbank {
     $labels = array(
       'name' => _x( 'Orte', 'taxonomy general name' ),
       'singular_name' => _x( 'Ort', 'taxonomy singular name' ),
-      'search_items' =>  __( 'Search Orte' ),
-      'all_items' => __( 'All Orte' ),
-      'parent_item' => __( 'Parent Ort' ),
-      'parent_item_colon' => __( 'Parent Ort:' ),
-      'edit_item' => __( 'Edit Ort' ), 
-      'update_item' => __( 'Update Ort' ),
-      'add_new_item' => __( 'Add New Ort' ),
-      'new_item_name' => __( 'New Ort Name' ),
-      'menu_name' => __( 'Orte' ),
+      'search_items' =>  __( 'Such nach Kommunen' ),
+      'all_items' => __( 'Alle Kommunen' ),
+      'parent_item' => __( 'Eltern Kommunen' ),
+      'parent_item_colon' => __( 'Eltern Kommunen' ),
+      'edit_item' => __( 'Ändern Kommunen' ), 
+      'update_item' => __( ' Aktualisieren Kommunen' ),
+      'add_new_item' => __( 'hinzu ein neu Kommunen' ),
+      'new_item_name' => __( 'Neue Kommunen Name' ),
+      'menu_name' => __( 'Kommunen' ),
     );    
    
 
