@@ -180,6 +180,7 @@ class SinngrundKulturdatenbank {
     //////-------------- Leaflet map dependecies---------------------//
     add_action( 'wp_enqueue_scripts', array($this,'leaflet_dependency'), 20, 1 );
     // add_action( 'wp_enqueue_scripts', array($this,'mapbox_dependency'), 20, 1 );
+    
     //////-------------- Cookie setting---------------------// 
     add_action('init',  function(){
                            $date = new DateTime("now", new DateTimeZone('Europe/Berlin') );
@@ -472,7 +473,7 @@ class SinngrundKulturdatenbank {
 
   function metabox_javascript($hook_suffix){
     global $post_type;
-    // only call the function at admin post-type:post edit page 
+    // only call the function for adding coorodinates in Backend, when editing posts
     if( 'post.php' == $hook_suffix || 'post-new.php' == $hook_suffix ) {
       if($post_type == 'post'){
       wp_enqueue_script( 'map-in-box-js',                        plugin_dir_url( __FILE__ ) . 'meta_boxes/map_in_box.js', array(), false, true );
@@ -498,10 +499,14 @@ class SinngrundKulturdatenbank {
   }
   
   function save_standort_box( $post_id ) {
+    //don't autosave lat/long
     if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+    
     if ( $parent_id = wp_is_post_revision( $post_id ) ) {
         $post_id = $parent_id;
     }
+
+    // show at/long in form if already exists (when editing existing post)
     $fields = [
         'latitude',
         'longitude',
