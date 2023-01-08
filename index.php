@@ -3,7 +3,7 @@
 /*
   Plugin Name: Sinngrund kulturebank plugin 
   Description: Es ist für Sinngrund kulturebank project: last updated at 27.Sep 20:00
-  Version: 7.50 
+  Version: 8.50 
   Author: Page-effect 
   Author-email: info@page-effect.com
 
