@@ -9,6 +9,9 @@
 
 <head>
   <meta charset="<?php bloginfo( 'charset' ); ?>">
+  <div class="<?php echo  (isset($_COOKIE['KDB_visitor_visit_time']) || is_user_logged_in() ) ? 'hide_info': NULL; ?>">
+
+  </div>
 <!--  <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
   <?php wp_head(); ?>
 

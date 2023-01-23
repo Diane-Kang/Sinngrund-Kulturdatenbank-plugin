@@ -3,7 +3,7 @@
 <?php include 'head.php'; ?>
 
 <body
-  class="kulturdatenbank <?php echo  (isset($_COOKIE['KDB_visitor_visit_time']) || is_user_logged_in() ) ? 'hide_info': NULL; ?>">
+  class="kulturdatenbank">
   <div class="main_block main_page_left side_wrapper">
     <?php include 'nav_header.php'; ?>
     <?php include 'nav_footer.php'; ?>

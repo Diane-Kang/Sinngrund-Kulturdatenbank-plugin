@@ -2,8 +2,6 @@
 <?php if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly   ?>
 <?php include 'head.php'; ?>
 
-<!-- <body <?php body_class(); ?> class="kulturdatenbank"> -->
-
 <body
   class="kulturdatenbank <?php echo get_the_category()[0]->slug; ?> <?php echo  (isset($_COOKIE['KDB_visitor_visit_time']) || is_user_logged_in() ) ? 'hide_info': NULL; ?>">
   <div id="current_post_id" value="<?php echo get_the_ID(); ?>"></div>
