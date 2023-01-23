@@ -41,6 +41,7 @@ body.login .popup.info {
   grid-row: 2/3;
   align-items: stretch;
   max-height: 100%;
+  margin: 0;
 }
 
 body.login .content_wrapper {

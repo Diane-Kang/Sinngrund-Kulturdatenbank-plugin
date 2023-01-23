@@ -135,6 +135,43 @@ h1 {
 /* body.hide_info .popup.info {
   display: none;
 } */
+/* .popup.info{
+  margin:10%;
+} */
+
+/* */
+  .popup_wrapper #d-close-button{
+  margin:0;
+  padding:0;
+  width: 32px;
+  height:32px;
+  
+  position: absolute;
+  top: 0; 
+  right: 0;
+  transform: translate(30%,-30%);
+
+  background-color: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 5px 1px var(--l_grey);
+  z-index: 9;
+
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  }
+
+.popup_wrapper #d-close-button:hover,
+.popup_wrapper #d-close-button:active{
+  background-color: #808080;
+}
+
+.popup_wrapper #d-close-button .close_x_mark{
+  height: 50%;
+  width:  50%;
+  background-image: url("/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/close-black.svg");
+}
+
 
 .popup_wrapper.hide_info{
   display: none;
@@ -155,12 +192,11 @@ h1 {
 
 
 .popup.info {
-  left: 0;
-  top: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
+  max-width: 1200px;
+  background-color: #fff;
+  display: block;
+  position: relative;
+  margin: 5%;
 }
 
 .content_wrapper {
@@ -168,12 +204,12 @@ h1 {
   background-color: #fff;
   display: block;
   position: static;
-  max-height: 95vh;
+  max-height: 90vh;
   overflow-y: auto;
   overflow-x: hidden;
 }
 
-.close_wrapper {
+/* .close_wrapper {
   max-width: 1200px;
   margin: 0 auto;
   height: 60px;
@@ -181,7 +217,7 @@ h1 {
   z-index: 9999;
   width: 100%;
   position: absolute;
-}
+} */
 
 .slide {
   align-content: center;
@@ -206,9 +242,9 @@ h1 {
   margin-top: 40px;
 }
 
-.popup.info .close.text_button.button {
+/* .popup.info .close.text_button.button {
   margin: 0;
-}
+} */
 
 .popup.info .prev  {
 padding: 15px 15px 15px 30px;
@@ -455,11 +491,11 @@ max-width: 300px;
 
 /* Media Querries */
 @media screen and (max-width: 1280px) {
-  .popup.info .content_wrapper {
+  /* .popup.info .content_wrapper {
     margin: 5%;
     width: 90%;
     max-height: 90vh;
-  }
+  } */
 
   .popup.info .slide.two img, .popup.info .slide.three img, .popup.info .slide.four img {
     max-width: 100%;
@@ -525,15 +561,15 @@ grid-column: 1/2;
     padding: 0;
   }
 
-  .close_wrapper {
+  /* .close_wrapper {
     height: 0;
-  }
-
+  } */
+/* 
   .popup.info .content_wrapper {
     margin: 5%;
     width: 90%;
     max-height: 90vh;
-  }
+  } */
 
   .slide.show {
     display: block;
@@ -631,10 +667,10 @@ grid-column: 1/2;
     font-size: 26px;
   }
 
-  .popup.info .mobile.close.close_icon {
+  /* .popup.info .mobile.close.close_icon {
     top: 5px;
     right: 5px;
-  }
+  } */
 
   .slide.show {
     padding-left: 10px;

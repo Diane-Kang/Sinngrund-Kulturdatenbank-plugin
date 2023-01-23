@@ -1,14 +1,12 @@
 <?php if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly   ?>
 <div class = "popup_wrapper <?php echo  (isset($_COOKIE['KDB_visitor_visit_time']) || is_user_logged_in() ) ? 'hide_info': NULL; ?>" > 
     <div class="popup info " id="geeting_info_popup">
-        <button class="mobile close close_icon" aria-label="Close"></button>
+        <!-- <button class="mobile close close_icon" aria-label="Close"></button> -->
         <div class="content_wrapper">
-            <div class="close_wrapper">
+            <!-- <div class="close_wrapper">
                 <button class="desktop close close_icon" aria-label="Close"></button>
-            </div>
-
+            </div> -->
             <div class="slide one show">
-                
                 <div class="left">
                     <h2><span class="d_blue">Willkommen in der</span><span class="l_blue">Kulturdatenbank Sinngrund</span>
                     </h2>
@@ -28,20 +26,19 @@
 
                 <div class="right">
                     <div class="wappen_wrapper">
-                    <div class="wappen">
-                        <img src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/assets/Wappen_von_Fellen.svg"
-                            alt="Gemeinde Fellen Wappen">
-                        <p>Gemeinde Fellen</p>
+                        <div class="wappen">
+                            <img src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/assets/Wappen_von_Fellen.svg"
+                                alt="Gemeinde Fellen Wappen">
+                            <p>Gemeinde Fellen</p>
 
-                    </div>
-                    <div class="wappen">
-                        <img src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/assets/SA_logo_vollton_blau.svg"
-                            alt="Sinngrundallianz Logo">
-                        <p>Gefördert durch das Regionalbudget 2022 der Sinngrundallianz mit Geldern des Amtes für ländliche Entwicklung Unterfranken.</p>
+                        </div>
+                        <div class="wappen">
+                            <img src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/assets/SA_logo_vollton_blau.svg"
+                                alt="Sinngrundallianz Logo">
+                            <p>Gefördert durch das Regionalbudget 2022 der Sinngrundallianz mit Geldern des Amtes für ländliche Entwicklung Unterfranken.</p>
 
+                        </div>
                     </div>
-                    </div>
-
                     <button class="close text_button button" aria-label="Close">Zur Datenbank</button>
                 </div>
             </div>
@@ -92,8 +89,11 @@
                     <button class="close" aria-label="Schließen">Schließen</button>
                 </div>
             </div>
-            </div>
         </div>
+        <div class="close d-button" id="d-close-button">
+            <div class="close_x_mark"></div>
+        </div>
+        <!-- <button class="close button close_icon" id="d-close-button"></button> -->
     </div>
 </div>
 <?php wp_footer(  ); ?>

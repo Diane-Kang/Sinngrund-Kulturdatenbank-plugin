@@ -45,18 +45,25 @@ width: 40px;
 height: 40px;
 }
 
-  .content_wrapper .close.close_icon,
-  .mobile.close.close_icon {
-    right: -7.5px;
-    top: -7.5px;
-    position: relative;
-    border: none;
-    padding: 7.5px;
-    border-radius: 50px;
-    box-shadow: 0 0 5px 1px var(--l_grey);
-    margin: 0;
-    float: right;
-  }
+.content_wrapper .close.close_icon,
+.mobile.close.close_icon {
+  /* right: -7.5px;
+  top: -7.5px;
+  position: relative;*/
+  border: none;
+  padding: 7.5px;
+  border-radius: 50px;
+  box-shadow: 0 0 5px 1px var(--l_grey);
+  margin: 0;
+  /* float: right; */
+
+  display: inline-block;
+  right: 3%;
+  top: 3%;
+  margin: 0;
+  position: fixed;
+  z-index: 99999;
+}
 
   .close_icon::before {
     width: 18px;
@@ -172,24 +179,24 @@ opacity: 1;
 @media screen and (max-width: 980px) {
 
   .kulturdatenbank .post_content {
-position: relative;
-  }
+    position: relative;
+      }
 
   .kulturdatenbank .post_content .close,
   .kulturdatenbank .post_content .close_icon {
-position: absolute;
-top: 0;
-bottom: auto;
-  }
+    position: absolute;
+    top: 0;
+    bottom: auto;
+      }
 
   .post_content .close_icon::before  {
    left:0
   }
 
-/* Weclome Popup < 980px */
-.desktop.close.close_icon {
-  display: none;
-  }
+  /* Weclome Popup < 980px */
+  .desktop.close.close_icon {
+    display: none;
+    }
 
   .mobile.close.close_icon {
     display: inline-block;
