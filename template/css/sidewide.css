@@ -132,15 +132,8 @@ h1 {
 }
 
 
-/* body.hide_info .popup.info {
-  display: none;
-} */
-/* .popup.info{
-  margin:10%;
-} */
-
-/* */
-  .popup_wrapper #d-close-button{
+/* Postioning close button */
+.popup_wrapper #d-close-button{
   margin:0;
   padding:0;
   width: 32px;
@@ -159,7 +152,7 @@ h1 {
   display:flex;
   justify-content: center;
   align-items: center;
-  }
+}
 
 .popup_wrapper #d-close-button:hover,
 .popup_wrapper #d-close-button:active{
