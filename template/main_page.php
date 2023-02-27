@@ -6,7 +6,6 @@
   class="kulturdatenbank">
   <div class="main_block main_page_left side_wrapper">
     <?php include 'nav_header.php'; ?>
-    <?php include 'nav_footer.php'; ?>
 
     <div class="main_map_block map_block" id="main_page_map"></div>
 
@@ -74,6 +73,7 @@
 
         // echo $string;
         ?>
+      <?php include 'nav_footer.php'; ?>
     </div>
   </div>
 

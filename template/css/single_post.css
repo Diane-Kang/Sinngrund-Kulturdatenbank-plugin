@@ -1,6 +1,6 @@
-/* Basic Side Grid Default Media */
-.side_wrapper {
-  grid-template-columns: 45% 55%;
+/* Side Beitrag Groß */
+.single_post .side_wrapper {
+  grid-template-columns: 40% 60%;
 }
 
 .sidebar {
@@ -26,13 +26,24 @@
 }
 
 /*Header nav Default Media */
-.menu.top li:nth-child(2) {
-  left: 25%;
+.single_post .menu.top{
+  position: unset;
+  width:100%;
+}
+.single_post .menu.top ul{
+  margin: 0;
+  padding: 15px;
+  display:grid;
+  grid-template-columns: auto 110px min-content;
+}
+.single_post .menu.top li{
+  position: unset;
 }
 
-.menu.top li:nth-child(3) {
-  left: 32%;
-}
+/* .single_post.kulturdatenbank .leaflet-container .leaflet-control-attribution{
+  margin: 0 auto 0 15px;
+  padding-left: 0;
+} */
 
 /*Map Popup Default Media */
 
@@ -69,11 +80,13 @@ text-shadow: 0px 0px 2px #fff;
 color: var(--d_text);
 }
 
+
+
+
+/* content header Default Media */
 p {
   font-size: 22px;
 }
-
-/* content header Default Media */
 .entry_category b {
   padding: 0 7.5px;
   font-weight: 500;
@@ -224,14 +237,13 @@ font-size: 32px;
 }
 
 .content_footer {
-  padding-top: 60px;
   margin-top: 60px;
   border-top: 2px dashed var(--l_grey);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  align-content: center;
   padding-bottom: 150px;
+}
+
+.content_footer .content_footer_text{
+  text-align: right;
 }
 
 .content_footer .button {
@@ -259,6 +271,10 @@ font-size: 32px;
 .content_footer p {
   font-size: 17px;
 }
+
+
+
+
 
 /* Media Querries */
 
@@ -288,6 +304,22 @@ font-size: 32px;
   grid-row: 2/3;
   font-size: 18px;
 }
+}
+
+@media screen and (max-width: 1350px) {
+  .single_post .menu.top ul{
+    grid-template-columns: auto min-content;
+  }
+  .single_post .menu.top li:nth-child(1){
+    grid-row:1/3;
+  }
+  .single_post .menu.top li:nth-child(3){
+    grid-row:2/3;
+  }
+  .single_post.kulturdatenbank .leaflet-container .leaflet-control-attribution {
+    max-width: 70%;
+  }
+
 }
 
 @media screen and (max-width: 980px) {
@@ -345,6 +377,10 @@ display: none;
     display: block;
     min-width: 188px;
     max-width: 188px;
+  }
+
+  .single_post.kulturdatenbank .leaflet-container .leaflet-control-attribution {
+    max-width: unset;
   }
 }
 
