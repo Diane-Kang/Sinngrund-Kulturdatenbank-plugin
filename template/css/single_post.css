@@ -272,7 +272,9 @@ font-size: 32px;
   font-size: 17px;
 }
 
-
+.single_post .legal {
+  box-shadow: none;
+}
 
 
 

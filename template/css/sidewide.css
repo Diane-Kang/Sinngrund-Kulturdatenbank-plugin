@@ -424,11 +424,16 @@ padding-right: 0.3em;
 
 
 /* Footer Nav */
+.legal{
+  box-shadow: inset 0px -1px 1px 1px var(--l_grey);
+  padding: 5px 0px;
+}
+
 .legal ul {
   display: flex;
-  margin: 0;
   padding: 0;
-  background-color: rgba(128, 128, 128, 0.2);
+  margin: 0;
+  justify-content: flex-end;
 }
 
 .legal li {
@@ -642,9 +647,6 @@ grid-column: 1/2;
   .popup.info .slide.two span, .popup.info .slide.three span, .popup.info .slide.four span {
     padding-top: 0;
   }
-
-
-
 }
 
 @media screen and (max-width: 730px) {
