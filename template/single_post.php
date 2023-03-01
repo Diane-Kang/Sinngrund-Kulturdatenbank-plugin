@@ -46,6 +46,7 @@
           <a href="whatsapp://send?text=Ein Beitrag aus der Kulturdatenbank Sinngrund, den ich teilen möchte: <?php echo get_permalink() ?>" class="button share mobile">Eintrag teilen per WhatsApp</a>
           <a href="mailto:?subject=Eintrag der Kulturdatenbank Sinngrund&amp;body=Ein Beitrag aus der Kulturdatenbank Sinngrund, den ich teilen möchte: <?php echo get_permalink() ?>" class="button share desktop">Eintrag teilen per Email</a>
           </div>
+          <?php echo do_shortcode('[gravityform id="4" title="true"]'); ?>
           <?php include 'nav_footer.php'; ?>
           <?php
       // echo $sinngrundKultureBank->add_author_in_content(get_the_content()) . 'this';
