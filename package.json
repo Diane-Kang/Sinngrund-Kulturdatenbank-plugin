@@ -19,6 +19,10 @@
     "url": "https://github.com/Dinae-Kang/Sinngrund-Kulturdatenbank-plugin/issues"
   },
   "homepage": "https://github.com/Dinae-Kang/Sinngrund-Kulturdatenbank-plugin#readme",
+  "devDependencies": {
+    "@wordpress/icons": "^7.0.1",
+    "@wordpress/scripts": "*"
+  },
   "dependencies": {
     "leaflet": "^1.9.3",
     "leaflet-draw": "^1.0.4",
