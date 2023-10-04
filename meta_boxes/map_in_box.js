@@ -1,8 +1,8 @@
 // Metabox map initialize 
 function map_init(div_id){
   // Sinngrund
-  let startlat = 50.17203438669854;
-  let startlon = 9.639869965557914;
+  let startlat = 50.29828572148673;
+  let startlon = 10.469412458081942;
 
   let options = {
   center: [startlat, startlon],
