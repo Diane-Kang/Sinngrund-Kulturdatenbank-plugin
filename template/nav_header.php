@@ -3,7 +3,7 @@
 <nav class="menu top">
   <ul>
     <li><a class="logo" href="/">
-        <h1 class="logo"><span class="d_blue">Kulturdatenbank</span><span class="l_blue">Sinngrund</span></h1>
+        <h1 class="logo"><span class="d_blue">ILEK</span><span class="l_blue">Karten App</span></h1>
       </a></li>
     <li><a class="info" href="#">
         <svg width="25px" height="25px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +27,7 @@
         </svg>
         Info
       </a></li>
-    <li>
+   <!--  <li>
       <a class="medien" href="/mediendatenbank">
         <svg width="25px" height="25px" viewBox="0 0 18 16" version="1.1" xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -47,6 +47,6 @@
         </svg>
         Medien
       </a>
-    </li>
+    </li> -->
   </ul>
 </nav>
