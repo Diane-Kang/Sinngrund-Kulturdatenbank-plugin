@@ -433,13 +433,13 @@ class SinngrundKulturdatenbank {
       wp_enqueue_style( 'single-post-css',                    plugin_dir_url( __FILE__ ) . 'template/css/single_post.css' , array(), false, false);
     }
 
-      //if is gallery
+   /*    //if is gallery
     if (is_page('gallery')){
       wp_enqueue_script( 'gallery-js',                  plugin_dir_url( __FILE__ ) . 'template/gallery_page.js', array('jquery'), false, true);
       //wp_enqueue_script( 'kdb-lightbox-js',                  plugin_dir_url( __FILE__ ) . 'template/lightbox.js', array('gallery-js', 'leaflet-draw-js'), false, false);
       wp_enqueue_style( 'gallery-css',                    plugin_dir_url( __FILE__ ) . 'template/css/gallery.css' , array(), false, false);
       wp_enqueue_style( 'lightbox_css',                    plugin_dir_url( __FILE__ ) . 'template/css/has_lightbox.css', false, false);
-    }
+    } */
 
   }
 

@@ -8,24 +8,19 @@
             </div> -->
             <div class="slide one show">
                 <div class="left">
-                    <h2><span class="d_blue">Willkommen in der</span><span class="l_blue">Kulturdatenbank Sinngrund</span>
+                    <h2><span class="d_blue">Willkommen in der</span><span class="l_blue">ILEK Map App</span>
                     </h2>
                     <p>
-                        Hier sammeln und kartografieren wir den kulturellen Schatz
-                        dieser Region. Sie möchten etwas beitragen und Ihr Wissen mit
-                        anderen teilen? <a href="mailto:info@kultur-datenbank-sinngrund.de">Kontaktieren Sie uns.</a>
+                    Die ILEK Map App ist eine konfigurierbare Kartenanwendung mit Datenbank und grafischer Bedienoberfläche basierend auf Wordpress. Es handelt sich um einen ersten Prototypen in der Testphase.</p>
+                    <p> <a href="mailto:info@page-effect.com">Kontakt</a>
                     </p>
-                    <p>
-                        Wenn Sie diese Seite zum ersten Mal besuchen, sehen Sie sich
-                        einfach die kurze Einführung in die Kulturdatenbank an:
-                    </p>
-                    <button class="einfuehrung next">Einführung ansehen</button>
-                    <a class="mitmachen button" target="_blank" href="<?php echo site_url("zugang") ?>">Mitmachen</a>
+                   
+                    <a class="mitmachen button" target="_blank" href="<?php echo site_url("zugang") ?>">Daten bearbeiten</a>
                 </div>
 
 
                 <div class="right">
-                    <div class="wappen_wrapper">
+                    <!-- <div class="wappen_wrapper">
                         <div class="wappen">
                             <img src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/assets/Wappen_von_Fellen.svg"
                                 alt="Gemeinde Fellen Wappen">
@@ -35,14 +30,13 @@
                         <div class="wappen">
                             <img src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/assets/SA_logo_vollton_blau.svg"
                                 alt="Sinngrundallianz Logo">
-                            <p>Gefördert durch das Regionalbudget 2022 der Sinngrundallianz mit Geldern des Amtes für ländliche Entwicklung Unterfranken.</p>
 
                         </div>
-                    </div>
-                    <button class="close text_button button" aria-label="Close">Zur Datenbank</button>
+                    </div> -->
+                    <button class="close text_button button" aria-label="Close">Zur Karte</button>
                 </div>
             </div>
-            <div class="slide two">
+            <!-- <div class="slide two">
 
                 <h2><span class="d_blue">So funktioniert die </span><span class="l_blue">Kulturdatenbank Sinngrund
                         (1/3)</span>
@@ -88,7 +82,7 @@
                     <a class="mitmachen button" target="_blank" href="<?php echo site_url("zugang") ?>">Mitmachen</a>
                     <button class="close" aria-label="Schließen">Schließen</button>
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="close d-button" id="d-close-button">
             <div class="close_x_mark"></div>

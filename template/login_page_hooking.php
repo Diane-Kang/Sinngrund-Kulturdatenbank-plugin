@@ -9,15 +9,14 @@
             
             <div class="left">
                 <h2><span class="d_blue">Wir freuen uns auf</span><span class="l_blue">Ihre Mithilfe</span></h2>
-                <p>Diese Datenbank lebt von geteiltem Wissen. Nur durch die Zusammenarbeit vieler kann ein umfassendes Bild der Kulturlandschaft Sinngrund entstehen.</p>
-                <p>Wenn Sie mit Ihrem Wissen dazu beitragen möchten, kontaktieren Sie uns gerne, idealerweise per E-Mail oder – zu unseren Geschäftszeiten – telefonisch.</p>
+                <p>Wenn Sie Fragen haben, kontaktieren Sie uns gerne, idealerweise per E-Mail oder – zu unseren Geschäftszeiten – telefonisch.</p>
                 
                 <div class="kontakt">
-                   <p>Sinngrundallianz</p>
-                    <p><a href="mailto:info@kultur-datenbank-sinngrund.de">info@kultur-datenbank-sinngrund.de</a></p>
+                   <p>Toponeo</p>
+                    <p><a href="mailto:info@toponeo.de">info@toponeo.de</a></p>
                     <p>Tel.: 09356 9839982</p>
                 </div>
-                <button class="close text_button button" aria-label="Close"><a href="/">Zur Datenbank</a></button>
+                <button class="close text_button button" aria-label="Close"><a href="/">Zur Karte</a></button>
                 <?php include 'nav_footer.php'; ?>
                 </div>
                
