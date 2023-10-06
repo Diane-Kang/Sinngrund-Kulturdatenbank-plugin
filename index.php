@@ -43,7 +43,7 @@ class SinngrundKulturdatenbank {
   // Avoid a post with unknown category 
   function post_valid_check($category_name, $lati, $longi){
     $valid_category = (array_key_exists($category_name, $this->category_shortname_array) )? 1 : 0 ;
-    $valid_geocode = ( (50.00 < $lati &&  $lati < 52.00) && (9.5 < $longi && $longi < 9.8))? 1 :0 ;
+    $valid_geocode = ( (30 < $lati &&  $lati < 65) && (-15 < $longi && $longi < 45))? 1 :0 ;
     return $valid_category * $valid_geocode;
   }
 
@@ -920,7 +920,7 @@ class SinngrundKulturdatenbank {
             if($this->post_valid_check($category_name , $lati, $longi)){
               echo "O";
             }
-            else echo "X: Error mit Geocode oder/and Kategory";
+            else echo "X: Geocode befindet sich nicht in Europa oder/and  Error in Kategory";
             break;
         case 'route' :
             $array = get_post_meta( get_the_ID(), $key = "route");

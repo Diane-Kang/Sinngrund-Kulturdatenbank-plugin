@@ -93,14 +93,26 @@ let saved_longi = document.getElementById("longitude").value;
 let saved_lati = document.getElementById("latitude").value;
 var startlon;
 var startlat;
-if ((50.15 < saved_lati && saved_lati < 50.21) && (9.54 < saved_longi && saved_longi < 9.69)) {
-  startlon = saved_longi;
-  startlat = saved_lati;
+
+if (saved_longi.length == 0) {
+  startlat = 50.30195210;
+startlon = 10.46935490;
 } else {
-  console.log("here");
-  startlat = 50.17203438669854;
-  startlon = 9.639869965557914;
+  startlon = saved_longi;
+ startlat = saved_lati;
 }
+
+
+
+
+// if ((50.15 < saved_lati && saved_lati < 50.21) && (9.54 < saved_longi && saved_longi < 9.69)) {
+ // startlon = saved_longi;
+ // startlat = saved_lati;
+// } else {
+//   console.log("here");
+//   startlat = 50.17203438669854;
+//   startlon = 9.639869965557914;
+// }
 
 var options = {
   center: [startlat, startlon],
