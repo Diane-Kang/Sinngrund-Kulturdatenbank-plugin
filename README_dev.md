@@ -1,17 +1,17 @@
-# Absicht 
+# Absicht
 
-Map Applikation für https://kultur-datenbank-sinngrund.de/
+Map Applikation für https://kulturdatenbank-sinngrund.de/
 
-Unterprojekte SinngrundAllianz 
-
+Unterprojekte SinngrundAllianz
 
 # Übersicht
 
 ## Notwendig Daten für Markers
 
-### Post /Beitrag  **Kategorie** 
+### Post /Beitrag **Kategorie**
 
- **Muss** einen von folgendes gewählt werden 
+**Muss** einen von folgendes gewählt werden
+
 - Kulturelle Sehenswürdigkeiten
 - Brauchtum und Veranstaltungen
 - Gemeinden
@@ -20,8 +20,8 @@ Unterprojekte SinngrundAllianz
 - Sprache und Dialekt
 - Thementouren
 
-
 ---
+
 Alle Map, Filter, Marker logic beginnt hier
 
 @index.php: `private $category_shortname_array`
@@ -33,6 +33,5 @@ Alle Map, Filter, Marker logic beginnt hier
 Post wird beim funktion `post_valid_check` checkt
 
 ---
-
 
 ### Post /Beitrag **Standort: geografische Daten**

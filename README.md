@@ -1,23 +1,25 @@
-# Absicht 
+# Absicht
 
-Map Applikation für https://kultur-datenbank-sinngrund.de/
+Map Applikation für https://kulturdatenbank-sinngrund.de/
 
-Unterprojekte SinngrundAllianz 
-
+Unterprojekte SinngrundAllianz
 
 # Übersicht
 
-## Post /Beitrag 
+## Post /Beitrag
 
-### **Title** 
+### **Title**
 
-### Content 
-- Text formulieren 
+### Content
+
+- Text formulieren
 - Bild hinzufügen (Erst Mediatek hochgeladen wird)
 - Für Beitragseite
 
 ### **Kategorie**
-**Muss** einen von folgendes gewählt werden 
+
+**Muss** einen von folgendes gewählt werden
+
 - Kulturelle Sehenswürdigkeiten
 - Brauchtum und Veranstaltungen
 - Gemeinden
@@ -26,7 +28,8 @@ Unterprojekte SinngrundAllianz
 - Sprache und Dialekt
 - Thementouren
 
-### Orte 
+### Orte
+
 kein oder meherere Orte gewählt werden
 
 Aura
@@ -37,17 +40,20 @@ Obersinn
 Rieneck
 
 ### **Standort: geografische Daten**
+
 **Grunbox muss gefühlt werden.**
 
 ### Route
+
 Extra Funtion für Kategorie:Thementouren
 Es wird nur von Administrator behadelt.
 
-### Beitragbild 
-- Nicht für Beitragseite
-- Es wird im Popup-Inhalt auf die Karte augtaucht  
+### Beitragbild
 
-### Textauszug 
 - Nicht für Beitragseite
-- Es wird im Popup-Inhalt auf die Karte augtaucht 
+- Es wird im Popup-Inhalt auf die Karte augtaucht
 
+### Textauszug
+
+- Nicht für Beitragseite
+- Es wird im Popup-Inhalt auf die Karte augtaucht
