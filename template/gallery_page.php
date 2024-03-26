@@ -86,8 +86,6 @@ if ($images) {
   </div>
   <?php include 'nav_footer.php'; ?>
 
-
-<?php wp_footer(  ); ?>
-
+  <?php include 'foot.php'; ?>
 </body>
 </html>

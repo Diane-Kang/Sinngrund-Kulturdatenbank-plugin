@@ -1,4 +1,5 @@
-<?php if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly   ?>
+<?php if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly ?>
+
 <div class="legal">
   <nav class="footer_nav">
     <ul>

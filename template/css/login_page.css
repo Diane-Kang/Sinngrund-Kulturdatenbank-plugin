@@ -41,6 +41,7 @@ body.login .popup.info {
   grid-row: 2/3;
   align-items: stretch;
   max-height: 100%;
+  margin: 0;
 }
 
 body.login .content_wrapper {
@@ -108,9 +109,10 @@ body.login button:active a{
 }
 
 
-.legal {
+body.login .legal {
   padding: 80px 0 0 0;
   box-sizing: border-box;
+  box-shadow: none;
 }
 
 body.login .legal ul {

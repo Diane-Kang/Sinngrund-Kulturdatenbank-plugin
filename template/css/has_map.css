@@ -44,7 +44,7 @@ line-height: 40px;
 }
 
 .kulturdatenbank .leaflet-container .leaflet-control-attribution {
-margin: 0 auto 0 275px;
+margin: 0 auto 0 15px;
 background-color: rgba(255, 255, 255, 0);
 right: auto;
 left: 0;
@@ -127,12 +127,7 @@ body,
   box-sizing: border-box;
 }
 
-.legal {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  z-index: 999;
-}
+
 
 /* Header Nav Default Media */
 
@@ -273,13 +268,13 @@ body,
  background-image: url(/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/right-svgrepo-com.svg);
 }
 
-.legal .footer_nav ul {
+/* .legal .footer_nav ul {
   background-color: rgba(255, 255, 255, 0);
 }
 
 .legal .footer_nav li {
   padding: 5px 15px;
-}
+} */
 
 /*Sidebar Default Media*/
 
@@ -328,13 +323,13 @@ body,
     padding-left: 0;
   }
 
-  .kulturdatenbank .legal li {
+  /* .kulturdatenbank .legal li {
     padding: 5px 15px 30px 15px;
   }
-  
-  .kulturdatenbank .legal li {
-    padding: 5px 15px 30px 15px;
-  }
+   */
+  /* .kulturdatenbank .legal li {
+    padding: 15px;
+  } */
 }
 
 /* Media Querries */
