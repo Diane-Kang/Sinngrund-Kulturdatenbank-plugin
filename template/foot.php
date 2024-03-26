@@ -1,4 +1,5 @@
-<?php if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly   ?>
+<?php if (!defined('ABSPATH'))
+    exit; // Exit if accessed directly    ?>
 
 <div class="popup info" id="geeting_info_popup">
     <button class="mobile close close_icon" aria-label="Close"></button>
@@ -8,14 +9,14 @@
         </div>
 
         <div class="slide one show">
-            
+
             <div class="left">
                 <h2><span class="d_blue">Willkommen in der</span><span class="l_blue">Kulturdatenbank Sinngrund</span>
                 </h2>
                 <p>
                     Hier sammeln und kartografieren wir den kulturellen Schatz
                     dieser Region. Sie möchten etwas beitragen und Ihr Wissen mit
-                    anderen teilen? <a href="mailto:info@kultur-datenbank-sinngrund.de">Kontaktieren Sie uns.</a>
+                    anderen teilen? <a href="mailto:info@kulturdatenbank-sinngrund.de">Kontaktieren Sie uns.</a>
                 </p>
                 <p>
                     Wenn Sie diese Seite zum ersten Mal besuchen, sehen Sie sich
@@ -28,18 +29,19 @@
 
             <div class="right">
                 <div class="wappen_wrapper">
-                <div class="wappen">
-                    <img src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/assets/Wappen_von_Fellen.svg"
-                        alt="Gemeinde Fellen Wappen">
-                    <p>Gemeinde Fellen</p>
+                    <div class="wappen">
+                        <img src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/assets/Wappen_von_Fellen.svg"
+                            alt="Gemeinde Fellen Wappen">
+                        <p>Gemeinde Fellen</p>
 
-                </div>
-                <div class="wappen">
-                    <img src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/assets/SA_logo_vollton_blau.svg"
-                        alt="Sinngrundallianz Logo">
-                    <p>Gefördert durch das Regionalbudget 2022 der Sinngrundallianz mit Geldern des Amtes für ländliche Entwicklung Unterfranken.</p>
+                    </div>
+                    <div class="wappen">
+                        <img src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/assets/SA_logo_vollton_blau.svg"
+                            alt="Sinngrundallianz Logo">
+                        <p>Gefördert durch das Regionalbudget 2022 der Sinngrundallianz mit Geldern des Amtes für
+                            ländliche Entwicklung Unterfranken.</p>
 
-                </div>
+                    </div>
                 </div>
 
                 <button class="close text_button button" aria-label="Close">Zur Datenbank</button>
@@ -53,7 +55,9 @@
             <img src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/assets/screen111.png"
                 alt="Screenshot zur Bedienung der Datenbank: Übersichtsseite">
             <p>
-            Jedes Symbol auf der Karte steht für einen Eintrag in der Kulturdatenbank. Die unterschiedlichen Symbole stehen für verschiedene Kategorien, z.B. Wanderwege oder Sehenswürdigkeiten. Klicken Sie auf ein Symbol, um zum entsprechenden Detailartikel zu kommen.
+                Jedes Symbol auf der Karte steht für einen Eintrag in der Kulturdatenbank. Die unterschiedlichen Symbole
+                stehen für verschiedene Kategorien, z.B. Wanderwege oder Sehenswürdigkeiten. Klicken Sie auf ein Symbol,
+                um zum entsprechenden Detailartikel zu kommen.
             </p>
             <div class="botton_row">
                 <button class="prev" aria-label="Vorige Folie">Zurück</button>
@@ -84,14 +88,15 @@
             <img src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/assets/screen_two.jpeg"
                 alt="Screenshot zur Bedienung der Datenbank: Übersichtsseite">
             <p>
-            Um nur bestimmte Kategorien anzuzeigen, können diese über das Filtermenü ein- oder ausgeblendet werden. Ist kein Haken gesetzt, werden automatisch alle Symbole angezeigt.
+                Um nur bestimmte Kategorien anzuzeigen, können diese über das Filtermenü ein- oder ausgeblendet werden.
+                Ist kein Haken gesetzt, werden automatisch alle Symbole angezeigt.
             </p>
             <div class="botton_row">
                 <button class="prev" aria-label="Vorige Folie">Zurück</button>
                 <button class="close" aria-label="Schließen">Schließen</button>
             </div>
         </div>
-        </div>
     </div>
 </div>
-<?php wp_footer(  ); ?>
+</div>
+<?php wp_footer(); ?>
