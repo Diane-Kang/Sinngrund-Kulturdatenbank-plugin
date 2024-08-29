@@ -68,7 +68,7 @@ class SinngrundKulturdatenbank
 
     //////------------Admin gallery style --------------// To prevent the second media edit page 
     add_action('admin_init', function () {
-      if (isset ($_GET['mode']) && $_GET['mode'] !== 'list') {
+      if (isset($_GET['mode']) && $_GET['mode'] !== 'list') {
         wp_redirect(admin_url('upload.php?mode=list'));
         exit;
       } else {
@@ -78,7 +78,8 @@ class SinngrundKulturdatenbank
 
     add_filter('manage_media_columns', function ($columns) {
       $columns['for_gallery'] = 'Medien-Gallerie';
-      return $columns; }, 10, 2);
+      return $columns;
+    }, 10, 2);
 
 
     //////------------Amdin Post list columns ----------------//
@@ -104,7 +105,7 @@ class SinngrundKulturdatenbank
     add_action(
       'load-index.php',
       function () {
-        if (!array_intersect(array ('administrator'), wp_get_current_user()->roles)) {
+        if (!array_intersect(array('administrator'), wp_get_current_user()->roles)) {
           wp_redirect(admin_url('edit.php?post_type=post'));
         }
       }
@@ -128,7 +129,8 @@ class SinngrundKulturdatenbank
     ////-----------For login page ---- 
     /////// url changed by Plugin: change-wp-admin-login /wp-login -> /zugang
     add_filter('login_headerurl', function () {
-      return home_url(); });
+      return home_url();
+    });
     add_action(
       'login_enqueue_scripts',
       function () {
@@ -146,8 +148,8 @@ class SinngrundKulturdatenbank
     //add_action('enqueue_block_editor_assets', array($this, 'adminAssets'));
 
     //////////------------ Sidebar width----------------//
-    add_action('admin_enqueue_scripts', array($this, 'toast_enqueue_jquery_ui'));
-    add_action('admin_head', array($this, 'toast_resizable_sidebar'));
+    // add_action('admin_enqueue_scripts', array($this, 'toast_enqueue_jquery_ui'));
+    // add_action('admin_head', array($this, 'toast_resizable_sidebar'));
     //////////------------ Sidebar content modify----------------//
     add_action('init', array($this, 'cc_gutenberg_register_files'));
 
@@ -235,13 +237,7 @@ class SinngrundKulturdatenbank
 
 
     add_shortcode('debugging_help', array($this, 'show_this'));
-
-
-
-
-
-
-  }////////////////////////////////////////-----------------------------end of contructor 
+  } ////////////////////////////////////////-----------------------------end of contructor 
 
 
   function update_media_content()
@@ -323,8 +319,6 @@ class SinngrundKulturdatenbank
     register_block_type('cc/ma-block-files', array(
       'editor_script' => 'cc-block-script'
     ));
-
-
   }
 
 
@@ -392,17 +386,17 @@ class SinngrundKulturdatenbank
   function toast_resizable_sidebar()
   { ?>
     <style>
-    .interface-interface-skeleton__sidebar .interface-complementary-area {
+      .interface-interface-skeleton__sidebar .interface-complementary-area {
         width: 100%;
-    }
+      }
 
-    .edit-post-layout:not(.is-sidebar-opened) .interface-interface-skeleton__sidebar {
+      .edit-post-layout:not(.is-sidebar-opened) .interface-interface-skeleton__sidebar {
         display: none;
-    }
+      }
 
-    .is-sidebar-opened .interface-interface-skeleton__sidebar {
+      .is-sidebar-opened .interface-interface-skeleton__sidebar {
         width: 350px;
-    }
+      }
     </style>
   <?php }
   //////////end------------ Sidebar width----------------//
@@ -467,7 +461,6 @@ class SinngrundKulturdatenbank
       wp_enqueue_style('gallery-css', plugin_dir_url(__FILE__) . 'template/css/gallery.css', array(), false, false);
       wp_enqueue_style('lightbox_css', plugin_dir_url(__FILE__) . 'template/css/has_lightbox.css', false, false);
     }
-
   }
 
   function load_admin_styles()
@@ -477,9 +470,6 @@ class SinngrundKulturdatenbank
     if (in_array('contributor', (array) $user->roles)) {
       wp_enqueue_style('kulturedatenbank_admin_css_contributor', plugin_dir_url(__FILE__) . 'template/css/KDB-admin-style-contributor.css', false, '1.0.0');
     }
-
-
-
   }
 
 
@@ -601,7 +591,6 @@ class SinngrundKulturdatenbank
         // update_post_meta( $post_id, $field, sanitize_text_field( $_POST[$field] ) );
 
         update_post_meta($post_id, 'route', $_POST[$field]);
-
       }
     }
   }
@@ -639,15 +628,15 @@ class SinngrundKulturdatenbank
 
     //echo $saved_value;
 
-    ?>
+  ?>
     <label class="selectit"><input type="radio" name="media_for_gallery_box_buttons" value="ja"
-            <?php echo $value == 'ja' ? 'checked' : ''; ?>>
-        Ja</label>
+        <?php echo $value == 'ja' ? 'checked' : ''; ?>>
+      Ja</label>
     </br>
     <label class="selectit"><input type="radio" name="media_for_gallery_box_buttons" value="nein"
-            <?php echo $value == 'nein' ? 'checked' : ''; ?>>
-        Nein</label>
-    <?php
+        <?php echo $value == 'nein' ? 'checked' : ''; ?>>
+      Nein</label>
+  <?php
   }
 
   function media_for_gallery_box()
@@ -677,7 +666,6 @@ class SinngrundKulturdatenbank
     ];
     update_post_meta($post['ID'], 'media_for_gallery_box', $_POST['media_for_gallery_box_buttons']);
     return $post;
-
   }
 
   //////////end------------Meta data for new Post page----------------// 
@@ -776,7 +764,6 @@ class SinngrundKulturdatenbank
     // Now register the non-hierarchical taxonomy like tag
 
     register_taxonomy($taxonomies['taxonomy'], $taxonomies['post_type'], $taxonomies['args']);
-
   }
 
   function add_orte_meta_box()
@@ -802,18 +789,18 @@ class SinngrundKulturdatenbank
     }
 
 
-    ?>
+  ?>
     <p>Choose taxonomy value</p>
     <p>
-        <?php foreach ($terms as $term): ?>
-          <input type="checkbox" name="orte[]" value="<?php echo $term->name; ?>"
-              <?php if (in_array($term->term_id, $currentTaxonomytermids))
-                echo "checked"; ?>>
-          <?php echo $term->name; ?>
-          </input><br />
-        <?php endforeach; ?>
+      <?php foreach ($terms as $term): ?>
+        <input type="checkbox" name="orte[]" value="<?php echo $term->name; ?>"
+          <?php if (in_array($term->term_id, $currentTaxonomytermids))
+            echo "checked"; ?>>
+        <?php echo $term->name; ?>
+        </input><br />
+      <?php endforeach; ?>
     </p>
-    <?php
+  <?php
   }
 
   function save_orte_taxonomy($post_id)
@@ -875,14 +862,14 @@ class SinngrundKulturdatenbank
   function settingHTML()
   { ?>
     <div class="wrap">
-        <h1>Sinngrund Allianz Datenbank Setting</h1>
-        <form action="options.php" method="POST">
-            <?php
-            settings_fields('singrundallianzplugin');
-            do_settings_sections('sinngrund-datenbank-setting-page');
-            submit_button();
-            ?>
-        </form>
+      <h1>Sinngrund Allianz Datenbank Setting</h1>
+      <form action="options.php" method="POST">
+        <?php
+        settings_fields('singrundallianzplugin');
+        do_settings_sections('sinngrund-datenbank-setting-page');
+        submit_button();
+        ?>
+      </form>
     </div>
   <?php }
 
@@ -903,22 +890,22 @@ class SinngrundKulturdatenbank
   { ?>
     <p>Current map Page : <?php echo esc_attr(get_option('sad_mainpage_slug')) ?> </p>
     <select name="sad_mainpage_slug" id="">
-        <?php
-        $pages = get_pages();
-        foreach ($pages as $page) {
-          $string = '<option value="' . $page->post_name . '"';
-          if ($page->post_name == get_option('sad_mainpage_slug')) {
-            $string .= 'selected';
-          }
-          $string .= '>' . $page->post_title;
-
-          if ($page->post_name == get_post(get_option('page_on_front'))->post_name) {
-            $string .= '<b>:Startseite</b>';
-          }
-          $string .= '</option>';
-          echo $string;
+      <?php
+      $pages = get_pages();
+      foreach ($pages as $page) {
+        $string = '<option value="' . $page->post_name . '"';
+        if ($page->post_name == get_option('sad_mainpage_slug')) {
+          $string .= 'selected';
         }
-        ?>
+        $string .= '>' . $page->post_title;
+
+        if ($page->post_name == get_post(get_option('page_on_front'))->post_name) {
+          $string .= '<b>:Startseite</b>';
+        }
+        $string .= '</option>';
+        echo $string;
+      }
+      ?>
     </select>
   <?php
   }
@@ -929,12 +916,12 @@ class SinngrundKulturdatenbank
     <p>longitude, latitude </p>
     <p> default : 50.15489468904496, 9.629545376420513</p>
     <input type="text" name="sad_map_center_point" size="50"
-        value="<?php echo esc_attr(get_option('sad_map_center_point')) ?>">
-  <?php }
+      value="<?php echo esc_attr(get_option('sad_map_center_point')) ?>">
+<?php }
 
   function sanitize_slug($input)
   {
-    $default_slug = 'sinngrund-kulturedatenbank-diane';//default slug here
+    $default_slug = 'sinngrund-kulturedatenbank-diane'; //default slug here
     $input = sanitize_title($input);
     if ($input == esc_attr(get_option('sad_mainpage_slug'))) { // same as existed value, then no changes 
       return $input;
@@ -953,7 +940,7 @@ class SinngrundKulturdatenbank
       wp_insert_post($my_post);
     }
     return $input;
-  }//end f sanitize_slug
+  } //end f sanitize_slug
 
   function the_slug_exists($post_slug_text)
   {
@@ -1044,7 +1031,6 @@ class SinngrundKulturdatenbank
     $begincontent = '<p> Eintrag erstellt von ' . $author . ' am ' . $date . '.</p>';
     $fullcontent = $begincontent . $content;
     return $fullcontent;
-
   }
 
 
@@ -1197,29 +1183,31 @@ class SinngrundKulturdatenbank
       $post_id = get_the_ID();
       $check_for_gallery = get_post_meta($post_id)['media_for_gallery_box'][0];
       if ($check_for_gallery != 'nein') {
-        array_push($post_type_query_galleryjson, array(
-          'id' => get_the_ID(),
-          'date' => get_the_date(),
-          'source_url' => wp_get_attachment_url(),
-          // caption : this is bildtitel
-          //'caption' => wp_get_attachment_caption() ? wp_get_attachment_caption() : 'Bildtitel nicht eingegeben',
-          //'title' =>  get_the_title(), // file titel, name 
-          'title' => wp_get_attachment_caption() ? wp_get_attachment_caption() : 'Bildtitel nicht eingegeben',
-          'content' => get_the_content(),
-          'post_title' => get_the_title(),
-          'author' => get_the_author(),
-          'description' => get_the_content(),
-          //'orte' => get_the_terms( $post_id, 'orte'),
-          'orte_tags_text' => join(', ', wp_list_pluck(get_the_terms(get_the_ID(), 'orte'), 'name')),
-          //'fotograf' => get_the_terms( $post_id, 'fotograf') ,
-          'fotograf_tags_text' => join(', ', wp_list_pluck(get_the_terms(get_the_ID(), 'fotograf'), 'name')),
+        array_push(
+          $post_type_query_galleryjson,
+          array(
+            'id' => get_the_ID(),
+            'date' => get_the_date(),
+            'source_url' => wp_get_attachment_url(),
+            // caption : this is bildtitel
+            //'caption' => wp_get_attachment_caption() ? wp_get_attachment_caption() : 'Bildtitel nicht eingegeben',
+            //'title' =>  get_the_title(), // file titel, name 
+            'title' => wp_get_attachment_caption() ? wp_get_attachment_caption() : 'Bildtitel nicht eingegeben',
+            'content' => get_the_content(),
+            'post_title' => get_the_title(),
+            'author' => get_the_author(),
+            'description' => get_the_content(),
+            //'orte' => get_the_terms( $post_id, 'orte'),
+            'orte_tags_text' => join(', ', wp_list_pluck(get_the_terms(get_the_ID(), 'orte'), 'name')),
+            //'fotograf' => get_the_terms( $post_id, 'fotograf') ,
+            'fotograf_tags_text' => join(', ', wp_list_pluck(get_the_terms(get_the_ID(), 'fotograf'), 'name')),
 
 
-          // 'reference'=> get_the_category()
-        )
+            // 'reference'=> get_the_category()
+          )
         );
       }
-    }//while end 
+    } //while end 
 
     return $post_type_query_galleryjson;
   }
@@ -1260,38 +1248,40 @@ class SinngrundKulturdatenbank
       //      console.log(has_excerpt(), the_excerpt());
       // $preview_text = has_excerpt() ? the_excerpt() : "";
       if ($this->post_valid_check($category_name, $lati, $longi)) {
-        array_push($post_type_query_geojson, array(
-          'type' => 'Feature',
-          'id' => get_the_ID(),
-          'properties' => array(
-            'name' => get_the_title(),
-            'post_id' => get_the_ID(),
-            'url' => get_permalink(),
-            'date' => get_the_date(),
-            'author' => get_the_author(),
-            'thumbnail_url' => get_the_post_thumbnail_url(),
-            'excerpt' => has_excerpt() ? get_the_excerpt() : "",
-          ),
-          'taxonomy' => array(
-            'category' => array(
-              'term_id' => get_the_category()[0]->term_id,
-              'name' => get_the_category()[0]->name,
-              'slug' => get_the_category()[0]->slug,
-              'shortname' => $category_shortname_array[get_the_category()[0]->name],
-              'icon_name' => $category_shortname_array[get_the_category()[0]->name] . '.svg'
-            )
-          ),
-          'geometry' => array(
-            'type' => 'Point',
-            'coordinates' => array($longi, $lati)
-          ),
-          'route' => get_post_meta(get_the_ID(), $key = "route"),
-          'meta_list' => get_post_meta(get_the_ID()),
-          // 'reference'=> get_the_category()
-        )
+        array_push(
+          $post_type_query_geojson,
+          array(
+            'type' => 'Feature',
+            'id' => get_the_ID(),
+            'properties' => array(
+              'name' => get_the_title(),
+              'post_id' => get_the_ID(),
+              'url' => get_permalink(),
+              'date' => get_the_date(),
+              'author' => get_the_author(),
+              'thumbnail_url' => get_the_post_thumbnail_url(),
+              'excerpt' => has_excerpt() ? get_the_excerpt() : "",
+            ),
+            'taxonomy' => array(
+              'category' => array(
+                'term_id' => get_the_category()[0]->term_id,
+                'name' => get_the_category()[0]->name,
+                'slug' => get_the_category()[0]->slug,
+                'shortname' => $category_shortname_array[get_the_category()[0]->name],
+                'icon_name' => $category_shortname_array[get_the_category()[0]->name] . '.svg'
+              )
+            ),
+            'geometry' => array(
+              'type' => 'Point',
+              'coordinates' => array($longi, $lati)
+            ),
+            'route' => get_post_meta(get_the_ID(), $key = "route"),
+            'meta_list' => get_post_meta(get_the_ID()),
+            // 'reference'=> get_the_category()
+          )
         );
-      }// if end
-    }//while end 
+      } // if end
+    } //while end 
 
     $wrapper_array = array(
       "type" => "FeatureCollection",
