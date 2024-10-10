@@ -6,13 +6,13 @@ async function get_geojson($endpoint) {
 }
 
 async function main() {
-
   //--- prepare Json data to use---//
-  
+
   const geojson_endpoint = "/wp-json/Sinngrund-Kulturdatenbank-plugin/geojson";
   const json_w_geocode = await get_geojson(geojson_endpoint);
 
-  const info_json_endpoint = "/wp-json/Sinngrund-Kulturdatenbank-plugin/infojson";
+  const info_json_endpoint =
+    "/wp-json/Sinngrund-Kulturdatenbank-plugin/infojson";
   const info_json = await get_geojson(info_json_endpoint);
 
   //------------------------Map initialized --------------------------------------------//
@@ -21,50 +21,50 @@ async function main() {
     center: info_json.map_center,
     zoomSnap: 0.1,
     zoom: 12.5,
-    zoomControl: false, // deactivate default topleft zoom .. but there is,, why? 
+    zoomControl: false, // deactivate default topleft zoom .. but there is,, why?
   };
 
-
   const map = L.map("main_page_map", main_map_options);
-  L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/256/{z}/{x}/{y}?access_token={accessToken}', {
-    maxZoom: 18,
-    minZoom: 11,
-    attribution:
-    '© <a target="_blank" href="https://www.mapbox.com/about/maps/">Mapbox</a> | © <a target="_blank" href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> | <a target="_blank" href="https://www.mapbox.com/map-feedback/">Improve this map</a>',
-    id:'pondelek/cl9fbuboj000e14o2xcxw3oom',
-    accessToken: 'pk.eyJ1IjoicG9uZGVsZWsiLCJhIjoiY2w5Zm1tc3h4MGphODNvbzBkM29jdWRlaCJ9.j64kLJQP_RmwAccN1jGKrw'
-  }).addTo(map);
+  L.tileLayer(
+    "https://api.mapbox.com/styles/v1/{id}/tiles/256/{z}/{x}/{y}?access_token={accessToken}",
+    {
+      maxZoom: 18,
+      minZoom: 11,
+      attribution:
+        '© <a target="_blank" href="https://www.mapbox.com/about/maps/">Mapbox</a> | © <a target="_blank" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> | <a target="_blank" href="https://www.mapbox.com/map-feedback/">Improve this map</a>',
+      id: "pondelek/cl9fbuboj000e14o2xcxw3oom",
+      accessToken:
+        "pk.eyJ1IjoicG9uZGVsZWsiLCJhIjoiY2w5Zm1tc3h4MGphODNvbzBkM29jdWRlaCJ9.j64kLJQP_RmwAccN1jGKrw",
+    }
+  ).addTo(map);
 
-    map.on('load', function() {
-        var originalSize = 16
-         map.setLayoutProperty('csettelment-major-label', 'text-size', 30);
-    });
+  map.on("load", function () {
+    var originalSize = 16;
+    map.setLayoutProperty("csettelment-major-label", "text-size", 30);
+  });
 
+  //-------------Change Attribution Position Depending on Screen Size ---------------//
 
+  function myFunction(screen_width) {
+    if (screen_width.matches) {
+      map.attributionControl.setPosition("topright");
+    } else {
+      map.attributionControl.setPosition("bottomright");
+    }
+  }
 
-//-------------Change Attribution Position Depending on Screen Size ---------------//
+  var screen_width = window.matchMedia("(max-width: 980px)");
+  myFunction(screen_width);
 
-function myFunction(screen_width) {
-  if (screen_width.matches) { 
-    map.attributionControl.setPosition('topright');} 
-  else {
-    map.attributionControl.setPosition('bottomright');}
-}
-
-var screen_width = window.matchMedia("(max-width: 980px)");
-myFunction(screen_width);
-
-
-
-//--- Zoom Control ---//
+  //--- Zoom Control ---//
   L.control
     .zoom({
       position: "bottomright",
     })
     .addTo(map);
 
-  //Definde a cluster Radius : smaller number only take close markers to make a cluster. 
-  //// lager number: take more markers around in the long range of radius 
+  //Definde a cluster Radius : smaller number only take close markers to make a cluster.
+  //// lager number: take more markers around in the long range of radius
   var mcgLayerSupportGroup_auto = L.markerClusterGroup.layerSupport({
     maxClusterRadius: function (mapZoom) {
       if (mapZoom > 15) {
@@ -76,14 +76,12 @@ myFunction(screen_width);
   });
   mcgLayerSupportGroup_auto.addTo(map);
 
-
-
   //------------------------ Array of Icon & Layergroup by category initialized --------------------------------------------//
   //php directory url, start with ".", javascript start with nothing
   var icons_loc = info_json.icons_directory.replace(".", "");
   var category_icon_array = {};
   var category_layergroup_array = {};
-  
+
   for (let [category_name, shortname] of Object.entries(info_json.icons)) {
     let icon_file = shortname + ".svg";
     let option_array = {
@@ -91,12 +89,10 @@ myFunction(screen_width);
       iconSize: [40, 40],
     };
     category_icon_array[category_name] = L.icon(option_array);
-    category_layergroup_array[category_name]=L.layerGroup();
+    category_layergroup_array[category_name] = L.layerGroup();
   }
-  
+
   var group_all = L.layerGroup();
-
-
 
   function createListItem({
     post_id,
@@ -108,33 +104,46 @@ myFunction(screen_width);
     author,
     thumbnail_url,
     excerpt,
-
   }) {
     let htmltext =
-      '<div class="datenbank_single_entry map_link_point category_'+category_shortname + 
-            '" id="map_id_'+ post_id + 
-            '" category="' + category_shortname +
-            '" date="' + date +
-            '" author="' + author +'">' +
-        '<div class="entry_title">' + title + "</div>" +
-        '<div class="entry_date" style="">' + date + "</div>" +
-        '<div class="entry_author" style="">' + author + "</div>" +
-        '<div class="entry_category">'+
-          '<img src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/' + category_shortname + '.svg"/>' +
-          category_name +
-        "</div>" +
-        '<a class="dn button main-page-button" href="' + url + '">Eintrag ansehen' +
-         // '<button class="dn">Eintrag ansehen</button>' +
-        '</a>' +
-        '</div>';
+      '<div class="datenbank_single_entry map_link_point category_' +
+      category_shortname +
+      '" id="map_id_' +
+      post_id +
+      '" category="' +
+      category_shortname +
+      '" date="' +
+      date +
+      '" author="' +
+      author +
+      '">' +
+      '<div class="entry_title">' +
+      title +
+      "</div>" +
+      '<div class="entry_date" style="">' +
+      date +
+      "</div>" +
+      '<div class="entry_author" style="">' +
+      author +
+      "</div>" +
+      '<div class="entry_category">' +
+      '<img src="/wp-content/plugins/Sinngrund-Kulturdatenbank-plugin/icons/' +
+      category_shortname +
+      '.svg"/>' +
+      category_name +
+      "</div>" +
+      '<a class="dn button main-page-button" href="' +
+      url +
+      '">Eintrag ansehen' +
+      // '<button class="dn">Eintrag ansehen</button>' +
+      "</a>" +
+      "</div>";
     return htmltext;
   }
 
+  //------------------------ Determine markers and generate entry List of main page based on the geojson--------------------------------------------//
 
-   //------------------------ Determine markers and generate entry List of main page based on the geojson--------------------------------------------//
-  
   json_w_geocode.features.forEach((feature) => {
-  
     let category = feature.taxonomy.category.name;
     let category_shortname = feature.taxonomy.category.shortname;
     // Entry list
@@ -157,20 +166,35 @@ myFunction(screen_width);
     // Marker setting
     let Icon_name = category_icon_array[category];
     let popuptext, popupimage, popupexcerpt;
-    popuptext =   feature.properties.name;
-    popupimage =  feature.properties.thumbnail_url ? '<img src="' + feature.properties.thumbnail_url + '" alt="'+ feature.properties.title +' thumbnail image" width="50px" height="50px"></img>' : '';  
-    popupexcerpt = feature.properties.excerpt ? '<p>' + feature.properties.excerpt + '</p>' : '' ;
+    popuptext = feature.properties.name;
+    popupimage = feature.properties.thumbnail_url
+      ? '<img src="' +
+        feature.properties.thumbnail_url +
+        '" alt="' +
+        feature.properties.title +
+        ' thumbnail image" width="50px" height="50px"></img>'
+      : "";
+    popupexcerpt = feature.properties.excerpt
+      ? "<p>" + feature.properties.excerpt + "</p>"
+      : "";
 
-
-    let popuptext2 =   popupimage +
-                      '<div class="text_wrapper">' +
-                        '<div class="popup_title">' + popuptext + '</div>' +
-                        '<div class="popupcategory">'+category + '</div>' + 
-                        '<p>' + popupexcerpt + '</p>' +
-                        '<a class="popup_button button" href="' +  feature.properties.url + '">Eintrag ansehen' +
-                        '</a>' +
-                      '</div>';
-
+    let popuptext2 =
+      popupimage +
+      '<div class="text_wrapper">' +
+      '<div class="popup_title">' +
+      popuptext +
+      "</div>" +
+      '<div class="popupcategory">' +
+      category +
+      "</div>" +
+      "<p>" +
+      popupexcerpt +
+      "</p>" +
+      '<a class="popup_button button" href="' +
+      feature.properties.url +
+      '">Eintrag ansehen' +
+      "</a>" +
+      "</div>";
 
     let marker_option = {
       icon: Icon_name,
@@ -179,56 +203,53 @@ myFunction(screen_width);
     };
 
     let marker = L.marker(
-                          [feature.geometry.coordinates[1], feature.geometry.coordinates[0]],
-                          marker_option
-                        ).bindPopup(popuptext2);
+      [feature.geometry.coordinates[1], feature.geometry.coordinates[0]],
+      marker_option
+    ).bindPopup(popuptext2);
 
-    // Add marker to related category map_layergroup and group_all 
+    // Add marker to related category map_layergroup and group_all
     marker.addTo(category_layergroup_array[category]);
     marker.addTo(group_all);
   });
 
-  //apply the cluster Properties to the markers in group_all 
+  //apply the cluster Properties to the markers in group_all
   mcgLayerSupportGroup_auto.checkIn(group_all);
   // all markers on Map, this one need to be after the checkIn
   group_all.addTo(map);
-  
 
-  
-  // Make connection between list and marker 
-  save_layerId_in_html(group_all); // marker/layerId saved in html 
-  build_link(map, group_all); // click event 
+  // Make connection between list and marker
+  save_layerId_in_html(group_all); // marker/layerId saved in html
+  build_link(map, group_all); // click event
 
   function save_layerId_in_html(markers, option_name = "post_id") {
     markers.eachLayer((marker) => {
       var post_id = marker["options"][option_name];
       var map_id = markers.getLayerId(marker);
-      if (document.getElementById("map_id_" + post_id)){
+      if (document.getElementById("map_id_" + post_id)) {
         document
-        .getElementById("map_id_" + post_id)
-        .setAttribute("value", map_id);
+          .getElementById("map_id_" + post_id)
+          .setAttribute("value", map_id);
       }
     });
   }
 
   //PONDOPONDO New Change 10.11.2022: Center Popup
 
-// map.on('popupopen', function(e) {
-//     console.log("some");
-//     // var marker = e.popup._source;
-//     // map.flyTo(marker);
-//   });
+  // map.on('popupopen', function(e) {
+  //     console.log("some");
+  //     // var marker = e.popup._source;
+  //     // map.flyTo(marker);
+  //   });
 
-//   function poppin_up(e) {
-//     alert("You clicked the map at " + e.latlng);
-//    var marker_pos = e.popup._source;
-//    map.flyTo(marker_pos);
-// }
+  //   function poppin_up(e) {
+  //     alert("You clicked the map at " + e.latlng);
+  //    var marker_pos = e.popup._source;
+  //    map.flyTo(marker_pos);
+  // }
 
-// map.on('popupopen', poppin_up); 
+  // map.on('popupopen', poppin_up);
 
-//Pondo new ends here
-
+  //Pondo new ends here
 
   function build_link(map, markers) {
     const divs = document.querySelectorAll(".map_link_point");
@@ -238,7 +259,7 @@ myFunction(screen_width);
         let map_id = parseInt(event.target.parentNode.getAttribute("value"));
         console.log(map_id);
         var marker = markers.getLayer(map_id);
-        
+
         //map.flyTo(marker.getLatLng(), 16);
         // map.setZoom(16);
         // map.on("zoomend", () => {
@@ -246,7 +267,7 @@ myFunction(screen_width);
         // });
 
         map.flyTo(marker.getLatLng(), 16);
-        map.once('moveend', ()=>marker.openPopup())
+        map.once("moveend", () => marker.openPopup());
 
         // //hide all the buttons
         divs.forEach(function (posted) {
@@ -257,19 +278,18 @@ myFunction(screen_width);
         // show the button in the clicked DIV
         event.target.parentNode.querySelector(".button").classList.add("db");
         let marked_ones = document.querySelectorAll(".datenbank_single_entry");
-        marked_ones.forEach((mark) =>
-        mark.classList.remove("marked"));
+        marked_ones.forEach((mark) => mark.classList.remove("marked"));
         event.target.parentNode.classList.add("marked");
       })
     );
   }
 
-  // fire Sorting Event 
+  // fire Sorting Event
   jQuery("#main_page_list_sort_options").change(function () {
     sortList(jQuery(this).val());
   });
 
-  //List sorting function 
+  //List sorting function
   function sortList(option) {
     var list, i, switching, b, shouldSwitch;
     list = document.getElementById("datenbank_list");
@@ -330,7 +350,8 @@ myFunction(screen_width);
       let target_class = "category_" + checkboxes[index].value;
       let current_category = document.getElementsByClassName(target_class);
       if (checkboxes[index].checked) {
-        for (i = 0; i < current_category.length; i++) current_category[i].style.display = "block";
+        for (i = 0; i < current_category.length; i++)
+          current_category[i].style.display = "block";
         checkedArray.push(checkboxes[index].value);
         let category_name = checkboxes[index].getAttribute("category_name");
         console.log(category_name);
@@ -345,49 +366,48 @@ myFunction(screen_width);
     console.log(checkedArray);
   });
 
+  var GetSearch = document.getElementById("search");
+  GetSearch.addEventListener("keyup", function () {
+    //InfoData = {slug:GetSearch.value}
+    jQuery.ajax({
+      type: "GET",
+      // url: 'wp-json/wp/v2/posts?search=' + GetSearch.value ,
+      url:
+        "wp-json/Sinngrund-Kulturdatenbank-plugin/geojson?term=" +
+        GetSearch.value,
+      data: "",
+      datatype: "html",
+      success: function (results) {
+        // let livesearch = document.querySelector("#livesearch");
+        // livesearch.innerHTML = "";
+        // results.forEach((result)=>{
+        //   livesearch.insertAdjacentHTML("beforeend", createlivesearchreasult({ title: result.title.rendered, }) );
+        // });
+        // console.log(results);
 
-
-
-  var GetSearch = document.getElementById('search');
-  GetSearch.addEventListener("keyup", function(){
-      //InfoData = {slug:GetSearch.value}
-      jQuery.ajax({
-         type: "GET",
-         // url: 'wp-json/wp/v2/posts?search=' + GetSearch.value ,
-         url: 'wp-json/Sinngrund-Kulturdatenbank-plugin/geojson?term=' + GetSearch.value ,
-         data: '',
-         datatype: "html",
-         success: function(results) {
-            // let livesearch = document.querySelector("#livesearch");
-            // livesearch.innerHTML = "";
-            // results.forEach((result)=>{  
-            //   livesearch.insertAdjacentHTML("beforeend", createlivesearchreasult({ title: result.title.rendered, }) );
-            // });
-            // console.log(results);
-
-            // if(GetSearch.value == '') livesearch.innerHTML = "";
-            let datenbank_list_result = document.querySelector("#datenbank_list");
-            datenbank_list_result.innerHTML = "";
-            results.features.forEach((feature)=>{  
-              datenbank_list_result.insertAdjacentHTML(
-                "beforeend",
-                createListItem({
-                  post_id: feature.id,
-                  title: feature.properties.name,
-                  category_name: feature.taxonomy.category.name,
-                  category_shortname: feature.taxonomy.category.shortname,
-                  url: feature.properties.url,
-                  date: feature.properties.date,
-                  author: feature.properties.author,
-                  thumbnail_url: feature.properties.thumbnail_url,
-                  excerpt: feature.properties.excerpt,
-                })
-              );
-            });
-            save_layerId_in_html(group_all); // marker/layerId saved in html 
-            build_link(map, group_all); // click event 
-         }
-     });
+        // if(GetSearch.value == '') livesearch.innerHTML = "";
+        let datenbank_list_result = document.querySelector("#datenbank_list");
+        datenbank_list_result.innerHTML = "";
+        results.features.forEach((feature) => {
+          datenbank_list_result.insertAdjacentHTML(
+            "beforeend",
+            createListItem({
+              post_id: feature.id,
+              title: feature.properties.name,
+              category_name: feature.taxonomy.category.name,
+              category_shortname: feature.taxonomy.category.shortname,
+              url: feature.properties.url,
+              date: feature.properties.date,
+              author: feature.properties.author,
+              thumbnail_url: feature.properties.thumbnail_url,
+              excerpt: feature.properties.excerpt,
+            })
+          );
+        });
+        save_layerId_in_html(group_all); // marker/layerId saved in html
+        build_link(map, group_all); // click event
+      },
+    });
   });
 
   // Get rid of Chrome Bug: Tile Layer only partly loading for whatever reason, probably dynamic change of map size caused by...???

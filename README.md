@@ -1,4 +1,4 @@
-# Absichtt
+# Absicht
 
 Map Applikation für https://kulturdatenbank-sinngrund.de/
 

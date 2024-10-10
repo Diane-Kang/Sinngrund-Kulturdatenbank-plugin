@@ -29,28 +29,32 @@ async function main() {
 
   const map = L.map("single_post_map", options);
   //L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/256/{z}/{x}/{y}?access_token={accessToken}', {
+  L.tileLayer(
+    "https://api.mapbox.com/styles/v1/{id}/tiles/256/{z}/{x}/{y}?access_token={accessToken}",
+    {
       maxZoom: 18,
       minZoom: 11,
       attribution:
-      '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>',
+        '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>',
       //id: 'mapbox/streets-v11',
-      id:'pondelek/cl9fbuboj000e14o2xcxw3oom',
-      accessToken: 'pk.eyJ1IjoicG9uZGVsZWsiLCJhIjoiY2w5Zm1tc3h4MGphODNvbzBkM29jdWRlaCJ9.j64kLJQP_RmwAccN1jGKrw'
-    }).addTo(map);
+      id: "pondelek/cl9fbuboj000e14o2xcxw3oom",
+      accessToken:
+        "pk.eyJ1IjoicG9uZGVsZWsiLCJhIjoiY2w5Zm1tc3h4MGphODNvbzBkM29jdWRlaCJ9.j64kLJQP_RmwAccN1jGKrw",
+    }
+  ).addTo(map);
 
-//-------------Change Attribution Position Depending on Screen Size ---------------//
+  //-------------Change Attribution Position Depending on Screen Size ---------------//
 
-function myFunction(screen_width) {
-  if (screen_width.matches) { 
-    map.attributionControl.setPosition('topright');} 
-  else {
-    map.attributionControl.setPosition('bottomright');}
-}
+  function myFunction(screen_width) {
+    if (screen_width.matches) {
+      map.attributionControl.setPosition("topright");
+    } else {
+      map.attributionControl.setPosition("bottomright");
+    }
+  }
 
-var screen_width = window.matchMedia("(max-width: 980px)");
-myFunction(screen_width);
-
+  var screen_width = window.matchMedia("(max-width: 980px)");
+  myFunction(screen_width);
 
   L.control
     .zoom({
@@ -58,8 +62,8 @@ myFunction(screen_width);
     })
     .addTo(map);
 
-//Definde a cluster Radius : smaller number only take close markers to make a cluster. 
-  //// lager number: take more markers around in the long range of radius 
+  //Definde a cluster Radius : smaller number only take close markers to make a cluster.
+  //// lager number: take more markers around in the long range of radius
   var mcgLayerSupportGroup_auto = L.markerClusterGroup.layerSupport({
     maxClusterRadius: function (mapZoom) {
       if (mapZoom > 15) {
@@ -71,14 +75,12 @@ myFunction(screen_width);
   });
   mcgLayerSupportGroup_auto.addTo(map);
 
-
-
   //------------------------ Array of Icon & Layergroup by category initialized --------------------------------------------//
   //php directory url, start with ".", javascript start with nothing
   var icons_loc = info_json.icons_directory.replace(".", "");
   var category_icon_array = {};
   var category_layergroup_array = {};
-  
+
   for (let [category_name, shortname] of Object.entries(info_json.icons)) {
     let icon_file = shortname + ".svg";
     let option_array = {
@@ -86,31 +88,48 @@ myFunction(screen_width);
       iconSize: [40, 40],
     };
     category_icon_array[category_name] = L.icon(option_array);
-    category_layergroup_array[category_name]=L.layerGroup();
+    category_layergroup_array[category_name] = L.layerGroup();
   }
-  
+
   var group_all = L.layerGroup();
 
-  //make marker and add to map 
+  //make marker and add to map
   json_w_geocode.features.forEach((feature) => {
     let category = feature.taxonomy.category.name;
     let Icon_name = category_icon_array[category];
     let popuptext, popupimage, popupexcerpt;
-  
-    popuptext =   feature.properties.name;
-    popupimage =  feature.properties.thumbnail_url ? '<img src="' + feature.properties.thumbnail_url + '" alt="'+ feature.properties.title +' thumbnail image" width="50px" height="50px"></img>' : '';  
-    popupexcerpt = feature.properties.excerpt ? '<p>' + feature.properties.excerpt + '</p>' : '' ;
-  
-    let popuptext2 =   popupimage +
-                '<div class="text_wrapper">' +
-                  '<div class="popup_title">' + popuptext + '</div>' +
-                  '<div class="popupcategory">'+category + '</div>' + 
-                  '<p>' + popupexcerpt + '</p>' +
-                  '<a class="popup_button button" href="' +  feature.properties.url + '">Eintrag ansehen' +
-                  //  '<button class="popup_button">Eintrag ansehen</button>' +
-                  '</a>' +
-                '</div>';
-                
+
+    popuptext = feature.properties.name;
+    popupimage = feature.properties.thumbnail_url
+      ? '<img src="' +
+        feature.properties.thumbnail_url +
+        '" alt="' +
+        feature.properties.title +
+        ' thumbnail image" width="50px" height="50px"></img>'
+      : "";
+    popupexcerpt = feature.properties.excerpt
+      ? "<p>" + feature.properties.excerpt + "</p>"
+      : "";
+
+    let popuptext2 =
+      popupimage +
+      '<div class="text_wrapper">' +
+      '<div class="popup_title">' +
+      popuptext +
+      "</div>" +
+      '<div class="popupcategory">' +
+      category +
+      "</div>" +
+      "<p>" +
+      popupexcerpt +
+      "</p>" +
+      '<a class="popup_button button" href="' +
+      feature.properties.url +
+      '">Eintrag ansehen' +
+      //  '<button class="popup_button">Eintrag ansehen</button>' +
+      "</a>" +
+      "</div>";
+
     let marker_option = {
       icon: Icon_name,
       name: feature.properties.name,
@@ -126,43 +145,41 @@ myFunction(screen_width);
     marker.addTo(group_all);
   });
 
-  //apply the cluster Properties to the markers in group_all 
+  //apply the cluster Properties to the markers in group_all
   mcgLayerSupportGroup_auto.checkIn(group_all);
   // all markers on Map, this one need to be after the checkIn
   group_all.addTo(map);
 
-
-  // Get current post id 
+  // Get current post id
   var current_postid = document
     .getElementById("current_post_id")
     .getAttribute("value");
 
-  // Check if current post is for route oder point 
+  // Check if current post is for route oder point
 
-  function has_route_json(current_postid){
-
-    for (let feature of json_w_geocode.features){
+  function has_route_json(current_postid) {
+    for (let feature of json_w_geocode.features) {
       if (feature.id == current_postid && !(feature.route[0].length == 0)) {
         let route_json = JSON.parse(decodeURIComponent(feature.route[0]));
         return route_json;
         break;
       }
-    };
+    }
   }
-  
+
   let route_json = has_route_json(current_postid);
   let this_marker = find_marker_by_post_id(group_all, current_postid);
 
-  if(route_json){
+  if (route_json) {
     let drawnroute = L.geoJson(route_json).addTo(map);
     map.fitBounds(drawnroute.getBounds(), { padding: [100, 100] });
-  }
-  else{ 
+  } else {
     zoom_in_to_marker(this_marker);
   }
   this_marker.openPopup();
- jQuery('.hier_bin_ich').parentsUntil('.leaflet-popup-pane').addClass('current');
-
+  jQuery(".hier_bin_ich")
+    .parentsUntil(".leaflet-popup-pane")
+    .addClass("current");
 
   function find_marker_by_post_id(markers, post_id) {
     var this_post_marker;
@@ -171,18 +188,24 @@ myFunction(screen_width);
         marker["options"]["zIndexOffset"] = 99;
         var map_id = markers.getLayerId(marker);
         var marker = markers.getLayer(map_id);
-        let popuptext = '<div class="hier_bin_ich"><div class="popup_title">'+ marker["options"]["name"] + '</div></div>';
+        let popuptext =
+          '<div class="hier_bin_ich"><div class="popup_title">' +
+          marker["options"]["name"] +
+          "</div></div>";
 
         let customicon = L.divIcon({
-          className: 'here-bin-ich',
+          className: "here-bin-ich",
           iconSize: [60, 60],
-          html:'<img src="'+marker["options"]["icon"]["options"]["iconUrl"]+'" style ="filter: drop-shadow(#124054 0px 0px 15px);">'
+          html:
+            '<img src="' +
+            marker["options"]["icon"]["options"]["iconUrl"] +
+            '" style ="filter: drop-shadow(#124054 0px 0px 15px);">',
         });
 
         let bigIcon = L.icon({
-          iconUrl : marker["options"]["icon"]["options"]["iconUrl"],
+          iconUrl: marker["options"]["icon"]["options"]["iconUrl"],
           iconSize: [60, 60],
-        })
+        });
 
         marker.setIcon(customicon);
         //marker.setIcon(bigIcon);
@@ -193,16 +216,14 @@ myFunction(screen_width);
     return this_post_marker;
   }
 
-
-  function zoom_in_to_marker(marker){
+  function zoom_in_to_marker(marker) {
     var markerBounds = L.latLngBounds([marker.getLatLng()]);
     map.fitBounds(markerBounds);
     map.setZoom(16);
   }
 
-  map.on('zoomend',function(e) {
+  map.on("zoomend", function (e) {
     console.log(e.target.getZoom());
- })
-  
+  });
 } // Main closing
 main();
